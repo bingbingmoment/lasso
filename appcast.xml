@@ -3,6 +3,19 @@
     <channel>
         <title>Lasso</title>
         <item>
+            <title>0.4</title>
+            <pubDate>Tue, 14 Jul 2026 22:43:18 +0800</pubDate>
+            <sparkle:version>4</sparkle:version>
+            <sparkle:shortVersionString>0.4</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://bingbingmoment.github.io/lasso/Lasso-0.4.zip" length="1402369" type="application/octet-stream" sparkle:edSignature="k3DpvEzoBF6jox1s7YosQSyxe5EXZWbLQgmJ6vaAYv36ZiWprSFT4CO8jENIqT7tjRZ/iKHP9MOHAfvDaAWfDw=="/>
+            <sparkle:deltas>
+                <enclosure url="https://bingbingmoment.github.io/lasso/Lasso4-3.delta" sparkle:deltaFrom="3" length="15754" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="6HVIqJ2BR46El0IzJqiUiaOYCSkMNpnjHehD490zoMiHUziSHGhXqn3cn7XzI57jgS5h2Q4BfjSaN8c3uvXsBw=="/>
+                <enclosure url="https://bingbingmoment.github.io/lasso/Lasso4-2.delta" sparkle:deltaFrom="2" length="19638" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="1N6wA1nTceAJH4phZujhtDYmVXiRfK7iCtUx2Y2QpnyO1i0/eKQyLAsqmvU2wX83B/LQSt5o6lx4UduI5etmAA=="/>
+                <enclosure url="https://bingbingmoment.github.io/lasso/Lasso4-1.delta" sparkle:deltaFrom="1" length="62670" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="DXo2asxJ4vZPDUWtx61TPKNcXJ28VIQhV2sC2w2Mr5GtzBlAJTyzEjTIDZZWxtZV1Qyf9HgoISmF/c3A0gKnCA=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
             <title>0.3</title>
             <pubDate>Tue, 14 Jul 2026 22:34:21 +0800</pubDate>
             <sparkle:version>3</sparkle:version>
@@ -24,14 +37,6 @@
             <sparkle:deltas>
                 <enclosure url="https://bingbingmoment.github.io/lasso/Lasso2-1.delta" sparkle:deltaFrom="1" length="62142" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="dk0gVj21gi8yZ/vaSgH6m98SRZUoVMBxyb08kjixVPe8bqnSqkb5nDuMdPj4uIS6O7XBR1ZSTdtcxwyMvQVaBA=="/>
             </sparkle:deltas>
-        </item>
-        <item>
-            <title>0.1</title>
-            <pubDate>Tue, 14 Jul 2026 16:37:14 +0800</pubDate>
-            <sparkle:version>1</sparkle:version>
-            <sparkle:shortVersionString>0.1</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://bingbingmoment.github.io/lasso/Lasso-0.1.zip" length="1393507" type="application/octet-stream" sparkle:edSignature="uP4G4EFKJoxMv+CE4jMwKcdBD2bAXohOCDSv8c0hinWyVQrJQaw7cG957nNi77rBjfgUkkWdm5k6qow1VgOkAQ=="/>
         </item>
     </channel>
 </rss>
