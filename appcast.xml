@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Lasso</title>
+        <item>
+            <title>0.1</title>
+            <pubDate>Tue, 14 Jul 2026 16:37:14 +0800</pubDate>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>0.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://bingbingmoment.github.io/lasso/Lasso-0.1.zip" length="1393507" type="application/octet-stream" sparkle:edSignature="uP4G4EFKJoxMv+CE4jMwKcdBD2bAXohOCDSv8c0hinWyVQrJQaw7cG957nNi77rBjfgUkkWdm5k6qow1VgOkAQ=="/>
+        </item>
+    </channel>
+</rss>
