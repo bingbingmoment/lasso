@@ -3,89 +3,318 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lasso · macOS 手势标注录屏工具</title>
+<title>Lassomark · 画个圈，就标注</title>
+<meta name="description" content="Lassomark 是一个住在 macOS 菜单栏里的小工具：录屏时画个圈就能立刻标注，摆正的椭圆、箭头、文字卡片瞬间出现。边录边标，录完即成片；截图加字，框一下直接输入。">
+<meta name="keywords" content="Lassomark,Lassomark,录屏标注,屏幕批注,macOS 截图工具,屏幕录制,圈选标注,标注工具,mac 演示工具,截图加字">
+<link rel="canonical" href="https://lassomark.com/">
 <link rel="icon" type="image/png" href="logo.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lassomark">
+<meta property="og:title" content="Lassomark · 画个圈，就标注">
+<meta property="og:description" content="录屏时画个圈就能立刻标注的 macOS 小工具。边录边标，录完即成片。">
+<meta property="og:url" content="https://lassomark.com/">
+<meta property="og:image" content="https://lassomark.com/logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lassomark · 画个圈，就标注">
+<meta name="twitter:description" content="录屏时画个圈就能立刻标注的 macOS 小工具。边录边标，录完即成片。">
+<meta name="twitter:image" content="https://lassomark.com/logo.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Lassomark",
+  "description": "录屏时画个圈就能立刻标注的 macOS 小工具。边录边标，录完即成片。",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "macOS 13.0+",
+  "url": "https://lassomark.com/",
+  "downloadUrl": "https://lassomark.com/Lasso.dmg",
+  "softwareVersion": "1.0",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
 <style>
   :root{
-    --bg:#f6f7fb; --card:#ffffff; --ink:#1d2129; --ink2:#5b6472; --hair:#e6e9f0;
-    --amber:#f59e0b; --amber-deep:#e8940a; --cyan:#12c8e6;
-  }
-  @media (prefers-color-scheme: dark){
-    :root{ --bg:#0f1115; --card:#171a21; --ink:#e8eaf0; --ink2:#9aa2b1; --hair:#262a33; }
+    --ink:#191b1f; --ink2:#5f6672; --ink3:#98a0ad; --line:#e9ebef;
+    --sky1:#8ec5f0; --sky2:#bfe0f8; --sky3:#e8f4fc;      /* hero 蓝天渐变 */
+    --brand:#f2820c; --coral:#ef6a4a;                     /* logo / 对比块高亮 */
+    --black:#1b1c20; --black-hover:#000;                  /* 主按钮 */
+    --dark:#0c0d10; --dark2:#17181c; --dark-ink:#f3f4f6; --dark-ink2:#9aa0ab; --dark-line:#2a2c31;
+    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Segoe UI",sans-serif;
+    --shadow:0 10px 30px rgba(30,50,80,.08),0 2px 8px rgba(30,50,80,.05);
+    --shadow-lg:0 30px 70px -24px rgba(30,50,80,.28);
   }
   *{box-sizing:border-box}
-  html,body{margin:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Segoe UI",sans-serif;
-    background:var(--bg); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased}
-  .wrap{max-width:720px; margin:0 auto; padding:56px 22px 72px}
-  .logo{width:84px;height:84px;border-radius:20px;display:block;margin:0 0 20px;
-    box-shadow:0 10px 26px rgba(220,90,40,.28)}
-  .badge{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--ink2);
-    background:var(--card);border:1px solid var(--hair);border-radius:20px;padding:5px 12px}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan)}
-  h1{font-size:38px;line-height:1.15;letter-spacing:-.02em;margin:22px 0 10px}
-  .tag{font-size:17px;color:var(--ink2);margin:0 0 30px;max-width:34em}
-  .dl{display:inline-flex;align-items:center;gap:10px;text-decoration:none;
-    background:linear-gradient(180deg,#ffd866,var(--amber-deep));color:#3a2600;font-weight:700;font-size:16px;
-    padding:14px 26px;border-radius:14px;box-shadow:0 8px 22px rgba(180,120,0,.30);border:1px solid rgba(180,120,0,.35)}
-  .dl:hover{filter:brightness(1.04)}
-  .req{font-size:13px;color:var(--ink2);margin-top:12px}
-  section{background:var(--card);border:1px solid var(--hair);border-radius:16px;padding:22px 24px;margin-top:26px}
-  h2{font-size:16px;margin:0 0 14px;letter-spacing:.01em}
-  ol{margin:0;padding-left:20px} li{margin:7px 0}
-  kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:var(--bg);
-    border:1px solid var(--hair);border-bottom-width:2px;border-radius:6px;padding:2px 7px}
-  table{width:100%;border-collapse:collapse;font-size:14px}
-  td{padding:8px 4px;border-top:1px solid var(--hair)} td:first-child{white-space:nowrap;width:120px}
-  .note{font-size:13px;color:var(--ink2);background:transparent;border:1px dashed var(--hair);
-    border-radius:12px;padding:14px 16px;margin-top:26px}
-  .note b{color:var(--ink)}
-  footer{margin-top:34px;font-size:12.5px;color:var(--ink2);text-align:center}
-  .accent{color:var(--amber-deep)}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#fff;color:var(--ink);line-height:1.65;overflow-x:hidden;
+    font-family:var(--sans);-webkit-font-smoothing:antialiased;font-size:16px}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  .muted{color:var(--ink2)}
+
+  /* ---------- 按钮 ---------- */
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15.5px;font-family:var(--sans);
+    color:#fff;background:var(--black);padding:12px 22px;border-radius:999px;cursor:pointer;border:1px solid transparent;
+    box-shadow:0 4px 14px rgba(20,20,25,.22);transition:background .2s,transform .2s,box-shadow .2s}
+  .btn:hover{background:var(--black-hover);transform:translateY(-1px);box-shadow:0 8px 20px rgba(20,20,25,.28)}
+  .btn.ghost{color:var(--ink);background:rgba(255,255,255,.85);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .btn.ghost:hover{background:#fff}
+  .btn .ico{font-size:14px;line-height:1}
+
+  /* ---------- 顶栏：hero 时隐藏，滚动后浮现（居中磨砂药丸） ---------- */
+  header{position:fixed;top:16px;left:0;right:0;z-index:50;display:flex;justify-content:center;pointer-events:none;
+    transform:translateY(-150%);opacity:0;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .3s}
+  header.show{transform:translateY(0);opacity:1}
+  .nav{pointer-events:auto;display:flex;align-items:center;gap:22px;height:58px;padding:0 8px 0 18px;
+    width:min(940px,calc(100% - 36px));border-radius:999px;
+    background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.75);
+    backdrop-filter:saturate(1.6) blur(20px);-webkit-backdrop-filter:saturate(1.6) blur(20px);
+    box-shadow:0 12px 34px rgba(30,60,110,.16),inset 0 1px 0 rgba(255,255,255,.7)}
+  .nav .logo{width:30px;height:30px;border-radius:9px}
+  .nav .brand{font-size:18px;font-weight:700;letter-spacing:.01em;color:var(--ink)}
+  .nav .sp{flex:1}
+  .nav .links{display:flex;gap:28px}
+  .nav a.mini{font-size:14.5px;color:var(--ink2);transition:color .2s}
+  .nav a.mini:hover{color:var(--ink)}
+  .nav .dl{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:14px;padding:9px 18px;border-radius:999px;
+    background:var(--black);color:#fff;box-shadow:0 4px 12px rgba(20,30,50,.2);transition:background .2s,transform .2s}
+  .nav .dl:hover{background:#000;transform:translateY(-1px)}
+  .nav .dl .ico{font-size:13px;line-height:1}
+  @media (max-width:640px){ .nav .links{display:none} .nav{gap:10px} }
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;text-align:center;padding:150px 0 84px;
+    background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 26%,var(--sky3) 55%,#fff 100%)}
+  .hero .logo{width:84px;height:84px;border-radius:22px;box-shadow:0 16px 34px rgba(224,110,40,.32)}
+  .hero h1{font-size:clamp(38px,6vw,64px);line-height:1.1;letter-spacing:-.02em;font-weight:800;margin:26px 0 16px}
+  .hero p.sub{font-size:clamp(16px,2.1vw,19px);color:var(--ink2);max-width:26em;margin:0 auto 30px}
+  .hero .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .hero .req{margin-top:18px;font-size:13.5px;color:var(--ink3)}
+  .hero .req .dot{margin:0 8px;opacity:.6}
+
+  /* ---------- 区块通用 ---------- */
+  section{padding:82px 0}
+  .center{text-align:center;max-width:40em;margin:0 auto}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--coral)}
+  h2{font-size:clamp(26px,4vw,38px);line-height:1.2;letter-spacing:-.01em;margin:14px 0 0;font-weight:800}
+  .lead{font-size:17px;color:var(--ink2);margin:16px auto 0}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}
+
+  /* ---------- 亮点行 ---------- */
+  .feats{margin-top:60px;display:flex;flex-direction:column;gap:64px}
+  .feat{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .feat:nth-child(even) .txt{order:2}
+  .feat h3{font-size:clamp(21px,2.6vw,26px);margin:0 0 12px;font-weight:750;letter-spacing:-.01em}
+  .feat p{font-size:16px;color:var(--ink2);margin:0}
+  .feat p b{color:var(--ink);font-weight:600}
+  /* 配图占位（等 3 张图做好后替换成 <img>） */
+  .ph{position:relative;background:linear-gradient(135deg,#eef1f5,#e4e8ee);border:1px solid var(--line);
+    border-radius:20px;aspect-ratio:4/3;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center}
+  .ph span{font-size:13px;color:var(--ink3);letter-spacing:.05em}
+  .feat kbd,.keys kbd{font:600 12.5px ui-monospace,SFMono-Regular,Menlo,monospace;background:#f1f3f6;border:1px solid var(--line);
+    border-bottom-width:2px;border-radius:6px;padding:2px 7px;color:var(--ink);white-space:nowrap}
+
+  /* ---------- 深色对比块 ---------- */
+  .dark{background:var(--dark);color:var(--dark-ink);border-radius:28px;margin:0 auto;max-width:1080px;padding:64px 56px}
+  .dark .kicker{color:var(--coral)}
+  .dark h2{color:var(--dark-ink)}
+  .cmp{margin-top:38px;border:1px solid var(--dark-line);border-radius:16px;overflow:hidden}
+  .cmp .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:20px 24px;background:var(--dark2)}
+  .cmp .row+.row{border-top:1px solid var(--dark-line)}
+  .cmp .who{width:120px;flex:none;font-size:14px;font-weight:600;color:var(--dark-ink2)}
+  .cmp .who b{color:var(--coral)}
+  .cmp .step{font-size:14px;padding:8px 14px;border-radius:9px;border:1px solid var(--dark-line);color:var(--dark-ink2)}
+  .cmp .row.us .step{border-color:transparent;color:#fff;background:var(--coral);font-weight:600}
+  .cmp .arr{opacity:.4;font-size:13px}
+  .cmp .cap{margin:22px 2px 0;font-size:14.5px;color:var(--dark-ink2)}
+
+  /* ---------- 快捷键表 ---------- */
+  .keys{margin-top:44px;display:flex;flex-direction:column;gap:8px}
+  .krow{display:flex;align-items:center;gap:18px;padding:16px 22px;border-radius:12px;background:#f7f8fa}
+  .krow .kb{width:74px;flex:none}
+  .krow .desc{font-size:15px;color:var(--ink2)}
+  .krow .desc b{color:var(--ink);font-weight:600}
+
+  /* ---------- CTA 蓝色卡片 ---------- */
+  .ctaband{padding:40px 0 90px}
+  .ctacard{position:relative;overflow:hidden;text-align:center;border-radius:28px;padding:64px 28px 60px;
+    background:linear-gradient(180deg,#a9d2f2 0%,#c7e2f6 40%,#e5f1fb 100%);box-shadow:var(--shadow-lg)}
+  .ctacard::after{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;pointer-events:none;
+    background:radial-gradient(120% 90% at 20% 120%,rgba(255,255,255,.9),transparent 60%),
+      radial-gradient(120% 90% at 80% 120%,rgba(255,255,255,.85),transparent 60%)}
+  .ctacard>*{position:relative;z-index:1}
+  .ctacard .logo{width:70px;height:70px;border-radius:18px;box-shadow:0 14px 30px rgba(224,110,40,.3)}
+  .ctacard h2{margin:20px 0 10px}
+  .ctacard .note{max-width:40em;margin:24px auto 0;font-size:13px;color:#3f566b;background:rgba(255,255,255,.55);
+    border:1px solid rgba(255,255,255,.7);border-radius:12px;padding:13px 18px;text-align:left}
+  .ctacard .note b{color:#22384b}
+
+  /* ---------- 关于 / 页脚 ---------- */
+  .about{display:flex;gap:18px;align-items:center;padding:30px 0;border-top:1px solid var(--line)}
+  .about .logo{width:50px;height:50px;border-radius:14px;flex:none}
+  .about .hi{font-weight:700;margin:0 0 3px;font-size:16px}
+  .about p{margin:0;font-size:15px;color:var(--ink2)}
+  footer{padding:32px 0 60px;color:var(--ink3);font-size:13.5px;display:flex;gap:12px;flex-wrap:wrap}
+  footer .sp{flex:1}
+
+  @media (max-width:760px){
+    .feat{grid-template-columns:1fr;gap:22px} .feat:nth-child(even) .txt{order:0}
+    .dark{padding:48px 26px;border-radius:0} .cmp .who{width:100%}
+  }
+  @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} .reveal{opacity:1;transform:none} }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <img class="logo" src="logo.png" alt="Lasso">
-  <span class="badge"><span class="dot"></span>macOS 菜单栏工具 · 免费</span>
-  <h1>Lasso</h1>
-  <p class="tag">录屏时用「圈选手势」直接在画面上加标注——画面和说明当场结合，不用录完再剪辑。</p>
 
-  <a class="dl" href="Lasso.dmg" download>⬇︎ 下载 Lasso for macOS（.dmg）</a>
-  <div class="req">要求 macOS 13 或更新 · Apple 芯片 &amp; Intel 通用 · 仅需「屏幕录制」一项权限</div>
+<!-- ===== 顶栏 ===== -->
+<header>
+  <nav class="nav">
+    <img class="logo" src="logo.png" alt="Lassomark 图标">
+    <span class="brand">Lassomark</span>
+    <span class="sp"></span>
+    <div class="links">
+      <a class="mini" href="#features">亮点介绍</a>
+      <a class="mini" href="#shortcuts">快捷键</a>
+      <a class="mini" href="#about">关于产品</a>
+    </div>
+    <span class="sp"></span>
+    <a class="dl" href="Lasso.dmg" download><span class="ico"></span> 下载 App</a>
+  </nav>
+</header>
 
-  <section>
-    <h2>安装（3 步）</h2>
-    <ol>
-      <li>双击下载好的 <b>Lasso.dmg</b>，把里面的 <b>Lasso</b> 拖到「应用程序」文件夹。</li>
-      <li><b>首次打开</b>：在「应用程序」里<b>右键点图标 → 打开</b>，在弹窗里再点一次「打开」。（因为当前版本尚未做苹果公证，需要这一步；见下方说明。）</li>
-      <li>点菜单栏的图标 → 开始录制。首次会请求<b>屏幕录制</b>授权：在「系统设置 › 隐私与安全性 › 屏幕录制」里勾选它，然后重新打开 app 即可。</li>
-    </ol>
-  </section>
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="wrap">
+    <img class="logo" src="logo.png" alt="Lassomark 图标">
+    <h1>画个圈，就标注</h1>
+    <p class="sub">在屏幕上随手圈一下，即刻进行标注。边录边标，录完即成片。</p>
+    <div class="cta">
+      <a class="btn" href="Lasso.dmg" download><span class="ico"></span> 下载 Lassomark</a>
+      <a class="btn ghost" href="#features">看看怎么用</a>
+    </div>
+    <div class="req">免费<span class="dot">·</span>macOS 13 或更新<span class="dot">·</span>Apple 芯片 &amp; Intel 通用</div>
+  </div>
+</section>
 
-  <section>
-    <h2>怎么用</h2>
-    <ol>
-      <li>在画面里任意位置<b>圈一下</b> → 出现摆正的椭圆 + 自动箭头 + 一张文字卡片，直接打字写说明。</li>
-      <li><kbd>回车</kbd> 固化 · <kbd>Esc</kbd> 或点空白取消 · 悬停出现 ✕ 删除 · 卡片可拖动。</li>
-      <li>录制会连同 2× 光标、拖尾、标注一起录成 <b>.mov</b>，保存到桌面。</li>
-    </ol>
-  </section>
-
-  <section>
-    <h2>全局快捷键</h2>
-    <table>
-      <tr><td><kbd>⇧⌘1</kbd></td><td>开 / 关标注模式（效果总开关）</td></tr>
-      <tr><td><kbd>⇧⌘2</kbd></td><td>开始 / 停止录制</td></tr>
-      <tr><td><kbd>⇧⌘S</kbd></td><td>快照当前画面+标注到剪贴板，并清除标注</td></tr>
-    </table>
-  </section>
-
-  <div class="note">
-    <b>关于"右键打开"这一步：</b>当前版本是自签名、<b>未经过苹果公证</b>，所以首次打开需要右键 → 打开来手动允许。这不影响功能与安全（源码可自建）。作者做完苹果公证后，未来版本将可直接双击打开。
+<!-- ===== 亮点 ===== -->
+<section id="features" class="wrap">
+  <div class="center reveal">
+    <div class="kicker">为什么快</div>
+    <h2>超快，上手就停不下来</h2>
   </div>
 
-  <footer>用 ScreenCaptureKit + AppKit 构建 · 仅需屏幕录制权限 · 录制在本机完成，不上传任何数据</footer>
+  <div class="feats">
+    <!-- 配图 1 -->
+    <div class="feat reveal">
+      <div class="ph"><span>配图 1 · 画个圈→输入框</span></div>
+      <div class="txt">
+        <h3>画个圈，然后打字</h3>
+        <p>在屏幕任意位置圈一下，摆正的椭圆、指向箭头、文字卡片瞬间出现——而且光标已经在卡片里，<b>直接打字就行</b>。回车固化，<kbd>⇧⌘S</kbd> 一键把带标注的画面存进剪贴板。快到不打断思路。</p>
+      </div>
+    </div>
+
+    <!-- 配图 2 -->
+    <div class="feat reveal">
+      <div class="txt">
+        <h3>边录边标，标完即成片</h3>
+        <p>标注画进的是屏幕真实像素，<b>录制过程中就在画面上完成</b>。录完那一刻成片也就好了，不用再拖进编辑器加箭头字幕、来回渲染导出——省掉的是整段二次剪辑。</p>
+      </div>
+      <div class="ph"><span>配图 2 · 边录边标</span></div>
+    </div>
+
+    <!-- 配图 3 -->
+    <div class="feat reveal">
+      <div class="ph"><span>配图 3 · 2× 光标拖尾</span></div>
+      <div class="txt">
+        <h3>演示、讲解的最快搭档</h3>
+        <p>2× 光标 + 拖尾让观众一眼跟住你的鼠标；随手一圈就能圈出重点。远程讲解、录教程、给同事演示——它可能是你桌面上<b>最快的那个工具</b>。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 深色对比块 ===== -->
+<section class="wrap" style="padding-top:20px">
+  <div class="dark reveal">
+    <div class="kicker">符合直觉的交互</div>
+    <h2>写句话要点一路？<br>Lassomark 画个圈就输入</h2>
+    <div class="cmp">
+      <div class="row them">
+        <div class="who">常见截图工具</div>
+        <span class="step">触发截图</span><span class="arr">→</span>
+        <span class="step">拖选区域</span><span class="arr">→</span>
+        <span class="step">点文字工具</span><span class="arr">→</span>
+        <span class="step">输入</span><span class="arr">→</span>
+        <span class="step">确定保存</span>
+      </div>
+      <div class="row us">
+        <div class="who"><b>Lassomark</b></div>
+        <span class="step">圈一下</span><span class="arr">→</span>
+        <span class="step">直接输入</span>
+      </div>
+    </div>
+    <p class="cap">省去的，是每一次标注都要重复的那几下点击成本。用得越多，省得越多。</p>
+  </div>
+</section>
+
+<!-- ===== 快捷键 ===== -->
+<section id="shortcuts" class="wrap">
+  <div class="center reveal">
+    <div class="kicker">全局快捷键</div>
+    <h2>手不离开键盘</h2>
+  </div>
+  <div class="keys">
+    <div class="krow reveal"><div class="kb"><kbd>⇧⌘E</kbd></div><div class="desc">开启 / 关闭标注模式，关闭后仍可使用 <b>2× 光标、拖尾效果</b></div></div>
+    <div class="krow reveal"><div class="kb"><kbd>⇧⌘1</kbd></div><div class="desc">整屏录制 开始 / 停止</div></div>
+    <div class="krow reveal"><div class="kb"><kbd>⇧⌘2</kbd></div><div class="desc">选区录制 开始 / 停止，按下开始拖动选区，松手即开录</div></div>
+    <div class="krow reveal"><div class="kb"><kbd>⇧⌘S</kbd></div><div class="desc">全屏快照到剪贴板</div></div>
+    <div class="krow reveal"><div class="kb"><kbd>⇧⌘D</kbd></div><div class="desc">选区快照到剪贴板</div></div>
+  </div>
+</section>
+
+<!-- ===== CTA 蓝色卡片 ===== -->
+<section class="ctaband wrap">
+  <div class="ctacard reveal">
+    <img class="logo" src="logo.png" alt="Lassomark 图标">
+    <h2>开始使用 Lassomark</h2>
+    <p class="muted" style="color:#3f566b">免费下载 · macOS 13+ · 仅需「屏幕录制」一项权限</p>
+    <p style="margin-top:24px"><a class="btn" href="Lasso.dmg" download><span class="ico"></span> 下载 Lassomark</a></p>
+    <div class="note">
+      <b>首次打开</b>：把 Lassomark 拖进「应用程序」后，若提示无法验证开发者，去
+      <b>系统设置 › 隐私与安全性</b>，向下找到相关提示点 <b>「仍要打开」</b>即可（当前版本暂未做苹果公证）。装好后有新版会自动提示、静默更新。
+    </div>
+  </div>
+</section>
+
+<!-- ===== 关于 + 页脚 ===== -->
+<div class="wrap" id="about">
+  <div class="about reveal">
+    <img class="logo" src="logo.png" alt="Lassomark 图标">
+    <div>
+      <p class="hi">关于 Lassomark</p>
+      <p>自用小工具，后面会继续优化。平时也做点小设计，欢迎闲聊。📕&nbsp;@饼饼時光</p>
+    </div>
+  </div>
+  <footer>
+    <span>由 饼饼 制作 · © 2026 Lassomark</span>
+    <span class="sp"></span>
+    <span>画个圈，就标注。</span>
+  </footer>
 </div>
+
+<script>
+  // 顶栏：hero 里隐藏，滚过约一屏后浮现
+  const hdr=document.querySelector('header');
+  const onScroll=()=>hdr.classList.toggle('show',scrollY>innerHeight*0.6);
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
 </body>
 </html>

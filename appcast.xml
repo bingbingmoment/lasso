@@ -3,6 +3,32 @@
     <channel>
         <title>Lasso</title>
         <item>
+            <title>1.1</title>
+            <pubDate>Sun, 19 Jul 2026 11:12:03 +0800</pubDate>
+            <sparkle:version>6</sparkle:version>
+            <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[<style>
+  .rn { font-family: -apple-system, system-ui, "PingFang SC", sans-serif; font-size: 13px; line-height: 1.75; }
+  .rn ul { margin: 0; padding-left: 16px; }
+  .rn li { margin: 2px 0; }
+  @media (prefers-color-scheme: dark) { .rn { color: #e8e8e8; } }
+</style>
+<div class="rn">
+  <ul>
+    <li>产品更名为 Lassomark（功能与上一版一致）</li>
+  </ul>
+</div>
+]]></description>
+            <enclosure url="https://bingbingmoment.github.io/lasso/Lassomark-1.1.zip" length="1448260" type="application/octet-stream" sparkle:edSignature="XrCEGP13REQIaQoEBh2PMgr5/hxEkPUKrWQ52gX988wtSwkpcuZtPx1Etp5i+Th9fK67NPvWaC66tQ5q25drCQ=="/>
+            <sparkle:deltas>
+                <enclosure url="https://bingbingmoment.github.io/lasso/Lassomark6-5.delta" sparkle:deltaFrom="5" length="180254" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="beWJg6bawbLPl51A8puoOPR//r3Ol/r4aqR8P1Ofjkb0wO4pRck68/CEZ2HXgaBSMZ3vKc7FEmFA0jS05iFzDA=="/>
+                <enclosure url="https://bingbingmoment.github.io/lasso/Lassomark6-4.delta" sparkle:deltaFrom="4" length="180242" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="Ur+mphSRFNB3ox4jfpztxWzogQ1OMzt9EWydMlAJwQ7u+6+3L9/9mUfezAepfLGalDs3D79oQDzBMWyeH/ndAw=="/>
+                <enclosure url="https://bingbingmoment.github.io/lasso/Lassomark6-3.delta" sparkle:deltaFrom="3" length="180166" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="9ahqAOMGd9OftM7r3odzGj09h7te2cgn4nbTbqrTZEC7rJeqJiFPcA591vWxDMxc8IClIpSEq88Xhjq/Ab7YAg=="/>
+                <enclosure url="https://bingbingmoment.github.io/lasso/Lassomark6-2.delta" sparkle:deltaFrom="2" length="180066" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="DSsOdLnoK0Pck4gb4FRw+7ZMvPXjGKqM3bgMu6FCFDIQjJSOb/oyCX8mbBzh0x2QfmaGcEkcGnanFA4q+ntcCQ=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
             <title>1.0</title>
             <pubDate>Sat, 18 Jul 2026 18:49:32 +0800</pubDate>
             <sparkle:version>5</sparkle:version>
@@ -41,18 +67,6 @@
                 <enclosure url="https://bingbingmoment.github.io/lasso/Lasso4-3.delta" sparkle:deltaFrom="3" length="15754" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="6HVIqJ2BR46El0IzJqiUiaOYCSkMNpnjHehD490zoMiHUziSHGhXqn3cn7XzI57jgS5h2Q4BfjSaN8c3uvXsBw=="/>
                 <enclosure url="https://bingbingmoment.github.io/lasso/Lasso4-2.delta" sparkle:deltaFrom="2" length="19638" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="1N6wA1nTceAJH4phZujhtDYmVXiRfK7iCtUx2Y2QpnyO1i0/eKQyLAsqmvU2wX83B/LQSt5o6lx4UduI5etmAA=="/>
                 <enclosure url="https://bingbingmoment.github.io/lasso/Lasso4-1.delta" sparkle:deltaFrom="1" length="62670" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="DXo2asxJ4vZPDUWtx61TPKNcXJ28VIQhV2sC2w2Mr5GtzBlAJTyzEjTIDZZWxtZV1Qyf9HgoISmF/c3A0gKnCA=="/>
-            </sparkle:deltas>
-        </item>
-        <item>
-            <title>0.3</title>
-            <pubDate>Tue, 14 Jul 2026 22:34:21 +0800</pubDate>
-            <sparkle:version>3</sparkle:version>
-            <sparkle:shortVersionString>0.3</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://bingbingmoment.github.io/lasso/Lasso-0.3.zip" length="1402387" type="application/octet-stream" sparkle:edSignature="8mJVLzARmKdL6jJEHXZ2CCeuC9pZajFqDVflyGdBvhzUodMzgRKjtIlFdnFUvMzksqQdpFJgM6NMmuGtq4OPBA=="/>
-            <sparkle:deltas>
-                <enclosure url="https://bingbingmoment.github.io/lasso/Lasso3-2.delta" sparkle:deltaFrom="2" length="16550" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="vgrkxtNgYYVPigrsVUkbZMgY/oKdZU/RxuXNYUEb3Csu49ej1P2p89QUT/rRVkjYnuKI33fUXbjd7zEs2ZepBQ=="/>
-                <enclosure url="https://bingbingmoment.github.io/lasso/Lasso3-1.delta" sparkle:deltaFrom="1" length="62958" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="fhUGov7GZT205mfw2+udmsTDvsjozs6JptawDc5HPlJa8iQqvxM0DTRfqdUH/PpDS2sTMy1MrguSYVJcGXELCw=="/>
             </sparkle:deltas>
         </item>
     </channel>
