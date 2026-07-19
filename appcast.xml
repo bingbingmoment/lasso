@@ -20,12 +20,12 @@
   </ul>
 </div>
 ]]></description>
-            <enclosure url="https://bingbingmoment.github.io/lasso/Lassomark-1.1.zip" length="1448260" type="application/octet-stream" sparkle:edSignature="XrCEGP13REQIaQoEBh2PMgr5/hxEkPUKrWQ52gX988wtSwkpcuZtPx1Etp5i+Th9fK67NPvWaC66tQ5q25drCQ=="/>
+            <enclosure url="https://lassomark.com/Lassomark-1.1.zip" length="1448247" type="application/octet-stream" sparkle:edSignature="ubVNC1VGV7aY/jpos/5503t0fa6oGBxrxt2pKbisH8DxdJXoSxQvA+poz3Yh5Sbh9Jt7/xK4qj3niqyE2n4ZAA=="/>
             <sparkle:deltas>
-                <enclosure url="https://bingbingmoment.github.io/lasso/Lassomark6-5.delta" sparkle:deltaFrom="5" length="180254" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="beWJg6bawbLPl51A8puoOPR//r3Ol/r4aqR8P1Ofjkb0wO4pRck68/CEZ2HXgaBSMZ3vKc7FEmFA0jS05iFzDA=="/>
-                <enclosure url="https://bingbingmoment.github.io/lasso/Lassomark6-4.delta" sparkle:deltaFrom="4" length="180242" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="Ur+mphSRFNB3ox4jfpztxWzogQ1OMzt9EWydMlAJwQ7u+6+3L9/9mUfezAepfLGalDs3D79oQDzBMWyeH/ndAw=="/>
-                <enclosure url="https://bingbingmoment.github.io/lasso/Lassomark6-3.delta" sparkle:deltaFrom="3" length="180166" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="9ahqAOMGd9OftM7r3odzGj09h7te2cgn4nbTbqrTZEC7rJeqJiFPcA591vWxDMxc8IClIpSEq88Xhjq/Ab7YAg=="/>
-                <enclosure url="https://bingbingmoment.github.io/lasso/Lassomark6-2.delta" sparkle:deltaFrom="2" length="180066" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="DSsOdLnoK0Pck4gb4FRw+7ZMvPXjGKqM3bgMu6FCFDIQjJSOb/oyCX8mbBzh0x2QfmaGcEkcGnanFA4q+ntcCQ=="/>
+                <enclosure url="https://lassomark.com/Lassomark6-5.delta" sparkle:deltaFrom="5" length="180254" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="beWJg6bawbLPl51A8puoOPR//r3Ol/r4aqR8P1Ofjkb0wO4pRck68/CEZ2HXgaBSMZ3vKc7FEmFA0jS05iFzDA=="/>
+                <enclosure url="https://lassomark.com/Lassomark6-3.delta" sparkle:deltaFrom="3" length="180166" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="9ahqAOMGd9OftM7r3odzGj09h7te2cgn4nbTbqrTZEC7rJeqJiFPcA591vWxDMxc8IClIpSEq88Xhjq/Ab7YAg=="/>
+                <enclosure url="https://lassomark.com/Lassomark6-2.delta" sparkle:deltaFrom="2" length="180066" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="DSsOdLnoK0Pck4gb4FRw+7ZMvPXjGKqM3bgMu6FCFDIQjJSOb/oyCX8mbBzh0x2QfmaGcEkcGnanFA4q+ntcCQ=="/>
+                <enclosure url="https://lassomark.com/Lassomark6-4.delta" sparkle:deltaFrom="4" length="180242" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="Ur+mphSRFNB3ox4jfpztxWzogQ1OMzt9EWydMlAJwQ7u+6+3L9/9mUfezAepfLGalDs3D79oQDzBMWyeH/ndAw=="/>
             </sparkle:deltas>
         </item>
         <item>
@@ -49,7 +49,7 @@
   </ul>
 </div>
 ]]></description>
-            <enclosure url="https://bingbingmoment.github.io/lasso/Lasso-1.0.zip" length="1443883" type="application/octet-stream" sparkle:edSignature="JStqbaWCXOn85xZXnBXl/Xj8u3sR/O0XncSWpRbQWTn5/AU8cnsLS1X6fCu/YDB5WvrayNnuDvfkHJ2NCwYfDg=="/>
+            <enclosure url="https://lassomark.com/Lasso-1.0.zip" length="1443883" type="application/octet-stream" sparkle:edSignature="JStqbaWCXOn85xZXnBXl/Xj8u3sR/O0XncSWpRbQWTn5/AU8cnsLS1X6fCu/YDB5WvrayNnuDvfkHJ2NCwYfDg=="/>
             <sparkle:deltas>
                 <enclosure url="https://bingbingmoment.github.io/lasso/Lasso5-4.delta" sparkle:deltaFrom="4" length="121674" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="RVakkL86d9G7l3z2gYYmLdEafMDOnkvQ4XdvfxnHvzhFZy0KDh2wTHbw13IawY+6KVhppbsVe1JgdhdZ0g5FAg=="/>
                 <enclosure url="https://bingbingmoment.github.io/lasso/Lasso5-3.delta" sparkle:deltaFrom="3" length="122562" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="tUc/emiFRV1EYGJCcQoVHvmbKHliSvSZ8lZZcptngeVqXhaFmNukgIK7d2wBZhNVAntQVUgo3sWKBmViweEhCw=="/>
@@ -62,7 +62,7 @@
             <sparkle:version>4</sparkle:version>
             <sparkle:shortVersionString>0.4</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://bingbingmoment.github.io/lasso/Lasso-0.4.zip" length="1402369" type="application/octet-stream" sparkle:edSignature="k3DpvEzoBF6jox1s7YosQSyxe5EXZWbLQgmJ6vaAYv36ZiWprSFT4CO8jENIqT7tjRZ/iKHP9MOHAfvDaAWfDw=="/>
+            <enclosure url="https://lassomark.com/Lasso-0.4.zip" length="1402369" type="application/octet-stream" sparkle:edSignature="k3DpvEzoBF6jox1s7YosQSyxe5EXZWbLQgmJ6vaAYv36ZiWprSFT4CO8jENIqT7tjRZ/iKHP9MOHAfvDaAWfDw=="/>
             <sparkle:deltas>
                 <enclosure url="https://bingbingmoment.github.io/lasso/Lasso4-3.delta" sparkle:deltaFrom="3" length="15754" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="6HVIqJ2BR46El0IzJqiUiaOYCSkMNpnjHehD490zoMiHUziSHGhXqn3cn7XzI57jgS5h2Q4BfjSaN8c3uvXsBw=="/>
                 <enclosure url="https://bingbingmoment.github.io/lasso/Lasso4-2.delta" sparkle:deltaFrom="2" length="19638" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="1N6wA1nTceAJH4phZujhtDYmVXiRfK7iCtUx2Y2QpnyO1i0/eKQyLAsqmvU2wX83B/LQSt5o6lx4UduI5etmAA=="/>
