@@ -355,7 +355,17 @@
   // 亮点视频：进入视口自动循环播放，离开暂停
   const vio=new IntersectionObserver((es)=>es.forEach(e=>{e.isIntersecting?e.target.play().catch(()=>{}):e.target.pause()}),{threshold:.25});
   document.querySelectorAll('.feat .ph video').forEach(v=>vio.observe(v));
+  // 下载量统计：点下载 → 上报一次虚拟页面浏览 /download-dmg（在 Cloudflare 后台看此路径浏览量 ≈ 下载次数）
+  document.querySelectorAll('a[href$=".dmg"]').forEach(a=>{
+    a.addEventListener('click',()=>{
+      try{ history.pushState({},'','/download-dmg'); history.replaceState({},'',location.pathname.replace('/download-dmg','/')||'/'); }catch(e){}
+    });
+  });
 </script>
+
+<!-- Cloudflare Web Analytics -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "12b8254155844b9b8ee50ee2abbb40ab", "spa": true}'></script>
+<!-- End Cloudflare Web Analytics -->
 
 </body>
 </html>
