@@ -138,8 +138,6 @@
   .plan .buy-btn{display:flex;width:100%;height:56px;padding:0;border-radius:16px;background:#06f;color:#fff;font-size:17px;font-weight:600;letter-spacing:0}
   [hidden]{display:none!important}
   .pay-note{margin:12px 0 0;font-size:13px;line-height:20px;text-align:center;color:rgba(0,0,0,.45)}
-  .pay-note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
-  #payErr{color:#D14343}
   .wait{display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 0 0;font-size:13px;color:rgba(0,0,0,.5)}
   .wait i{width:14px;height:14px;border-radius:50%;border:2px solid rgba(0,102,255,.25);border-top-color:#06f;animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
@@ -285,8 +283,7 @@
         <div class="pay-foot" id="buyArea">
           <a class="btn buy-btn" id="buyBtn" href="#" target="_blank" rel="noopener">立即升级，解锁 Agent 模式</a>
           <p class="wait" id="wait" hidden><i></i>正在等待付款结果…付完别关这个页面</p>
-          <p class="pay-note" id="payErr" hidden>付款页暂时打不开，请稍后再试；着急的话可以发邮件给我</p>
-          <p class="pay-note">支持支付宝、银行卡、Apple Pay · <a href="refund.html">7 天无理由退款</a></p>
+          <p class="pay-note" id="payErr" hidden>线上付款链路还在建设，着急的话可以发邮件给我</p>
         </div>
         <div class="pay-foot" id="done" hidden>
           <div class="done">
