@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>隐私政策 · Lassomark</title>
+<meta name="description" content="Lassomark 隐私政策：录屏、截图和标注都在本机处理，不会上传；仅在检查更新和激活 Pro 版本时联网。">
+<link rel="canonical" href="https://lassomark.com/privacy.html">
+<link rel="icon" type="image/png" href="logo.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lassomark">
+<meta property="og:title" content="隐私政策 · Lassomark">
+<meta property="og:description" content="Lassomark 隐私政策：录屏、截图和标注都在本机处理，不会上传；仅在检查更新和激活 Pro 版本时联网。">
+<meta property="og:url" content="https://lassomark.com/privacy.html">
+<meta property="og:image" content="https://lassomark.com/og-v4.jpg">
+<style>
+  /* ===== 设计 token（取自 Figma Dev Mode）===== */
+  :root{
+    --font:"PingFang SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --ink:#1A1A1A;              /* 标题 / 主文字 */
+    --blue:#0066FF;            /* Hero 第二行 · Agent 模式主色 */
+    --black:#000;              /* 亮点区文字 */
+    --brown:#633F21;           /* 眉标（浅底） */
+    --btn:#1A1A1A;             /* 主按钮底 */
+    --btn-ink:#FDF6EE;         /* 主按钮字 */
+    --nav-glass:rgba(7,38,90,.30);   /* 导航玻璃底（在 #04348D 上加暗以提升白字对比） */
+    --dark:#141414;            /* 深色对比块底 */
+    --dark-row:#232323;        /* 深色块对比条底 */
+    --peach:#E6B892;           /* 深色块眉标 / 强调 */
+    --coral:#E8814E;           /* 深色块 Lassomark 胶囊（≈，待核） */
+    --cream:#F2ECE0;           /* 深色块胶囊文字 */
+    --cta-sub:#E6FFA1;         /* CTA 标题/副标（青柠） */
+    --line:#EEEAE3;
+    --content:1280px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#fff;color:var(--ink);overflow-x:hidden;
+    font-family:var(--font);-webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--content);margin:0 auto;padding-left:40px;padding-right:40px}
+  @media(max-width:760px){ .wrap{padding-left:20px;padding-right:20px} }
+  /* 满幅色块（深色对比块 / 快捷键）内容再内缩 32px，不显得太宽 */
+  .dark>.wrap,#shortcuts{padding-left:72px;padding-right:72px}
+  @media(max-width:760px){ .dark>.wrap,#shortcuts{padding-left:20px;padding-right:20px} }
+
+  /* ===== 主按钮（黑，苹果图标）===== */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:56px;padding:0 26px;border-radius:28px;
+    background:var(--btn);color:var(--btn-ink);font-family:var(--font);font-size:16px;font-weight:600;letter-spacing:-.312px;
+    cursor:pointer;border:0;transition:transform .18s,filter .18s}
+  .btn:hover{transform:translateY(-1px);filter:brightness(1.12)}
+  .btn svg{width:18px;height:18px;fill:currentColor;margin-top:-2px}
+  .btn.ghost{background:#fff;color:var(--ink);border:1px solid #E4E4E4}
+  .btn.ghost:hover{filter:none;background:#F7F7F7}
+
+  /* ===== 顶栏：links-only 玻璃药丸；logo/下载随滚动从两侧展开 ===== */
+  header{position:fixed;top:20px;left:0;right:0;z-index:60;display:flex;justify-content:center;pointer-events:none}
+  .nav{position:relative;pointer-events:auto;display:flex;align-items:center;width:auto;max-width:calc(100% - 32px);
+    height:60px;padding:0 13px;border-radius:30px;
+    background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.5));
+    backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);
+    box-shadow:0 14px 34px rgba(40,60,100,.14),0 2px 6px rgba(40,60,100,.08);
+    transition:background .45s,box-shadow .45s}
+  /* 顶部柔和高光 */
+  .nav::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;
+    background:radial-gradient(120% 100% at 50% -45%,rgba(255,255,255,.4),transparent 55%);transition:background .45s}
+  /* 液态玻璃描边：上缘亮、向下渐隐 */
+  .nav::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;padding:1px;
+    background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.3) 40%,rgba(255,255,255,.08) 100%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude}
+  .nav>*{position:relative;z-index:1}
+  /* 深色块上：切成深色玻璃 + 白字 */
+  .nav.on-dark{background:linear-gradient(180deg,rgba(40,46,62,.34),rgba(22,26,38,.34))}
+  .nav.on-dark::before{background:radial-gradient(120% 100% at 50% -45%,rgba(255,255,255,.16),transparent 52%)}
+  /* 尺寸 / 间距对齐 Figma 258:50497：logo · 链接 · 下载 三段各隔 24；每个链接 80 宽居中 */
+  .nav .links{display:flex;gap:0;padding:0;transition:padding .6s cubic-bezier(.22,1,.36,1)}
+  .nav.revealed .links{padding:0 24px}
+  .nav a.mini{display:block;width:80px;padding:10px 0;text-align:center;font-size:14px;line-height:14px;font-weight:500;color:#1A1A1A;white-space:nowrap;transition:opacity .2s,color .45s}
+  .nav a.mini:hover{opacity:.6}
+  .nav .side{display:flex;align-items:center;gap:8px;max-width:0;opacity:0;overflow:hidden;white-space:nowrap;
+    will-change:max-width,opacity,transform;
+    transition:max-width .6s cubic-bezier(.22,1,.36,1),opacity .5s ease,transform .6s cubic-bezier(.22,1,.36,1)}
+  .nav .side.left{transform:translateX(-8px);padding-left:8px}
+  .nav .side.right{transform:translateX(8px)}
+  .nav.revealed .side{max-width:240px;opacity:1;transform:none}
+  .nav .logo{width:24px;height:24px;border-radius:6px}
+  .nav .brand{font-family:"DM Sans",-apple-system,BlinkMacSystemFont,var(--font);font-size:16px;font-weight:700;line-height:20px;color:#1A1A1A;transition:color .45s}
+  .nav .home{display:flex;align-items:center;gap:8px;text-decoration:none;transition:opacity .2s}
+  .nav .home:hover{opacity:.82}
+  .nav .dl{display:inline-flex;align-items:center;gap:4px;height:38px;padding:0 13px;border-radius:19px;
+    background:#1A1A1A;color:#fff;font-size:14px;line-height:20px;font-weight:500;transition:background .45s,color .45s}
+  .nav .dl svg{width:20px;height:16px;fill:currentColor;margin-top:-1px}
+  .nav.on-dark a.mini,.nav.on-dark .brand{color:#fff}
+  .nav.on-dark .dl{background:#fff;color:#1A1A1A}
+  @media(max-width:680px){ .nav .brand{display:none} .nav a.mini{width:auto;padding:10px 12px} .nav.revealed .links{padding:0 8px} }
+  /* 手机：logo/下载展开后三者挤一行，收紧间距、下载按钮缩成「下载」，极窄屏只留图标 */
+  .nav .dl .short{display:none}
+  @media(max-width:520px){
+    .nav.revealed .links{padding:0 4px}
+    .nav.revealed a.mini{padding:10px 7px}
+    .nav .side.left{padding-left:8px}
+    .nav .dl{padding:0 13px}
+    .nav .dl .full{display:none} .nav .dl .short{display:inline}
+  }
+  @media(max-width:350px){ .nav .dl .short{display:none} .nav .dl{padding:0 12px;gap:0} }
+
+
+  .nav a.mini.on{color:var(--blue)}
+
+  /* ===== 更新日志 ===== */
+  .cl-hero{padding:150px 0 24px;background:linear-gradient(180deg,#E6F1FB 0%,#fff 100%)}
+  .cl{max-width:840px;margin:0 auto;padding:0 32px}
+  @media(max-width:760px){ .cl-hero{padding-top:120px} .cl{padding:0 20px} }
+  .cl-hero h1{margin:0;font-size:clamp(32px,4.2vw,48px);font-weight:500;letter-spacing:-.02em;color:var(--ink)}
+  .cl-hero p{margin:12px 0 0;font-size:16px;line-height:26px;color:rgba(0,0,0,.55)}
+  .rels{padding-top:24px;padding-bottom:80px}
+  .rel{padding:40px 0;border-bottom:1px dashed #DDDDDD}
+  .rel:last-child{border-bottom:0}
+  .rel .meta{display:flex;align-items:baseline;gap:12px}
+  .rel h2{margin:0;font-size:20px;font-weight:600;letter-spacing:-.01em;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,var(--font)}
+  .rel time{font-size:15px;color:rgba(0,0,0,.4)}
+  .rel h3{margin:14px 0 18px;font-size:18px;font-weight:500;color:var(--ink)}
+  .rel ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+  .rel li{position:relative;padding-left:22px;font-size:16px;line-height:1.75;color:#5D5D5D}
+  .rel li::before{content:"";position:absolute;left:6px;top:.8em;width:5px;height:5px;border-radius:50%;background:#BDBDBD}
+
+  /* ===== 关于 / 页脚 ===== */
+  .foot{max-width:1140px;margin:0 auto;padding:0 32px 32px}
+  @media(max-width:760px){ .foot{padding:0 20px 24px} }
+  /* 左右两块各占一半；两块之间放不下 24px 间距时才换行（左块最少 = 内容宽，右块最少 = 4 列 × 最长项 + 3 × 24） */
+  .foot-in{display:flex;flex-wrap:wrap;gap:32px 24px;align-items:flex-start;padding:31px 0 30px;border-top:1px solid #ECECEC}
+  .foot-in>div{flex:1 1 0;min-width:max-content}
+  .foot-in>div:last-child{min-width:472px}
+  .me{display:flex;align-items:center;gap:16px}
+  .me .avatar{width:48px;height:48px;border-radius:50%;flex:none;object-fit:cover}
+  .me .hi{margin:0;font-size:18px;font-weight:500;line-height:28px;color:var(--ink)}
+  .me .role{margin:2px 0 0;font-size:14px;line-height:22px;color:rgba(26,26,26,.7)}
+  .social{display:flex;gap:10px;margin:12px 0 0 64px}
+  .social a{position:relative;display:block;width:24px;height:24px}
+  .social svg{position:absolute;inset:0;width:24px;height:24px}
+  .social .gray{fill:rgba(26,26,26,.32)}
+  .social .color{opacity:0;transition:opacity .2s}
+  .social a:hover .color,.social a:focus-visible .color{opacity:1}
+  .fcols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+
+  .fcol{display:flex;flex-direction:column;gap:10px}
+  .fcol h4{margin:0;font-size:12px;font-weight:500;line-height:20px;color:rgba(26,26,26,.5)}
+  .fcol ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:22px;color:var(--ink)}
+  .fcol li{white-space:nowrap}
+  .tip{position:relative;display:inline-flex;align-items:center;gap:4px;cursor:default}
+  .tip svg{width:14px;height:14px;display:block}
+  .tip .bub{position:absolute;left:calc(100% - 7px);top:calc(100% + 8px);transform:translate(-50%,-4px);z-index:5;
+    padding:6px 12px;border-radius:8px;background:#1F2329;color:#fff;font-size:12px;line-height:20px;white-space:nowrap;
+    box-shadow:0 8px 24px 8px rgba(31,35,41,.04),0 6px 12px rgba(31,35,41,.04),0 4px 8px -8px rgba(31,35,41,.06);
+    opacity:0;pointer-events:none;transition:opacity .15s,transform .15s}
+  .tip .bub::before{content:"";position:absolute;left:50%;top:-4px;width:8px;height:8px;background:#1F2329;transform:translateX(-50%) rotate(45deg);border-radius:1px}
+  .tip:hover .bub,.tip:focus .bub{opacity:1;transform:translate(-50%,0)}
+  .toast{position:fixed;left:50%;bottom:32px;z-index:80;transform:translate(-50%,12px);max-width:calc(100% - 32px);
+    padding:10px 16px;border-radius:12px;background:#1F2329;color:#fff;font-size:14px;line-height:22px;text-align:center;
+    box-shadow:0 8px 24px rgba(31,35,41,.18);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  .copy{margin-top:24px;font-size:14px;line-height:22px;color:rgba(26,26,26,.4);white-space:pre-wrap}
+  .copy .legal{display:flex;gap:16px;margin-top:8px}
+  .copy .legal a{color:inherit;transition:color .2s}
+  .copy .legal a:hover{color:var(--ink)}
+  @media(max-width:900px){
+    .tip .bub{left:auto;right:-6px;transform:translateY(-4px)}
+    .tip .bub::before{left:auto;right:9px;transform:rotate(45deg)}
+    .tip:hover .bub,.tip:focus .bub{transform:none}
+  }
+  @media(max-width:520px){ .foot-in>div:last-child{min-width:0;flex-basis:100%} .fcols{grid-template-columns:repeat(2,minmax(0,1fr))} }   /* 四列放不下才两列 */
+
+  /* 「购买」是第 4 个链接：手机上导航展开（带 logo + 下载）时放不下，先收起（首页 Agent 段落下还有入口） */
+  @media(max-width:520px){ .nav.revealed a.mini.buy{display:none} }
+
+  /* ===== 政策页（隐私政策 / 服务条款 / 退款政策）===== */
+  .lang{display:flex;gap:8px;margin-top:20px}
+  .lang a{height:32px;padding:0 14px;display:inline-flex;align-items:center;border-radius:16px;font-size:14px;color:rgba(0,0,0,.6);background:rgba(0,0,0,.05)}
+  .lang a:hover{background:rgba(0,0,0,.08)}
+  .doc{padding-top:16px;padding-bottom:80px}
+  .doc section{padding:24px 0 40px;scroll-margin-top:80px}
+  .doc section+section{border-top:1px dashed #DDDDDD;padding-top:40px}
+  .doc .upd{margin:0 0 8px;font-size:14px;color:rgba(0,0,0,.4)}
+  .doc h2{margin:32px 0 12px;font-size:20px;font-weight:600;letter-spacing:-.01em;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,var(--font)}
+  .doc h2.lead{margin-top:0;font-size:24px}
+  .doc p,.doc li{font-size:16px;line-height:1.75;color:#5D5D5D}
+  .doc p{margin:0 0 12px}
+  .doc ul{margin:0 0 12px;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+  .doc li{position:relative;padding-left:22px}
+  .doc li::before{content:"";position:absolute;left:6px;top:.8em;width:5px;height:5px;border-radius:50%;background:#BDBDBD}
+  .doc b{color:var(--ink);font-weight:600}
+  .doc a{color:var(--blue)}
+  .doc a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<!-- ===== 顶栏 ===== -->
+<header>
+  <nav class="nav revealed">
+    <div class="side left">
+      <a href="./" class="home" aria-label="回到首页">
+        <img class="logo" src="logo.png" alt="Lassomark">
+        <span class="brand">Lassomark</span>
+      </a>
+    </div>
+    <div class="links">
+      <a class="mini" href="./#agent">亮点介绍</a>
+      <a class="mini" href="./#shortcuts">快捷键</a>
+      <a class="mini" href="changelog.html">更新日志</a>
+      <a class="mini buy" href="buy.html">升级 Pro</a>
+    </div>
+    <div class="side right">
+      <a class="dl" href="Lassomark.dmg" download aria-label="下载 Lassomark"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C61.5 141.2 8 184.8 8 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg><span class="full">下载 App</span><span class="short">下载</span></a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="cl-hero">
+    <div class="cl">
+      <h1>隐私政策</h1>
+      <p>Privacy Policy</p>
+      <div class="lang"><a href="#zh">中文</a><a href="#en">English</a></div>
+    </div>
+  </section>
+  <div class="cl doc">
+    <section id="zh" lang="zh-CN">
+      <p class="upd">最后更新：2026 年 9 月 27 日</p>
+<h2>一句话总结</h2>
+<p>Lassomark 在你的 Mac 上本地运行。<b>你的录屏、截图、标注和 Prompt 都不会上传到任何服务器。</b>我们只在检查更新和激活 Pro 版本时联网，收集的信息仅够完成这两件事。</p>
+
+<h2>App 在你电脑上做的事</h2>
+<ul>
+<li>Lassomark 需要「屏幕录制」和「辅助功能」权限，用于画面标注、截图、录屏，以及在 Agent 模式下识别屏幕上的界面组件。这些处理全部在本机完成。</li>
+<li>录屏文件直接保存在你 Mac 的桌面上；截图和复制的 Prompt 只放进你的剪贴板。App 不会把它们发给我们，也不会发给任何 AI 服务——Prompt 由你自己决定粘贴到哪里。</li>
+<li>你的偏好设置（如光标、拖尾效果）和激活凭证保存在本机的系统偏好设置里。</li>
+</ul>
+
+<h2>App 会联网的两种情况</h2>
+<ul>
+<li><b>检查更新</b>：App 会定期访问 <code>lassomark.com/appcast.xml</code> 查看是否有新版本。请求中包含 App 版本号和 macOS 版本号（软件更新框架 Sparkle 的默认行为），我们没有开启其额外的系统信息统计。</li>
+<li><b>激活 Pro 版本</b>：你输入激活码后，App 会把<b>激活码</b>和<b>这台 Mac 的匿名指纹</b>发送到 <code>api.lassomark.com</code>。指纹是硬件 UUID 加盐后计算的 SHA-256 哈希值，无法反推出原始硬件信息，只用来执行「一个激活码最多 2 台 Mac」的规则。之后 App 会不定期查询这个激活码已绑定几台 Mac，用于在界面上显示。</li>
+</ul>
+
+<h2>购买时的信息</h2>
+<ul>
+<li>付款由我们的经销商 <a href="https://www.creem.io" target="_blank" rel="noopener">Creem</a> 作为「记录商户（Merchant of Record）」处理。你在付款页填写的姓名、邮箱、账单地址和付款信息由 Creem 收集和处理，适用 <a href="https://www.creem.io/privacy" target="_blank" rel="noopener">Creem 的隐私政策</a>。<b>我们接触不到你的银行卡或支付宝账户信息。</b></li>
+<li>付款成功后，Creem 会通知我们的服务器。我们只保存：订单号、邮箱的 SHA-256 哈希值（用于「找回激活码」时核对，不保存邮箱明文）、为这笔订单生成的激活码，以及订单状态（已付款 / 已退款）。</li>
+<li>在 Creem 后台，我们可以看到订单信息（包括你的姓名和邮箱），仅用于处理退款、客服和对账。</li>
+</ul>
+
+<h2>官网</h2>
+<ul>
+<li>官网使用 Cloudflare Web Analytics 统计访问量。它不使用 Cookie，也不追踪你在其他网站上的行为，我们只能看到汇总后的数据（如页面浏览量、来源国家）。</li>
+<li>购买页会在你的浏览器本地存储一个随机生成的订单标识，用于付款后显示你的激活码。它不包含任何个人信息，清除浏览器数据即可删除。</li>
+<li>官网托管在 GitHub Pages，激活服务运行在 Cloudflare。和访问任何网站一样，这些服务商会在提供服务的过程中处理你的 IP 地址等网络信息。</li>
+</ul>
+
+<h2>我们不会做的事</h2>
+<ul>
+<li>不出售、不出租你的任何信息。</li>
+<li>不向广告商或数据经纪商共享信息，不做个性化广告。</li>
+<li>不在 App 里内置任何第三方统计或广告 SDK。</li>
+</ul>
+
+<h2>保存期限与你的权利</h2>
+<p>订单和激活记录会在激活码有效期间一直保存，否则我们无法为你找回激活码或核实授权。你可以随时发邮件到 <a href="mailto:bingbingmoment@qq.com">bingbingmoment@qq.com</a>，要求查询、更正或删除与你相关的记录。请注意：删除后，这个激活码将无法再找回，也无法在新的 Mac 上激活。</p>
+
+<h2>儿童</h2>
+<p>Lassomark 不面向 14 岁以下的儿童，我们也不会有意收集儿童的个人信息。</p>
+
+<h2>政策变更</h2>
+<p>如果本政策有实质性变化，我们会更新本页顶部的日期，并在更新日志中说明。</p>
+
+<h2>联系我们</h2>
+<p>Lassomark 由个人开发者饼饼开发和运营。关于隐私的任何问题，请发邮件到 <a href="mailto:bingbingmoment@qq.com">bingbingmoment@qq.com</a>。</p>
+    </section>
+    <section id="en" lang="en">
+      <p class="upd">Last updated: September 27, 2026</p>
+<h2>In short</h2>
+<p>Lassomark runs locally on your Mac. <b>Your screen recordings, screenshots, annotations and prompts are never uploaded to any server.</b> The app only goes online to check for updates and to activate Pro, and collects no more than those two tasks need.</p>
+
+<h2>What the app does on your Mac</h2>
+<ul>
+<li>Lassomark needs Screen Recording and Accessibility permissions to annotate the screen, take screenshots, record the screen, and (in Agent mode) recognize on-screen UI elements. All of this is processed on your Mac.</li>
+<li>Recordings are saved straight to your Mac's Desktop; screenshots and copied prompts go only to your clipboard. The app never sends them to us or to any AI service — you decide where to paste a prompt.</li>
+<li>Your preferences and your activation credential are stored locally in macOS user defaults.</li>
+</ul>
+
+<h2>When the app connects to the internet</h2>
+<ul>
+<li><b>Update checks</b>: the app periodically fetches <code>lassomark.com/appcast.xml</code>. The request includes the app version and macOS version (default behavior of the Sparkle update framework). Sparkle's optional system profiling is turned off.</li>
+<li><b>Pro activation</b>: when you enter an activation code, the app sends the <b>code</b> and an <b>anonymous fingerprint of this Mac</b> to <code>api.lassomark.com</code>. The fingerprint is a salted SHA-256 hash of the hardware UUID; it cannot be reversed and is used only to enforce the "up to 2 Macs per code" rule. The app occasionally checks how many Macs the code is bound to, for display in the app.</li>
+</ul>
+
+<h2>When you buy</h2>
+<ul>
+<li>Payments are processed by our reseller <a href="https://www.creem.io" target="_blank" rel="noopener">Creem</a>, the Merchant of Record for all orders. The name, email, billing address and payment details you enter at checkout are collected and processed by Creem under <a href="https://www.creem.io/privacy" target="_blank" rel="noopener">Creem's privacy policy</a>. <b>We never see your card or Alipay account details.</b></li>
+<li>After a successful payment Creem notifies our server. We store only: the order ID, a SHA-256 hash of your email (to verify "recover my code" requests — the email itself is not stored), the activation code generated for the order, and the order status (paid / refunded).</li>
+<li>In the Creem dashboard we can see order details, including your name and email, which we use only for refunds, support and bookkeeping.</li>
+</ul>
+
+<h2>Website</h2>
+<ul>
+<li>The website uses Cloudflare Web Analytics, which uses no cookies and does not track you across sites. We only see aggregated numbers such as page views and visitor countries.</li>
+<li>The purchase page stores a random order reference in your browser's local storage so it can show your activation code after payment. It contains no personal information and is removed when you clear your browser data.</li>
+<li>The website is hosted on GitHub Pages and the activation service runs on Cloudflare. As with any website, these providers process network information such as your IP address in order to serve requests.</li>
+</ul>
+
+<h2>What we never do</h2>
+<ul>
+<li>We do not sell or rent any of your information.</li>
+<li>We do not share information with advertisers or data brokers, and we do not run targeted ads.</li>
+<li>The app contains no third-party analytics or advertising SDKs.</li>
+</ul>
+
+<h2>Retention and your rights</h2>
+<p>Order and activation records are kept for as long as the activation code is valid; without them we cannot recover your code or verify your license. You can email <a href="mailto:bingbingmoment@qq.com">bingbingmoment@qq.com</a> at any time to access, correct or delete records about you. Note that once deleted, the code can no longer be recovered or activated on another Mac.</p>
+
+<h2>Children</h2>
+<p>Lassomark is not directed at children under 14, and we do not knowingly collect their personal information.</p>
+
+<h2>Changes</h2>
+<p>If this policy changes materially, we will update the date at the top of this page and mention it in the changelog.</p>
+
+<h2>Contact</h2>
+<p>Lassomark is developed and operated by independent developer Bingbing. For any privacy question, email <a href="mailto:bingbingmoment@qq.com">bingbingmoment@qq.com</a>.</p>
+    </section>
+  </div>
+</main>
+
+<!-- ===== 关于 + 页脚 ===== -->
+<footer class="foot" id="about">
+  <div class="foot-in">
+    <div>
+      <div class="me">
+        <img class="avatar" src="author.jpg" alt="饼饼">
+        <div><p class="hi">饼饼</p><p class="role">一个对学习充满热情的设计师。</p></div>
+      </div>
+      <div class="social">
+        <a href="https://www.xiaohongshu.com/user/profile/58c4a38982ec391b9932a7d0" target="_blank" rel="noopener" aria-label="小红书 @饼饼時光" title="小红书 @饼饼時光">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path class="gray" d="M12 0a12 12 0 1 0 0 24A12 12 0 0 0 12 0Z"/><path fill="#FF0035" class="color" d="M12 0a12 12 0 1 0 0 24A12 12 0 0 0 12 0Z"/><path fill="#fff" d="M15.2665 9.11576C15.3518 9.11576 15.3962 9.11576 15.3962 9.24717V10.3343C15.3962 10.4197 15.3535 10.464 15.2665 10.464H14.6572C14.5275 10.464 14.4831 10.5067 14.4831 10.6381V14.4184C14.4831 14.5054 14.5275 14.5498 14.6145 14.5498H15.7017C15.8314 14.5498 15.8741 14.5925 15.8741 14.7239V15.7649C15.8741 15.8963 15.8314 15.9407 15.7017 15.9407C15.0054 15.8963 14.2681 15.8963 13.5274 15.8963H11.3104C11.1807 15.8963 11.1381 15.8963 11.2251 15.7666C11.3975 15.4185 11.5715 15.0277 11.7883 14.6795C11.8327 14.5942 11.8753 14.5498 12.0067 14.5498H13.0939C13.1963 14.5498 13.2185 14.5225 13.2219 14.444V10.5937C13.2219 10.464 13.1792 10.4214 13.0512 10.464H12.4419C12.3105 10.464 12.2679 10.4214 12.2679 10.3343V9.28984C12.2679 9.16013 12.3105 9.11747 12.4419 9.11747H15.2665V9.11576ZM9.18221 14.4645C9.486 14.5942 9.83416 14.5498 10.1806 14.5498H11.051C11.1363 14.5498 11.1807 14.5942 11.1363 14.6812C10.9196 15.0737 10.7455 15.4646 10.5288 15.8554C10.4861 15.9407 10.4434 15.9407 10.3547 15.9407C10.1379 15.8981 9.87683 15.8981 9.52867 15.8981C9.26925 15.8981 8.87672 15.9424 8.57293 15.8554C8.44323 15.811 8.39885 15.7683 8.4876 15.6813C8.70264 15.2888 8.87672 14.9423 9.0508 14.5515C9.09517 14.5071 9.09517 14.4201 9.18221 14.4645ZM18.3948 8.72664C18.4818 8.72664 18.5262 8.77101 18.5262 8.85805C18.5262 9.16184 18.5262 9.16184 18.83 9.16184C19.2225 9.16184 19.569 9.24888 19.8728 9.42296C20.308 9.68408 20.4821 10.1176 20.4821 10.5954V11.4658C20.4821 11.5955 20.5247 11.6399 20.6561 11.6399C21.134 11.6399 21.5248 11.7696 21.8286 12.1605C21.9983 12.3863 22.09 12.6613 22.0897 12.9438V14.6795C22.0897 15.3314 21.6972 15.8093 21.047 15.8963C20.7721 15.9474 20.4891 15.9328 20.2209 15.8537C20.0052 15.7849 19.8153 15.6526 19.6758 15.4742C19.5364 15.2958 19.454 15.0795 19.4393 14.8536C19.4393 14.7239 19.4819 14.7682 19.569 14.7682H20.6561C20.7858 14.7682 20.8302 14.7239 20.8302 14.5925V13.4626C20.8302 13.1589 20.6561 12.9848 20.3523 12.9848H18.7003C18.6133 12.9848 18.5689 13.0291 18.5689 13.1145C18.6133 13.5497 18.6133 13.9849 18.6133 14.4627V15.7666C18.6133 15.8963 18.5689 15.9407 18.4392 15.9407H17.3964C17.265 15.9407 17.2223 15.8963 17.2223 15.7666V13.1589C17.2223 13.0291 17.1779 12.9848 17.0482 12.9848H16.0481C15.9184 12.9848 15.8741 12.9848 15.8741 12.8551V11.7679C15.8741 11.6382 15.9184 11.6382 16.0481 11.6382H17.0909C17.2223 11.6382 17.265 11.5938 17.2223 11.4641V10.6381C17.2223 10.5067 17.1779 10.5067 17.0482 10.5067H16.439C16.3536 10.5067 16.3093 10.5067 16.3093 10.377V9.28984C16.3093 9.20451 16.3536 9.16013 16.439 9.16013H17.0482C17.1336 9.16013 17.1779 9.11747 17.1779 9.03043C17.1779 8.76419 17.1779 8.73005 17.4118 8.72664H18.3948ZM5.66136 8.59693C5.79107 8.59693 5.83544 8.6396 5.83544 8.77101C5.80131 9.58509 5.79448 10.3514 5.79277 11.087V14.6795C5.7963 14.909 5.7354 15.1348 5.61699 15.3314C5.40024 15.7666 5.00941 15.8963 4.53155 15.8537C4.31985 15.846 4.11636 15.7698 3.9517 15.6366C3.78704 15.5033 3.6701 15.3201 3.61848 15.1147C3.48707 14.6795 3.48707 14.7222 3.92227 14.6795C4.09635 14.6795 4.3148 14.7665 4.44451 14.6368C4.52984 14.5498 4.48717 14.333 4.48717 14.159V8.76931C4.48717 8.63789 4.53155 8.59523 4.66125 8.59523H5.66136V8.59693ZM3.48707 10.5937C3.40173 11.5495 3.35736 12.5052 3.22765 13.4626C3.14549 14.0917 2.906 14.6898 2.53133 15.2017C2.57571 15.2017 2.53133 15.2444 2.53133 15.2871C2.27021 14.8092 2.05347 14.3313 1.79235 13.8535C1.74968 13.8108 1.74968 13.7681 1.79235 13.7238C1.96643 13.3312 1.96643 12.9421 1.96643 12.5069L2.09784 10.5954C2.09784 10.5067 2.14051 10.464 2.22755 10.464H3.35736C3.4444 10.464 3.48707 10.464 3.48707 10.5937ZM7.92099 10.464C8.05069 10.464 8.05069 10.5067 8.09507 10.6381C8.13773 11.5085 8.22477 12.3772 8.31181 13.2459C8.31181 13.3312 8.31181 13.4626 8.35619 13.5497C8.44152 13.7238 8.39885 13.8978 8.31181 14.0719C8.13773 14.4184 7.96536 14.8109 7.79128 15.1574C7.74691 15.2888 7.70424 15.2888 7.6172 15.1574C7.31341 14.6795 7.13933 14.2016 7.00792 13.6384C6.87992 13.1128 6.87992 12.5479 6.83384 12.0273C6.79117 11.5495 6.74851 11.1143 6.70413 10.6364C6.70413 10.505 6.70413 10.4623 6.87821 10.4623C7.05229 10.505 7.22637 10.4623 7.39875 10.4623H7.92099V10.464ZM11.3104 8.72493C11.4418 8.72493 11.4418 8.76931 11.3975 8.85635L10.6158 10.4214C10.5731 10.464 10.5731 10.5067 10.5288 10.5937C10.4861 10.6808 10.5288 10.7251 10.6158 10.7678C10.7011 10.8122 10.7011 10.7251 10.7455 10.6825C10.7899 10.5937 10.8326 10.5511 10.964 10.5511H12.005C12.1365 10.5511 12.1365 10.5937 12.0938 10.6808C11.7456 11.3327 11.4418 12.029 11.0937 12.681C10.964 12.9421 11.0083 13.0291 11.3104 13.0291C11.3975 12.9848 11.5715 12.9848 11.7456 12.9848C11.5715 13.2886 11.4418 13.5941 11.3104 13.8978C11.2251 14.1146 11.0937 14.159 10.9196 14.159H9.9212C9.83416 14.159 9.74712 14.159 9.66008 14.1146C9.35459 14.0293 9.26755 13.8108 9.35459 13.507C9.52867 13.0291 9.78979 12.5939 10.0065 12.1161C10.0509 12.029 10.0936 11.9847 10.1379 11.855H9.26755C8.92109 11.7679 8.78968 11.5512 8.92109 11.203C9.0508 10.8105 9.26925 10.4214 9.44163 10.0732C9.66008 9.68067 9.83416 9.24717 10.0509 8.85635C10.0936 8.76931 10.1362 8.72493 10.2677 8.72493H11.3104ZM18.7003 10.464C18.6133 10.464 18.5689 10.5067 18.5689 10.5937V11.5068C18.5689 11.5938 18.6133 11.6382 18.7003 11.6382H19.1782C19.2635 11.6382 19.3079 11.5938 19.3079 11.5068V10.79C19.3027 10.464 19.243 10.464 18.7003 10.464ZM21.6545 9.11576C21.96 9.16013 22.2194 9.46392 22.2194 9.81208C22.2194 10.1602 21.96 10.4214 21.6119 10.464H21.2637C20.8302 10.464 20.8302 10.464 20.8302 10.0288C20.8302 9.89912 20.8302 9.72504 20.8729 9.59533C20.9599 9.24717 21.2654 9.07309 21.6545 9.11747V9.11576Z"/></svg>
+        </a>
+        <a href="mailto:bingbingmoment@qq.com" id="mailBtn" aria-label="发邮件给饼饼" title="bingbingmoment@qq.com">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="mailGrad" x1="0" y1="12" x2="24" y2="12" gradientUnits="userSpaceOnUse"><stop stop-color="#FF9D4C"/><stop offset="1" stop-color="#FF811A"/></linearGradient></defs><path class="gray" d="M12 0a12 12 0 1 0 0 24A12 12 0 0 0 12 0Z"/><path fill="url(#mailGrad)" class="color" d="M12 0a12 12 0 1 0 0 24A12 12 0 0 0 12 0Z"/><path fill="#fff" d="M14.6831 6.75C15.9899 6.75 16.6438 6.74975 17.1429 7.00407C17.5819 7.22776 17.9389 7.5848 18.1626 8.02376C18.4169 8.52289 18.4167 9.17677 18.4167 10.4836V13.5164C18.4167 14.8232 18.4169 15.4771 18.1626 15.9762L18.0726 16.1369C17.8484 16.5023 17.527 16.8002 17.1429 16.9959L17.0472 17.0404C16.5594 17.25 15.9083 17.25 14.6831 17.25H9.3169L8.45101 17.246C7.75585 17.2351 7.31052 17.194 6.9528 17.0404L6.8571 16.9959C6.47299 16.8002 6.15158 16.5023 5.92741 16.1369L5.8374 15.9762C5.58308 15.4771 5.58333 14.8232 5.58333 13.5164V10.4836C5.58333 9.17677 5.58308 8.52289 5.8374 8.02376C6.06109 7.5848 6.41813 7.22776 6.8571 7.00407C7.2314 6.81335 7.69271 6.76592 8.45101 6.75399L9.3169 6.75H14.6831ZM13.2174 13.0408C12.4433 13.3793 11.556 13.3794 10.7821 13.0408L7.99414 15.8287C8.30165 15.848 8.70623 15.8498 9.3169 15.8498H14.6831C15.2934 15.8498 15.6979 15.8479 16.0053 15.8287L13.2174 13.0408ZM6.99951 9.24056C6.98462 9.53787 6.98356 9.92431 6.98356 10.4836V13.5164C6.98356 14.1267 6.98483 14.5312 7.00407 14.8386L9.65356 12.1891L6.99951 9.24056ZM14.3459 12.1891L16.9954 14.8386C17.0146 14.5312 17.0164 14.1267 17.0164 13.5164V10.4836C17.0164 9.92429 17.0148 9.53787 16.9999 9.24056L14.3459 12.1891ZM9.3169 8.15023C8.65875 8.15023 8.23992 8.15127 7.92407 8.17529L10.7861 11.3546C11.4349 12.0755 12.5651 12.0755 13.2139 11.3546L16.0754 8.17529C15.7596 8.15131 15.3409 8.15023 14.6831 8.15023H9.3169Z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="fcols">
+        <div class="fcol"><h4>截图</h4><ul><li>画圈标注</li><li>整屏截图</li><li>选区截图</li></ul></div>
+        <div class="fcol"><h4>Agent 模式</h4><ul><li>识别屏幕</li><li><span class="tip" tabindex="0">复制 Prompt<svg viewBox="0 0 14 14" aria-hidden="true"><path fill="#000" fill-opacity=".4" d="M7 0.291667C10.7049 0.291667 13.7083 3.29509 13.7083 7C13.7083 10.7049 10.7049 13.7083 7 13.7083C3.29509 13.7083 0.291667 10.7049 0.291667 7C0.291667 3.29509 3.29509 0.291667 7 0.291667ZM7 1.45833C3.93942 1.45833 1.45833 3.93942 1.45833 7C1.45833 10.0606 3.93942 12.5417 7 12.5417C10.0606 12.5417 12.5417 10.0606 12.5417 7C12.5417 3.93942 10.0606 1.45833 7 1.45833ZM7 5.54167C7.32217 5.54167 7.58333 5.80283 7.58333 6.125V9.33333H8.16667C8.48883 9.33333 8.75 9.5945 8.75 9.91667C8.75 10.2388 8.48883 10.5 8.16667 10.5H5.83333C5.51117 10.5 5.25 10.2388 5.25 9.91667C5.25 9.5945 5.51117 9.33333 5.83333 9.33333H6.41667V6.70833H6.125C5.80283 6.70833 5.54167 6.44717 5.54167 6.125C5.54167 5.80283 5.80283 5.54167 6.125 5.54167H7ZM7 3.5C7.40271 3.5 7.72917 3.82646 7.72917 4.22917C7.72917 4.63187 7.40271 4.95833 7 4.95833C6.59729 4.95833 6.27083 4.63187 6.27083 4.22917C6.27083 3.82646 6.59729 3.5 7 3.5Z"/></svg><span class="bub" role="tooltip">Tips：按 ⇧⌘V 粘贴可附带截图哦</span></span></li></ul></div>
+        <div class="fcol"><h4>录屏</h4><ul><li>整屏录制</li><li>选区录制</li></ul></div>
+        <div class="fcol"><h4>演示</h4><ul><li>2x 光标</li><li>拖尾效果</li></ul></div>
+      </div>
+      <div class="copy">© 2026 Lassomark  ·  画个圈，就标注。人和 AI 都能用<span class="legal"><a href="privacy.html">隐私政策</a><a href="terms.html">服务条款</a><a href="refund.html">退款政策</a></span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // 邮箱：照常唤起默认邮件应用；同时复制地址并提示（没配置邮件应用时 mailto 会静默失败）
+  (()=>{
+    const btn=document.getElementById('mailBtn'); if(!btn) return;
+    const addr='bingbingmoment@qq.com';
+    const toast=document.createElement('div'); toast.className='toast'; toast.setAttribute('role','status'); document.body.appendChild(toast);
+    let t=0;
+    const say=msg=>{toast.textContent=msg;toast.classList.add('show');clearTimeout(t);t=setTimeout(()=>toast.classList.remove('show'),3200)};
+    btn.addEventListener('click',()=>{
+      const done=()=>say('邮箱已复制：'+addr+'　没有自动打开邮件应用的话，直接粘贴发送就好');
+      const fallback=()=>{const ta=document.createElement('textarea');ta.value=addr;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();
+        try{document.execCommand('copy');done()}catch(e){say('邮箱：'+addr)}ta.remove()};
+      navigator.clipboard?.writeText(addr).then(done,fallback) ?? fallback();
+    });
+  })();
+  // 下载量统计：点下载 → 上报一次虚拟页面浏览 /download-dmg（在 Cloudflare 后台看此路径浏览量 ≈ 下载次数）
+  document.querySelectorAll('a[href$=".dmg"]').forEach(a=>{
+    a.addEventListener('click',()=>{
+      try{ history.pushState({},'','/download-dmg'); history.replaceState({},'',location.pathname.replace('/download-dmg','/')||'/'); }catch(e){}
+    });
+  });
+</script>
+
+<!-- Cloudflare Web Analytics -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "12b8254155844b9b8ee50ee2abbb40ab", "spa": true}'></script>
+<!-- End Cloudflare Web Analytics -->
+
+</body>
+</html>

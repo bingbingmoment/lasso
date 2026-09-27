@@ -3,6 +3,39 @@
     <channel>
         <title>Lasso</title>
         <item>
+            <title>2.0</title>
+            <pubDate>Sun, 27 Sep 2026 16:04:09 +0800</pubDate>
+            <sparkle:version>8</sparkle:version>
+            <sparkle:shortVersionString>2.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[<style>
+  .rn { font-family: -apple-system, system-ui, "PingFang SC", sans-serif; font-size: 13px; line-height: 1.75; }
+  .rn p { margin: 0 0 4px; font-weight: 600; }
+  .rn ul { margin: 0; padding-left: 16px; }
+  .rn li { margin: 2px 0; }
+  @media (prefers-color-scheme: dark) { .rn { color: #e8e8e8; } }
+</style>
+<div class="rn">
+  <p>Agent 模式：人和 AI 都能用</p>
+  <ul>
+    <li>新增 Agent 模式（⇧⌘C）：跨应用识别屏幕上的界面组件，鼠标经过即高亮，点一下就选中。</li>
+    <li>给每个组件写下修改要求，自动编号 ①②③；写好的标注可以再次编辑、拖动或删除。</li>
+    <li>再按一次 ⇧⌘C（或点「复制 Prompt」），标注就变成结构化的 Prompt 进了剪贴板，直接粘贴给 AI；按 ⇧⌘V 粘贴还能附带截图。</li>
+    <li>菜单瘦身：去掉「圈选标注」和「识别灵敏度」，两个模式的按钮不再重复。</li>
+    <li>改用 Apple 开发者证书签名并通过公证，安装时不再提示「无法验证开发者」。因为签名变了，更新后请到「系统设置 › 隐私与安全性」的「屏幕录制」和「辅助功能」里，选中旧的 Lassomark 点「−」删掉，再点「+」重新添加（只拨开关不管用）。</li>
+  </ul>
+</div>
+]]></description>
+            <enclosure url="https://lassomark.com/Lassomark-2.0.zip" length="1870806" type="application/octet-stream" sparkle:edSignature="ClX2hxM5Js0OTQ6E7WvVuVVBEAU63hhxKLYYYEXrUHAdqM1bc2cu/YOy0JmXzV/35O61k7Typp056+0cGmuKBw=="/>
+            <sparkle:deltas>
+                <enclosure url="https://lassomark.com/Lassomark8-7.delta" sparkle:deltaFrom="7" length="433710" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="VHKkx/aRzEZzvOQA2uXkzdpv/ni4e4gOWVoew0ne1KpkIMZ5bVlO2gpdnjSedH74rcxGus76NzBzx6sG7F7+CA=="/>
+                <enclosure url="https://lassomark.com/Lassomark8-6.delta" sparkle:deltaFrom="6" length="442126" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="HuU0OzrWnFl6QV1bZdFq308n8imQdQYbPrPkgVKggpX+uv5NEaPIuGwNlosqHJl17JdVaYtYjim7G4s2NABuBg=="/>
+                <enclosure url="https://lassomark.com/Lassomark8-5.delta" sparkle:deltaFrom="5" length="450082" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="ikMaU357F8AAyxws4+hKJ3aMuBmj7Q/nQDJkX5+Kk1vh3e8X18URyzCNZ4lM38iMUcjE/7Sdlc3/leYldhs0Cg=="/>
+                <enclosure url="https://lassomark.com/Lassomark8-4.delta" sparkle:deltaFrom="4" length="449998" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="el/hl9TO7aMS2AwedDHSC/7f7RvdI9Ki9ust1usBjvwDIMa9IMDvMG+EUMfT5depJoDdPcyQ1SwSjscti/BmBw=="/>
+                <enclosure url="https://lassomark.com/Lassomark8-3.delta" sparkle:deltaFrom="3" length="450418" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="VwKBjO76gWHrR/IRWad+AQDTgORyCUNkRBfoad3MS17Alt2rihVHKepzJVg0X/uW8L4YkKCu21eSxokBSDx9Aw=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
             <title>1.2</title>
             <pubDate>Sat, 01 Aug 2026 12:52:23 +0800</pubDate>
             <sparkle:version>7</sparkle:version>
@@ -54,34 +87,6 @@
                 <enclosure url="https://lassomark.com/Lassomark6-3.delta" sparkle:deltaFrom="3" length="180166" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="9ahqAOMGd9OftM7r3odzGj09h7te2cgn4nbTbqrTZEC7rJeqJiFPcA591vWxDMxc8IClIpSEq88Xhjq/Ab7YAg=="/>
                 <enclosure url="https://lassomark.com/Lassomark6-2.delta" sparkle:deltaFrom="2" length="180066" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="DSsOdLnoK0Pck4gb4FRw+7ZMvPXjGKqM3bgMu6FCFDIQjJSOb/oyCX8mbBzh0x2QfmaGcEkcGnanFA4q+ntcCQ=="/>
                 <enclosure url="https://lassomark.com/Lassomark6-4.delta" sparkle:deltaFrom="4" length="180242" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="Ur+mphSRFNB3ox4jfpztxWzogQ1OMzt9EWydMlAJwQ7u+6+3L9/9mUfezAepfLGalDs3D79oQDzBMWyeH/ndAw=="/>
-            </sparkle:deltas>
-        </item>
-        <item>
-            <title>1.0</title>
-            <pubDate>Sat, 18 Jul 2026 18:49:32 +0800</pubDate>
-            <sparkle:version>5</sparkle:version>
-            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-            <description><![CDATA[<style>
-  .rn { font-family: -apple-system, system-ui, "PingFang SC", sans-serif; font-size: 13px; line-height: 1.75; }
-  .rn ul { margin: 0; padding-left: 16px; }
-  .rn li { margin: 2px 0; }
-  @media (prefers-color-scheme: dark) { .rn { color: #e8e8e8; } }
-</style>
-<div class="rn">
-  <ul>
-    <li>支持「选区复制」：标注后框选区域，松手复制到剪贴板</li>
-    <li>支持「选区录制」：框选区域后立即录制，再按一次快捷键完成录制</li>
-    <li>快捷键调整：标注模式开关改为 ⇧⌘E，整屏录制改为 ⇧⌘1，选区录制为 ⇧⌘2</li>
-    <li>界面 UI 打磨</li>
-  </ul>
-</div>
-]]></description>
-            <enclosure url="https://lassomark.com/Lasso-1.0.zip" length="1443883" type="application/octet-stream" sparkle:edSignature="JStqbaWCXOn85xZXnBXl/Xj8u3sR/O0XncSWpRbQWTn5/AU8cnsLS1X6fCu/YDB5WvrayNnuDvfkHJ2NCwYfDg=="/>
-            <sparkle:deltas>
-                <enclosure url="https://bingbingmoment.github.io/lasso/Lasso5-4.delta" sparkle:deltaFrom="4" length="121674" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="RVakkL86d9G7l3z2gYYmLdEafMDOnkvQ4XdvfxnHvzhFZy0KDh2wTHbw13IawY+6KVhppbsVe1JgdhdZ0g5FAg=="/>
-                <enclosure url="https://bingbingmoment.github.io/lasso/Lasso5-3.delta" sparkle:deltaFrom="3" length="122562" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="tUc/emiFRV1EYGJCcQoVHvmbKHliSvSZ8lZZcptngeVqXhaFmNukgIK7d2wBZhNVAntQVUgo3sWKBmViweEhCw=="/>
-                <enclosure url="https://bingbingmoment.github.io/lasso/Lasso5-2.delta" sparkle:deltaFrom="2" length="120150" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862320" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="le9eNvQb6x17NYK7oPh1qFY0ItgXp9G3mxSuspXoAuPZQ0CPD9YR+d2hKaYpJ5zS5KIpPGy9q5ZW7j3WqqiuDw=="/>
             </sparkle:deltas>
         </item>
     </channel>

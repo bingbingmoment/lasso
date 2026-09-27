@@ -3,25 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lassomark · 画个圈，就标注</title>
-<meta name="description" content="Lassomark 是一个住在 macOS 菜单栏里的小工具：在屏幕上随手圈一下，即刻进行标注。边录边标，录完即成片。">
-<meta name="keywords" content="Lassomark,录屏标注,屏幕批注,macOS 截图工具,屏幕录制,圈选标注,标注工具,mac 演示工具">
+<title>Lassomark · 画个圈，就标注，人和 AI 都能用</title>
+<meta name="description" content="Lassomark 是一个住在 macOS 菜单栏里的小工具：在屏幕上随手一圈，即刻进行标注；Agent 模式精准标注组件，一键复制 Prompt 给 AI。边录边标，录完即成片。">
+<meta name="keywords" content="Lassomark,Agent 模式,AI 标注,Prompt,录屏标注,屏幕批注,macOS 截图工具,屏幕录制,圈选标注,标注工具,mac 演示工具">
 <link rel="canonical" href="https://lassomark.com/">
 <link rel="icon" type="image/png" href="logo.png">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lassomark">
-<meta property="og:title" content="Lassomark · 画个圈，就标注">
-<meta property="og:description" content="在屏幕上随手圈一下，即刻进行标注。边录边标，录完即成片。">
+<meta property="og:title" content="Lassomark · 画个圈，就标注，人和 AI 都能用">
+<meta property="og:description" content="在屏幕上随手一圈，即刻进行标注；Agent 模式精准标注组件，一键复制 Prompt 给 AI。边录边标，录完即成片。">
 <meta property="og:url" content="https://lassomark.com/">
 <meta property="og:image" content="https://lassomark.com/og-v4.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:alt" content="Lassomark · 画个圈，就标注">
+<meta property="og:image:alt" content="Lassomark · 画个圈，就标注，人和 AI 都能用">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Lassomark · 画个圈，就标注">
-<meta name="twitter:description" content="在屏幕上随手圈一下，即刻进行标注。边录边标，录完即成片。">
+<meta name="twitter:title" content="Lassomark · 画个圈，就标注，人和 AI 都能用">
+<meta name="twitter:description" content="在屏幕上随手一圈，即刻进行标注；Agent 模式精准标注组件，一键复制 Prompt 给 AI。边录边标，录完即成片。">
 <meta name="twitter:image" content="https://lassomark.com/og-v4.jpg">
 
 <script type="application/ld+json">
@@ -29,12 +29,12 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Lassomark",
-  "description": "在屏幕上随手圈一下，即刻进行标注。边录边标，录完即成片。",
+  "description": "在屏幕上随手一圈，即刻进行标注；Agent 模式精准标注组件，一键复制 Prompt 给 AI。边录边标，录完即成片。",
   "applicationCategory": "MultimediaApplication",
   "operatingSystem": "macOS 13.0+",
   "url": "https://lassomark.com/",
   "downloadUrl": "https://lassomark.com/Lassomark.dmg",
-  "softwareVersion": "1.2",
+  "softwareVersion": "2.0",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
 }
 </script>
@@ -44,6 +44,7 @@
   :root{
     --font:"PingFang SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     --ink:#1A1A1A;              /* 标题 / 主文字 */
+    --blue:#0066FF;            /* Hero 第二行 · Agent 模式主色 */
     --black:#000;              /* 亮点区文字 */
     --brown:#633F21;           /* 眉标（浅底） */
     --btn:#1A1A1A;             /* 主按钮底 */
@@ -81,7 +82,7 @@
   /* ===== 顶栏：links-only 玻璃药丸；logo/下载随滚动从两侧展开 ===== */
   header{position:fixed;top:20px;left:0;right:0;z-index:60;display:flex;justify-content:center;pointer-events:none}
   .nav{position:relative;pointer-events:auto;display:flex;align-items:center;width:auto;max-width:calc(100% - 32px);
-    height:60px;padding:0 6px;border-radius:30px;
+    height:60px;padding:0 13px;border-radius:30px;
     background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.5));
     backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);
     box-shadow:0 14px 34px rgba(40,60,100,.14),0 2px 6px rgba(40,60,100,.08);
@@ -98,34 +99,186 @@
   /* 深色块上：切成深色玻璃 + 白字 */
   .nav.on-dark{background:linear-gradient(180deg,rgba(40,46,62,.34),rgba(22,26,38,.34))}
   .nav.on-dark::before{background:radial-gradient(120% 100% at 50% -45%,rgba(255,255,255,.16),transparent 52%)}
-  .nav .links{display:flex;gap:44px;padding:0 24px}
-  .nav a.mini{font-size:14px;font-weight:500;color:#1A1A1A;white-space:nowrap;transition:opacity .2s,color .45s}
+  /* 尺寸 / 间距对齐 Figma 258:50497：logo · 链接 · 下载 三段各隔 24；每个链接 80 宽居中 */
+  .nav .links{display:flex;gap:0;padding:0;transition:padding .6s cubic-bezier(.22,1,.36,1)}
+  .nav.revealed .links{padding:0 24px}
+  .nav a.mini{display:block;width:80px;padding:10px 0;text-align:center;font-size:14px;line-height:14px;font-weight:500;color:#1A1A1A;white-space:nowrap;transition:opacity .2s,color .45s}
   .nav a.mini:hover{opacity:.6}
   .nav .side{display:flex;align-items:center;gap:8px;max-width:0;opacity:0;overflow:hidden;white-space:nowrap;
     will-change:max-width,opacity,transform;
     transition:max-width .6s cubic-bezier(.22,1,.36,1),opacity .5s ease,transform .6s cubic-bezier(.22,1,.36,1)}
-  .nav .side.left{transform:translateX(-8px);padding-left:12px}
+  .nav .side.left{transform:translateX(-8px);padding-left:8px}
   .nav .side.right{transform:translateX(8px)}
   .nav.revealed .side{max-width:240px;opacity:1;transform:none}
-  .nav .logo{width:34px;height:34px;border-radius:9px}
-  .nav .brand{font-size:17px;font-weight:600;color:#1A1A1A;transition:color .45s}
-  .nav .home{display:flex;align-items:center;gap:9px;text-decoration:none;transition:opacity .2s}
+  .nav .logo{width:24px;height:24px;border-radius:6px}
+  .nav .brand{font-family:"DM Sans",-apple-system,BlinkMacSystemFont,var(--font);font-size:16px;font-weight:700;line-height:20px;color:#1A1A1A;transition:color .45s}
+  .nav .home{display:flex;align-items:center;gap:8px;text-decoration:none;transition:opacity .2s}
   .nav .home:hover{opacity:.82}
-  .nav .dl{display:inline-flex;align-items:center;gap:7px;height:42px;padding:0 18px;border-radius:21px;
-    background:#1A1A1A;color:#fff;font-size:14px;font-weight:600;margin-right:2px;transition:background .45s,color .45s}
-  .nav .dl svg{width:14px;height:14px;fill:currentColor;margin-top:-1px}
+  .nav .dl{display:inline-flex;align-items:center;gap:4px;height:38px;padding:0 13px;border-radius:19px;
+    background:#1A1A1A;color:#fff;font-size:14px;line-height:20px;font-weight:500;transition:background .45s,color .45s}
+  .nav .dl svg{width:20px;height:16px;fill:currentColor;margin-top:-1px}
   .nav.on-dark a.mini,.nav.on-dark .brand{color:#fff}
   .nav.on-dark .dl{background:#fff;color:#1A1A1A}
-  @media(max-width:680px){ .nav .brand{display:none} .nav .links{gap:26px;padding:0 14px} }
+  @media(max-width:680px){ .nav .brand{display:none} .nav a.mini{width:auto;padding:10px 12px} .nav.revealed .links{padding:0 8px} }
+  /* 手机：logo/下载展开后三者挤一行，收紧间距、下载按钮缩成「下载」，极窄屏只留图标 */
+  .nav .dl .short{display:none}
+  @media(max-width:520px){
+    .nav.revealed .links{padding:0 4px}
+    .nav.revealed a.mini{padding:10px 7px}
+    .nav .side.left{padding-left:8px}
+    .nav .dl{padding:0 13px}
+    .nav .dl .full{display:none} .nav .dl .short{display:inline}
+  }
+  @media(max-width:350px){ .nav .dl .short{display:none} .nav .dl{padding:0 12px;gap:0} }
 
   /* ===== Hero ===== */
-  .hero{text-align:center;padding:150px 0 96px;
+  .hero{text-align:center;padding:150px 0 60px;
     background:linear-gradient(180deg,#8FC4EE 0%,#BBD9F2 20%,#E6F1FB 46%,#fff 78%)}
-  .hero .logo{width:156px;height:156px;border-radius:34px;box-shadow:0 20px 44px rgba(220,110,50,.28)}
-  .hero h1{font-size:clamp(40px,5.6vw,64px);font-weight:500;color:var(--ink);letter-spacing:-.02em;margin:28px 0 20px}
-  .hero .sub{font-size:clamp(16px,1.6vw,20px);font-weight:400;color:var(--ink);margin:0 auto 34px;max-width:34em}
-  .hero .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-  @media(max-width:760px){ .hero{padding:130px 0 64px} .hero .logo{width:112px;height:112px} }
+  .hero .logo{width:120px;height:120px;border-radius:27px;box-shadow:0 18px 40px rgba(220,110,50,.28)}
+  .hero h1{font-size:clamp(38px,5.2vw,60px);font-weight:500;color:var(--ink);letter-spacing:-.0167em;line-height:1.28;margin:48px 0 16px}
+  .hero h1 .ai{display:block;color:var(--blue);letter-spacing:.0433em;position:relative;left:.072em}
+  .hero h1 .ren{position:relative;left:-.0333em}   /* 「人」笔画少、看着体积小，单独左移 2px（@60px）才和上行「画」视觉左对齐；用 relative 不影响其它字的位置 */
+  .hero h1 .yong{position:relative;left:-.0167em}  /* 「用」右边竖笔到头，看着比上行「注」宽，单独左移 1px（@60px） */
+  /* 两行墨迹等宽：按字形实际边缘量出来的（@60px 上行 -1px，下行 +2.6px 再右移 4.3px）。
+     右移是因为字距也加在最后一个字「用」后面，行居中时墨迹会整体偏左半个字距多 */
+  .hero .sub{font-size:19px;font-weight:400;color:rgba(0,0,0,.65);margin:0 auto 32px;max-width:36em}
+  .hero .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  /* 窄屏两个按钮放不下一行（195 + 12 + 132 + 两侧 40 ≈ 380）：改成一列，宽度统一取较宽的那个 */
+  @media(max-width:400px){ .hero .cta{display:grid;grid-template-columns:max-content;justify-content:center} .hero .cta .btn{width:100%} }
+  @media(max-width:760px){ .hero{padding:130px 0 64px} .hero .logo{width:96px;height:96px;border-radius:22px} .hero h1{margin-top:32px} }
+
+  /* ===== Agent 模式介绍 ===== */
+  #agent{padding-top:60px;padding-bottom:88px;scroll-margin-top:48px}   /* 跳转过来时标题别被悬浮导航挡住 */
+  #agent .buy-link{margin:16px 0 0;display:flex;justify-content:center}
+  #agent .buy-link a{display:inline-flex;align-items:center;gap:6px;font-size:18px;line-height:26px;color:var(--blue)}
+  #agent .buy-link img{width:14px;height:14px;transition:transform .2s}
+  #agent .buy-link a:hover img{transform:translateX(2px)}
+  /* 和 Hero 描述（.hero .sub）同一级：同色；桌面 19 / 18px（Figma 256:50070），手机上一起降到 16px */
+  #agent .sub2{font-size:18px;font-weight:400;color:rgba(0,0,0,.65);margin:16px auto 0;max-width:1000px}
+  #agent .media{margin:60px auto 0;max-width:800px;aspect-ratio:800/480;border-radius:16px;overflow:hidden;
+    background:linear-gradient(135deg,#EEF3FA,#E3EAF4);display:flex;align-items:center;justify-content:center}
+
+  /* ----- Agent 模式演示：纯代码动画（800×480 舞台，按容器宽度等比缩放）----- */
+  #agent .media.demo{display:block;position:relative;background:#1d2a3a}
+  .ad-stage{position:absolute;left:0;top:0;width:800px;height:480px;transform-origin:0 0;transform:scale(var(--s,1));
+    overflow:hidden;background:url('agent-wall.jpg') center/cover;font-family:var(--font);color:#000;user-select:none}
+  .ad-stage i,.ad-stage b{display:block;font-style:normal}
+  .ad-menubar{position:absolute;left:0;top:0;width:800px;height:34px;display:flex;align-items:center;padding:0 19px;gap:14px;
+    color:#fff;font-size:13px;font-weight:600;background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,.06));
+    text-shadow:0 0 1px rgba(0,0,0,.25)}
+  .ad-menubar svg{fill:#fff;display:block}
+  .ad-menubar .sp{flex:1}
+  .ad-menubar .ic{display:flex;gap:22px;align-items:center;margin-right:6px}
+  .ad-menubar .ic svg{width:20px;height:20px;fill:rgba(255,255,255,.85)}
+  .ad-menubar .ic .st{fill:none;stroke:rgba(255,255,255,.85);stroke-linecap:round}
+  .ad-menubar .ic svg path:not(.st){stroke:none}
+  .ad-menubar .ic svg path.st[stroke-linejoin]{fill:rgba(255,255,255,.85)}
+  .ad-menubar .time{font-weight:500;word-spacing:3px}
+
+  .ad-win{position:absolute;left:60px;top:58px;width:680px;height:386px;border-radius:16px;overflow:hidden;
+    background:rgba(250,250,250,.86);border:.5px solid rgba(0,0,0,.18);box-shadow:0 24px 56px -24px rgba(0,0,0,.35);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  .ad-win>*{transition:opacity .5s}
+  .ad-win.dim>*{opacity:.45}
+  .ad-lights{position:absolute;left:12px;top:12px;display:flex !important;gap:7.9px}
+  .ad-lights b{width:12.25px;height:12.25px;border-radius:50%;border:.44px solid rgba(0,0,0,.1)}
+  .ad-lights b:nth-child(1){background:#FF736A}.ad-lights b:nth-child(2){background:#FEBC2E}.ad-lights b:nth-child(3){background:#19C332}
+  .ad-side{position:absolute;left:16px;top:48px}
+  .ad-me{position:absolute;left:16px;top:346px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.1)}
+  .ad-mebar{position:absolute;left:48px;top:353px;width:80px;height:10px;border-radius:32px;background:rgba(0,0,0,.08)}
+  .ad-panel{position:absolute;left:160px;top:10px;right:10px;bottom:10px;border-radius:12px;overflow:hidden;
+    background:rgba(253,253,253,.9);border:.5px solid rgba(0,0,0,.12)}
+  .ad-panel .tt{position:absolute;left:26px;top:24px;margin:0;font:400 14px/20px -apple-system,BlinkMacSystemFont,var(--font);opacity:.6}
+  .ad-panel .bt{position:absolute;left:426px;top:22px;width:60px;height:24px;border-radius:6px;background:rgba(0,0,0,.1)}
+  .ad-cards{position:absolute;left:24px;top:60px;width:462px;display:flex;gap:12px}
+  .ad-cards>div{flex:1;height:62px;border-radius:12px;background:#fff;border:1px solid #E6E6E6;position:relative}
+  .ad-cards>div i{position:absolute;left:11px}
+  .ad-cards>div i:first-child{top:11px;width:50px;height:6px;border-radius:27px;background:rgba(0,0,0,.06)}
+  .ad-cards>div i:last-child{top:27px;width:83px;height:22px;border-radius:6px;background:rgba(0,0,0,.1)}
+  .ad-cards>div:last-child i:last-child{width:50px}
+  .ad-table{position:absolute;left:24px;top:138px}
+
+  /* 标注层（舞台坐标） */
+  .ad-hover,.ad-sel{position:absolute;border-radius:2px;pointer-events:none;opacity:0;transition:opacity .18s}
+  .ad-hover.glide{transition:opacity .18s,left .12s ease-out,top .12s ease-out,width .12s ease-out,height .12s ease-out}
+  .ad-hover{border:1.5px solid #006CFF;background:rgba(0,85,255,.04)}
+  .ad-sel{border:1px dashed #0066FF;background:rgba(0,102,255,.05)}
+  .ad-on{opacity:1 !important}
+  .ad-badge{position:absolute;width:18px;height:18px;border-radius:12px 12px 2px 12px;background:#0066FF;color:#fff;
+    font:600 12px/18px var(--font);text-align:center;opacity:0;transform:scale(.3);transform-origin:100% 100%;
+    transition:opacity .2s,transform .35s cubic-bezier(.3,1.6,.5,1)}
+  .ad-badge.ad-on{transform:none}
+  .ad-card{position:absolute;width:240px;height:40px;border-radius:10px;overflow:hidden;display:flex !important;align-items:center;
+    background:#F6FBFE;border:1px solid #A7CBFE;border-left-width:.5px;box-shadow:0 6px 16px rgba(0,60,150,.14);
+    opacity:0;transform:translateY(-4px) scale(.98);transform-origin:0 0;transition:opacity .2s,transform .25s cubic-bezier(.2,.8,.2,1)}
+  .ad-card.ad-on{transform:none}
+  .ad-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:#0066FF}
+  /* 文字从左到右柔和渐显（渐变遮罩平移），光标竖线跟在末尾一起出现 */
+  .ad-card .tw{display:flex;align-items:center;margin-left:14px;
+    -webkit-mask-image:linear-gradient(90deg,#000 40%,transparent 60%);mask-image:linear-gradient(90deg,#000 40%,transparent 60%);
+    -webkit-mask-size:250% 100%;mask-size:250% 100%;-webkit-mask-position:100% 0;mask-position:100% 0}
+  .ad-card .tw.show{-webkit-mask-position:0 0;mask-position:0 0;transition:-webkit-mask-position .75s cubic-bezier(.4,0,.2,1),mask-position .75s cubic-bezier(.4,0,.2,1)}
+  .ad-card .t{font-size:16px;line-height:20px;white-space:nowrap}
+  .ad-card .caret{width:1px;height:18px;background:#0066FF;margin-left:1px;animation:adBlink 1s steps(1) infinite}
+  .ad-card svg{position:absolute;right:12px;top:12px}
+  @keyframes adBlink{50%{opacity:0}}
+  .ad-cta{position:absolute;left:400px;top:415px;height:38px;padding:0 12px;border-radius:32px;display:flex !important;align-items:center;gap:6px;
+    color:#fff;font-size:13px;font-weight:600;white-space:nowrap;
+    background:radial-gradient(90% 100% at 50% 0,rgba(255,255,255,.3),rgba(255,255,255,0)),#0066FF;
+    box-shadow:0 6px 12px rgba(3,18,65,.2);opacity:0;transform:translate(-50%,10px);
+    transition:opacity .25s,transform .35s cubic-bezier(.2,.8,.2,1),filter .15s}
+  .ad-cta.ad-on{transform:translate(-50%,0)}
+  .ad-cta.hot{filter:brightness(1.1)}
+  .ad-cta.press{transform:translate(-50%,0) scale(.95)}
+  .ad-cta kbd{font:400 11px/18px "Inter",-apple-system,sans-serif;padding:0 4px;border-radius:6px;background:rgba(0,14,121,.2)}
+
+  /* 对话窗 */
+  .ad-chat{position:absolute;left:384px;top:83px;width:376px;height:373px;border-radius:12px;overflow:hidden;background:#fff;
+    border:1px solid #EFEFEF;box-shadow:0 5px 20px rgba(0,0,0,.25);opacity:0;transform:translateY(14px) scale(.97);
+    transform-origin:50% 100%;transition:opacity .3s,transform .45s cubic-bezier(.2,.8,.2,1)}
+  .ad-chat.ad-on{transform:none}
+  .ad-chat.out{opacity:0;transform:translateY(6px) scale(.985);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+  .ad-chat .hd{height:48px;display:flex;align-items:center;gap:8px;padding:0 13px;border-bottom:1px solid rgba(0,0,0,.08);
+    font-size:14px;font-weight:600}
+  .ad-chat .hd img{width:30px;height:30px;border-radius:50%}
+  .ad-chat .body{padding:14px 13px 0;display:flex;flex-direction:column;gap:20px}
+  .ad-msg{font-size:12px;line-height:22px;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .4s cubic-bezier(.2,.8,.2,1)}
+  .ad-msg.ad-on{transform:none}
+  .ad-msg .h{font-weight:600;line-height:20px}
+  .ad-msg .src{line-height:20px;margin-bottom:10px}
+  .ad-msg .src span{color:#037CFF}
+  .ad-msg .it{margin-top:10px}
+  .ad-msg .n{font-weight:500;font-family:-apple-system,BlinkMacSystemFont,var(--font)}
+  .ad-msg .no{font-family:var(--font)}
+  .ad-msg code{display:inline-block;height:16px;padding:0 3px;border-radius:5px;background:#F1F2F3;border:.5px solid #D2D4D5;
+    font:400 10px/15px "Fira Mono",ui-monospace,"SF Mono",Menlo,monospace;vertical-align:1px}
+  .ad-reply{display:flex !important;gap:8px;align-items:flex-start;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .4s cubic-bezier(.2,.8,.2,1)}
+  .ad-reply.ad-on{transform:none}
+  .ad-reply img{width:24px;height:24px;border-radius:50%}
+  .ad-reply .bb{height:32px;padding:0 8px;border-radius:8px;background:#EDEDED;font-size:12px;line-height:32px;white-space:nowrap}
+  .ad-reply .dots{display:flex;gap:3px;align-items:center;height:32px}
+  .ad-reply .dots i{width:5px;height:5px;border-radius:50%;background:#9A9A9A;animation:adDot 1s infinite}
+  .ad-reply .dots i:nth-child(2){animation-delay:.15s}.ad-reply .dots i:nth-child(3){animation-delay:.3s}
+  @keyframes adDot{0%,60%,100%{opacity:.35;transform:none}30%{opacity:1;transform:translateY(-2px)}}
+  .ad-input{position:absolute;left:11px;right:11px;bottom:11px;height:32px;border-radius:10px;border:1px solid rgba(0,0,0,.1);
+    display:flex;align-items:center;gap:4px;padding:0 6px;font-size:12px;color:rgba(0,0,0,.35);
+    box-shadow:0 1px 1px rgba(0,0,0,.02),0 2px 2.5px rgba(0,0,0,.02);transition:border-color .2s}
+  .ad-input.focus{border-color:rgba(0,102,255,.45)}
+  .ad-input .tx{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ad-input.filled .tx{color:#000}
+  .ad-input svg{flex:none}
+  .ad-input .send{width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.04);display:flex !important;align-items:center;justify-content:center;transition:background .2s,transform .12s}
+  .ad-input.filled .send{background:#0066FF}
+  .ad-input.filled .send path{fill:#fff;fill-opacity:1}
+  .ad-input .send.press{transform:scale(.85)}
+
+  /* 光标：tip 即热点 */
+  .ad-cursor{position:absolute;left:0;top:0;width:17px;height:25px;z-index:9;pointer-events:none;
+    transition:opacity .5s;will-change:transform}
+  .ad-cursor.gone{opacity:0}
+  .ad-cursor svg{display:block;transform-origin:2px 2px;transition:transform .1s}
+  .ad-cursor.down svg{transform:scale(.82)}
+  @media(max-width:760px){ .hero .sub,#agent .sub2,#agent .buy-link a{font-size:16px} #agent{padding-top:32px;padding-bottom:64px} #agent .media{margin-top:36px} }
 
   /* ===== 区块通用 ===== */
   section{padding:88px 0}
@@ -134,73 +287,111 @@
   .h2 b{font-weight:500}
   .center{text-align:center}
 
-  /* ===== 亮点区 ===== */
-  .feats{margin-top:56px;display:flex;flex-direction:column;gap:40px}
-  .feat{display:flex;align-items:center;gap:32px;padding:36px;border-radius:36px;background:#fff}
+  /* ===== 亮点区（Figma 238:48848）：通栏 #FAFAFA→白 渐变底；行与行 36、图文 32；没有卡片底 ===== */
+  #features{padding:60px 0;background:linear-gradient(180deg,#FAFAFA,#fff)}
+  .feats{margin-top:60px;display:flex;flex-direction:column;gap:36px}
+  .feat{display:flex;align-items:center;gap:32px}
   .feat.rev{flex-direction:row-reverse}
   /* 配图固定 632:400 比例，自适应缩放但比例不变 */
-  .feat .ph{flex:632 1 0;aspect-ratio:632/400;border-radius:24px;overflow:hidden;
+  .feat .ph{flex:632 1 0;aspect-ratio:632/400;border-radius:32px;overflow:hidden;
     background:linear-gradient(135deg,#EEF1F5,#E4E8EE);display:flex;align-items:center;justify-content:center}
   .feat .ph img,.feat .ph video{width:100%;height:100%;object-fit:cover;display:block}
   .feat .ph span{font-size:14px;color:#AEB4BD;letter-spacing:.05em}
-  .feat .txt{flex:544 1 0}
+  .feat .txt{flex:616 1 0;padding:0 24px 24px 32px}
   .feat h3{font-size:36px;font-weight:500;color:var(--black);letter-spacing:-.72px;margin:0 0 18px}
-  .feat p{font-size:18px;font-weight:400;color:var(--black);line-height:26px;margin:0;max-width:560px}
-  .feat p b{font-weight:600}
-  @media(max-width:820px){ .feat,.feat.rev{flex-direction:column} .feat .ph,.feat .txt{flex:none;width:100%} .feat h3{font-size:26px} }
+  .feat p{font-size:18px;font-weight:400;color:#5D5D5D;line-height:26px;margin:0;max-width:560px}
+  .feat p b{font-weight:500;color:var(--ink)}
+  @media(max-width:820px){ .feat,.feat.rev{flex-direction:column} .feat .ph,.feat .txt{flex:none;width:100%} .feat .txt{padding:0} .feat h3{font-size:26px} }
 
   /* ===== 深色对比块 ===== */
   .darkwrap{padding:0}
-  .dark{background:var(--dark);color:#fff;border-radius:0;padding:88px 0}
-  .dark .eyebrow{color:var(--peach)}
-  .dark .h2{color:#fff}
-  .cmp{margin-top:40px;display:flex;flex-direction:column;gap:16px}
-  .cmp .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--dark-row);border-radius:16px;padding:22px 26px}
-  .cmp .who{width:140px;flex:none;font-size:16px;color:#9A938B}
-  .cmp .who b{color:var(--peach);font-weight:600}
-  .cmp .step{font-size:15px;color:#C9C3BB;background:#2E2E2E;border-radius:10px;padding:9px 15px}
-  .cmp .row.us .step{background:var(--coral);color:#231A12;font-weight:600}
-  .cmp .arr{color:#5E5A55}
+  .dark{background:var(--dark);color:#fff;border-radius:0;padding:80px 0 90px}
+  /* 文字规格对齐 Figma 256:50297 */
+  .dark .eyebrow{color:#E6B892;margin-bottom:16px}
+  .dark .h2{color:#F2ECE0;line-height:1.3333;letter-spacing:-.0156em}   /* 48px 时行高 64、字距 -0.75px */
+  .dark .h2,#shortcuts .h2{font-weight:500}   /* 这两个标题整句 Medium（别的标题只有 <b> 那半句是）*/
+  /* 两行在同一张卡片里，中间 1px 分隔线 */
+  .cmp{margin-top:40px;display:flex;flex-direction:column;gap:1px;border-radius:16px;overflow:hidden}
+  .cmp .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--dark-row);padding:22px 26px}
+  .cmp .who{width:130px;flex:none;font-size:14px;line-height:23px;font-weight:600;color:#E6B892;letter-spacing:-.15px}
+  .cmp .who b{font-weight:600}
+  .cmp .step{font-size:14px;line-height:24px;color:#E6B892;border:1px solid rgba(230,184,146,.7);border-radius:9px;padding:9px 15px;letter-spacing:-.19px}
+  .cmp .row.us .step{border:0;background:#F4603A;color:#FDF6EE;font-weight:500;padding:9px 14px}
+  .cmp .arr{font-size:13px;color:#F2ECE0;opacity:.4}
   @media(max-width:760px){ .cmp .who{width:100%} }
 
   /* ===== 快捷键 ===== */
-  .keys{margin-top:44px;display:flex;flex-direction:column;gap:8px}
+  .keys{margin-top:40px;display:flex;flex-direction:column;gap:8px}
   .krow{display:flex;align-items:stretch;gap:8px}
-  .krow kbd{flex:none;width:144px;display:flex;align-items:center;justify-content:center;min-height:50px;
+  .krow kbd{flex:none;width:140px;display:flex;align-items:center;justify-content:center;min-height:48px;
     background:#F4F4F7;border-radius:12px;
-    font-family:"Inter",var(--font);font-size:20px;font-weight:500;color:var(--ink);letter-spacing:1.5px}
-  .krow .d{flex:1;display:flex;align-items:center;min-height:50px;padding:0 24px;
+    font-family:"Inter",var(--font);font-size:16px;font-weight:500;line-height:24px;color:var(--ink);letter-spacing:1.5px}
+  .krow .d{flex:1;display:flex;align-items:center;min-height:48px;padding:12px 16px;
     background:#F4F4F7;border-radius:12px;
-    font-size:20px;font-weight:400;color:var(--ink);letter-spacing:1.5px}
-  @media(max-width:600px){ .krow{gap:12px} .krow kbd{width:92px;font-size:16px} .krow .d{padding:0 16px;font-size:15px} }
+    font-size:16px;font-weight:400;line-height:24px;color:var(--ink);letter-spacing:1.5px}
+  .krow .d .mute{color:#727272}
+  @media(max-width:600px){ .krow kbd{width:84px;font-size:15px} .krow .d{font-size:15px;letter-spacing:.5px} }
 
-  /* ===== CTA 蓝色卡片 ===== */
-  .ctaband{padding:40px 0 96px}
-  .ctacard{position:relative;overflow:hidden;text-align:center;max-width:1000px;margin:0 auto;border-radius:32px;
-    padding:60px 24px 24px;display:flex;flex-direction:column;align-items:center;gap:32px;
-    background:url('cta-bg.png') center/cover no-repeat,linear-gradient(0deg,#8FBEE8 0%,#A8CFEF 42%,#DCEAF7 100%)}
-  .ctacard>*{position:relative;z-index:1}
-  .ctacard .logo{width:100px;height:100px;border-radius:22px;box-shadow:0 16px 34px rgba(220,110,50,.3)}
-  .ctacard .cta-txt{display:flex;flex-direction:column;align-items:center;gap:12px}
-  .ctacard h2{font-size:clamp(32px,3.9vw,50px);font-weight:400;color:#E6FFA1;letter-spacing:-1px;margin:0}
-  .ctacard .sub{font-size:18px;font-weight:400;color:var(--cta-sub);margin:0}
-  .ctacard .tips{width:100%;font-size:18px;line-height:26px;color:rgba(255,255,255,.75);text-align:left;
-    padding:24px;border-radius:20px;background:rgba(0,0,0,.1);border:1px solid rgba(255,255,255,.3);
-    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-  .ctacard .tips b{font-weight:600;color:#fff}
-  @media(max-width:760px){ .ctacard{padding:44px 16px 16px} .ctacard h2{font-size:30px} }
+  /* ===== 底部 CTA：浅灰渐变满幅 ===== */
+  .ctaband{padding:138px 0;background:linear-gradient(180deg,#F2F2F2,#fff);text-align:center}
+  .ctaband .ttl{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0 20px;margin:0;
+    font-size:clamp(30px,4vw,48px);font-weight:500;line-height:1.5;color:#000}
+  .ctaband .brand{display:inline-flex;align-items:center;gap:16px}
+  .ctaband .brand img{width:1.1667em;height:1.1667em;border-radius:.26em}
+  .ctaband .sub{margin:16px 0 32px;font-size:clamp(16px,1.6vw,20px);line-height:28px;color:rgba(0,0,0,.65)}
+  @media(max-width:760px){ .ctaband{padding:88px 0} .ctaband .brand{gap:10px} }
 
   /* ===== 关于 / 页脚 ===== */
-  .about{display:flex;gap:18px;align-items:center;padding:34px 0;border-top:1px solid var(--line)}
-  .about .logo{width:52px;height:52px;border-radius:14px;flex:none}
-  .about .hi{font-size:18px;font-weight:600;margin:0 0 4px}
-  .about p{margin:0;font-size:15px;color:#5A5A5A}
-  footer{padding:28px 0 60px;display:flex;gap:12px;flex-wrap:wrap;font-size:14px;color:#9A9A9A}
-  footer .sp{flex:1}
+  .foot{max-width:1140px;margin:0 auto;padding:0 32px 32px}
+  @media(max-width:760px){ .foot{padding:0 20px 24px} }
+  /* 左右两块各占一半；两块之间放不下 24px 间距时才换行（左块最少 = 内容宽，右块最少 = 4 列 × 最长项 + 3 × 24） */
+  .foot-in{display:flex;flex-wrap:wrap;gap:32px 24px;align-items:flex-start;padding:31px 0 30px;border-top:1px solid #ECECEC}
+  .foot-in>div{flex:1 1 0;min-width:max-content}
+  .foot-in>div:last-child{min-width:472px}
+  .me{display:flex;align-items:center;gap:16px}
+  .me .avatar{width:48px;height:48px;border-radius:50%;flex:none;object-fit:cover}
+  .me .hi{margin:0;font-size:18px;font-weight:500;line-height:28px;color:var(--ink)}
+  .me .role{margin:2px 0 0;font-size:14px;line-height:22px;color:rgba(26,26,26,.7)}
+  .social{display:flex;gap:10px;margin:12px 0 0 64px}
+  .social a{position:relative;display:block;width:24px;height:24px}
+  .social svg{position:absolute;inset:0;width:24px;height:24px}
+  .social .gray{fill:rgba(26,26,26,.32)}
+  .social .color{opacity:0;transition:opacity .2s}
+  .social a:hover .color,.social a:focus-visible .color{opacity:1}
+  .fcols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+
+  .fcol{display:flex;flex-direction:column;gap:10px}
+  .fcol h4{margin:0;font-size:12px;font-weight:500;line-height:20px;color:rgba(26,26,26,.5)}
+  .fcol ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:22px;color:var(--ink)}
+  .fcol li{white-space:nowrap}
+  .tip{position:relative;display:inline-flex;align-items:center;gap:4px;cursor:default}
+  .tip svg{width:14px;height:14px;display:block}
+  .tip .bub{position:absolute;left:calc(100% - 7px);top:calc(100% + 8px);transform:translate(-50%,-4px);z-index:5;
+    padding:6px 12px;border-radius:8px;background:#1F2329;color:#fff;font-size:12px;line-height:20px;white-space:nowrap;
+    box-shadow:0 8px 24px 8px rgba(31,35,41,.04),0 6px 12px rgba(31,35,41,.04),0 4px 8px -8px rgba(31,35,41,.06);
+    opacity:0;pointer-events:none;transition:opacity .15s,transform .15s}
+  .tip .bub::before{content:"";position:absolute;left:50%;top:-4px;width:8px;height:8px;background:#1F2329;transform:translateX(-50%) rotate(45deg);border-radius:1px}
+  .tip:hover .bub,.tip:focus .bub{opacity:1;transform:translate(-50%,0)}
+  .toast{position:fixed;left:50%;bottom:32px;z-index:80;transform:translate(-50%,12px);max-width:calc(100% - 32px);
+    padding:10px 16px;border-radius:12px;background:#1F2329;color:#fff;font-size:14px;line-height:22px;text-align:center;
+    box-shadow:0 8px 24px rgba(31,35,41,.18);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  .copy{margin-top:24px;font-size:14px;line-height:22px;color:rgba(26,26,26,.4);white-space:pre-wrap}
+  .copy .legal{display:flex;gap:16px;margin-top:8px}
+  .copy .legal a{color:inherit;transition:color .2s}
+  .copy .legal a:hover{color:var(--ink)}
+  @media(max-width:900px){
+    .tip .bub{left:auto;right:-6px;transform:translateY(-4px)}
+    .tip .bub::before{left:auto;right:9px;transform:rotate(45deg)}
+    .tip:hover .bub,.tip:focus .bub{transform:none}
+  }
+  @media(max-width:520px){ .foot-in>div:last-child{min-width:0;flex-basis:100%} .fcols{grid-template-columns:repeat(2,minmax(0,1fr))} }   /* 四列放不下才两列 */
 
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} .reveal{opacity:1;transform:none} }
+  /* 「购买」是第 4 个链接：手机上导航展开（带 logo + 下载）时放不下，先收起（首页 Agent 段落下还有入口） */
+  @media(max-width:520px){ .nav.revealed a.mini.buy{display:none} }
 </style>
 </head>
 <body>
@@ -215,12 +406,13 @@
       </a>
     </div>
     <div class="links">
-      <a class="mini" href="#features">亮点介绍</a>
+      <a class="mini" href="#agent">亮点介绍</a>
       <a class="mini" href="#shortcuts">快捷键</a>
-      <a class="mini" href="#about">关于产品</a>
+      <a class="mini" href="changelog.html">更新日志</a>
+      <a class="mini buy" href="buy.html">升级 Pro</a>
     </div>
     <div class="side right">
-      <a class="dl" href="Lassomark.dmg" download><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C61.5 141.2 8 184.8 8 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg> 下载 App</a>
+      <a class="dl" href="Lassomark.dmg" download aria-label="下载 Lassomark"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C61.5 141.2 8 184.8 8 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg><span class="full">下载 App</span><span class="short">下载</span></a>
     </div>
   </nav>
 </header>
@@ -229,17 +421,69 @@
 <section class="hero" id="top">
   <div class="wrap">
     <img class="logo" src="logo.png" alt="Lassomark">
-    <h1>画个圈，就标注</h1>
-    <p class="sub">在屏幕上随手圈一下，即刻进行标注。边录边标，录完即成片。</p>
+    <h1>画个圈，就标注<span class="ai"><span class="ren">人</span>和 AI 都能<span class="yong">用</span></span></h1>
+    <p class="sub">在屏幕上随手一圈，即刻进行标注。Agent 模式精准标注组件，一键复制 Prompt</p>
     <div class="cta">
       <a class="btn" href="Lassomark.dmg" download><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C61.5 141.2 8 184.8 8 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg> 下载 Lassomark</a>
-      <a class="btn ghost" href="#features">看看怎么用</a>
+      <a class="btn ghost" href="#agent">看看怎么用</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Agent 模式 ===== -->
+<section id="agent" class="wrap">
+  <div class="center reveal">
+    <div class="h2"><b>Agent 模式</b>，精准上线</div>
+    <p class="sub2">跨应用识别屏幕组件，将标注转为结构化上下文。一键复制到 AI 对话，让 AI 更清楚你的意图。</p>
+    <p class="buy-link"><a href="buy.html">升级 Pro 版本，永久使用<img src="icon-arrow-right.svg" width="14" height="14" alt=""></a></p>
+  </div>
+  <div class="media demo reveal" id="agentDemo" role="img" aria-label="Agent 模式演示：光标选中两个界面组件并写下修改要求，一键复制 Prompt 发给 AI，AI 回复“收到，马上改”">
+    <div class="ad-stage" aria-hidden="true">
+      <div class="ad-menubar"><svg viewBox="0 0 384 512" width="12" height="15"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C61.5 141.2 8 184.8 8 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg><span>Lassomark</span><span class="sp"></span>
+        <span class="ic">
+          <svg viewBox="0 0 20 20"><path fill-rule="evenodd" transform="translate(1.09 2.85)" d="M8.29645 0.0784364C13.2446 -0.467196 17.5647 1.89194 17.9459 5.34797L17.9693 5.67121C18.0643 8.21686 15.9719 10.6024 12.8423 11.8236C12.8136 12.0591 12.7677 12.2606 12.7193 12.431C12.635 12.7277 12.5991 12.8085 12.5845 12.9173C12.5762 12.9806 12.579 13.0387 12.5875 13.0862C12.5917 13.1096 12.5973 13.1293 12.6021 13.1439C12.6062 13.1562 12.6099 13.1653 12.6099 13.1653L12.6509 13.222C12.7668 13.3606 12.9842 13.4687 13.3414 13.4808C13.7372 13.494 14.1799 13.376 14.5093 13.1878C14.5498 13.1588 14.5971 13.1218 14.69 13.0267C14.9489 12.7615 15.374 12.7562 15.6392 13.015C15.904 13.2739 15.9096 13.6991 15.6509 13.9642C15.4977 14.1212 15.3857 14.2176 15.2496 14.3109C15.2369 14.3195 15.2237 14.3275 15.2105 14.3353C14.6658 14.6556 13.9609 14.845 13.2955 14.8226C12.6348 14.8002 11.8782 14.5554 11.4556 13.8509C11.4422 13.8285 11.4296 13.805 11.4175 13.7816C11.2877 13.5302 11.1981 13.1553 11.2535 12.7396C11.2726 12.5963 11.3173 12.4335 11.359 12.2943C10.8182 12.4282 10.2558 12.5302 9.67633 12.5941L9.21442 12.6361C4.61562 12.9789 0.66007 10.8187 0.0747711 7.64484L0.0269195 7.32355C-0.353801 3.86766 3.34856 0.624097 8.29645 0.0784364ZM14.191 2.38996C12.7143 1.58351 10.6783 1.16514 8.44391 1.41144C6.20939 1.65787 4.31299 2.51054 3.04743 3.61945C1.77811 4.73184 1.23169 6.0053 1.3609 7.17707C1.49022 8.34873 2.30072 9.47254 3.7818 10.2816C5.02978 10.9631 6.6774 11.3645 8.50641 11.3245C8.50471 11.2452 8.51633 11.1644 8.5445 11.0853C8.57425 11.0019 8.62606 10.9108 8.64606 10.8753C8.67856 10.8177 8.71827 10.7499 8.75934 10.682C8.84191 10.5453 8.93818 10.3917 9.00934 10.2816C9.24215 9.92124 9.5793 9.66431 10.2173 9.35383C11.117 8.91612 11.8591 9.305 12.2632 9.56867C12.5913 9.78287 12.7361 10.0982 12.8033 10.3851C13.6251 10.0177 14.3425 9.56373 14.9254 9.05305C16.1949 7.94068 16.7409 6.66723 16.6119 5.49543C16.4827 4.32356 15.6724 3.19907 14.191 2.38996ZM11.1451 10.5111C11.0519 10.4912 10.9464 10.4917 10.8043 10.5609C10.2537 10.8288 10.1748 10.9519 10.1373 11.0101C10.1038 11.062 10.0637 11.1258 10.022 11.1927C10.5428 11.1129 11.0433 11.0017 11.5191 10.8607C11.515 10.8083 11.5107 10.7629 11.5035 10.723C11.4989 10.6975 11.4924 10.6795 11.4888 10.6673C11.3569 10.5846 11.2463 10.5328 11.1451 10.5111Z"/></svg>
+          <svg viewBox="0 0 20 20"><path class="st" stroke-width="2.4" d="M6.04 12.24a5.6 5.6 0 0 1 7.92 0M3.21 9.41a9.6 9.6 0 0 1 13.58 0"/><path d="M10 16.4 7.88 14.28a3 3 0 0 1 4.24 0Z" stroke-linejoin="round" class="st" stroke-width="1"/></svg>
+          <svg viewBox="0 0 20 20"><circle class="st" cx="8.5" cy="8.5" r="5" stroke-width="1.9"/><path class="st" stroke-width="2.1" d="M12.3 12.3l4 4"/></svg>
+          <svg viewBox="0 0 20 20"><rect class="st" x="2.75" y="3.25" width="14.5" height="6.5" rx="3.25" stroke-width="1.5"/><circle cx="6" cy="6.5" r="1.7"/><path fill-rule="evenodd" d="M5.5 10.5h9a3.5 3.5 0 0 1 0 7h-9a3.5 3.5 0 0 1 0-7Zm9 1.7a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 1 0 0-3.6Z"/></svg>
+        </span><span class="time">Mon Jun 10 9:41 AM</span></div>
+      <div class="ad-win" id="adWin">
+        <i class="ad-lights"><b></b><b></b><b></b></i>
+        <svg class="ad-side" width="128" height="173" viewBox="0 0 128 173" fill="none"><g fill="#000"><g fill-opacity=".08"><rect x="26" y="5" width="80" height="8" rx="4"/><rect x="26" y="31" width="60" height="8" rx="4"/><rect x="26" y="57" width="80" height="8" rx="4"/><rect x="26" y="83" width="60" height="8" rx="4"/><rect x="26" y="134" width="80" height="8" rx="4"/><rect x="26" y="160" width="60" height="8" rx="4"/></g><path d="M0 112H128V113H0Z" fill-opacity=".05"/><g fill-opacity=".1"><rect width="18" height="18" rx="6"/><rect y="26" width="18" height="18" rx="6"/><rect y="52" width="18" height="18" rx="6"/><rect y="78" width="18" height="18" rx="6"/><rect y="129" width="18" height="18" rx="6"/><rect y="155" width="18" height="18" rx="6"/></g></g></svg>
+        <i class="ad-me"></i><i class="ad-mebar"></i>
+        <div class="ad-panel">
+          <p class="tt">My dashboard</p><i class="bt"></i>
+          <div class="ad-cards"><div><i></i><i></i></div><div><i></i><i></i></div><div><i></i><i></i></div></div>
+          <svg class="ad-table" width="462" height="274" viewBox="0 0 462 274" fill="none"><rect x=".5" y=".5" width="461" height="273" rx="11.5" fill="#fff" stroke="#E6E6E6"/><g fill="#000" fill-opacity=".06"><path d="M0 30H462V31H0Z"/><path d="M0 67H462V68H0Z"/><path d="M0 110H462V111H0Z"/><path d="M0 150H462V151H0Z"/><path d="M0 193H462V194H0Z"/></g><g fill="#000" fill-opacity=".12"><rect x="16" y="12" width="50" height="6" rx="3"/><rect x="90" y="12" width="50" height="6" rx="3"/><rect x="188" y="12" width="50" height="6" rx="3"/></g><g fill="#000" fill-opacity=".08"><rect x="16" y="45" width="40" height="8" rx="4"/><rect x="16" y="85" width="40" height="8" rx="4"/><rect x="16" y="128" width="40" height="8" rx="4"/><rect x="16" y="168" width="40" height="8" rx="4"/><rect x="16" y="211" width="40" height="8" rx="4"/><rect x="90" y="45" width="61" height="8" rx="4"/><rect x="90" y="85" width="61" height="8" rx="4"/><rect x="90" y="128" width="61" height="8" rx="4"/><rect x="90" y="168" width="50" height="8" rx="4"/><rect x="90" y="211" width="50" height="8" rx="4"/><rect x="188" y="42" width="120" height="14" rx="7"/><rect x="188" y="82" width="120" height="14" rx="7"/><rect x="188" y="125" width="90" height="14" rx="7"/><rect x="188" y="165" width="90" height="14" rx="7"/><rect x="188" y="208" width="90" height="14" rx="7"/></g></svg>
+        </div>
+      </div>
+      <i class="ad-hover" id="adHover"></i>
+      <i class="ad-sel" id="adSel1" style="left:98.5px;top:107.5px;width:87px;height:15px"></i>
+      <i class="ad-sel" id="adSel2" style="left:240px;top:124px;width:154px;height:70px"></i>
+      <b class="ad-badge" id="adB1" style="left:81px;top:85px">1</b>
+      <b class="ad-badge" id="adB2" style="left:222px;top:102px">2</b>
+      <div class="ad-card" id="adCard"><span class="tw"><span class="t"></span><i class="caret"></i></span><svg width="14" height="14" viewBox="0 0 14 14" opacity=".5"><path d="M11.45 2.55a.7.7 0 0 1 0 .99L7.99 7l3.46 3.45a.7.7 0 1 1-.99.99L7 7.99l-3.46 3.46a.7.7 0 0 1-.99-.99L6.01 7 2.56 3.54a.7.7 0 0 1 .99-.99L7 6.01l3.46-3.46a.7.7 0 0 1 .99 0z" fill="#036DFF"/></svg></div>
+      <div class="ad-cta" id="adCta"><svg class="cp" width="16" height="15.4" viewBox="0 0 16 15.38"><path fill="#fff" d="M12.39 0c.95.02 1.53.08 2 .32.56.28 1 .73 1.29 1.28.32.63.32 1.46.32 3.1v2.75l-.01 1.09c-.01.96-.07 1.54-.31 2.01l-.11.2c-.29.46-.69.84-1.18 1.08l-.12.06c-.45.19-1.01.25-1.89.26h-.25c-.02.74-.1 1.22-.3 1.63l-.12.2c-.28.46-.68.84-1.17 1.08l-.12.06c-.45.19-1.01.25-1.89.26l-1.09.01H4.7l-1.09-.01c-.88-.01-1.44-.07-1.89-.26l-.12-.06a2.9 2.9 0 0 1-1.17-1.08l-.11-.2C.08 13.31.02 12.73.01 11.77L0 10.68V7.93c0-1.64 0-2.47.32-3.1.28-.55.73-1 1.29-1.28.47-.24 1.05-.3 2-.32l1.09-.01h-.84c.03-.74.1-1.22.31-1.63.28-.55.73-1 1.28-1.28C5.92.08 6.5.02 7.46 0L8.55 0h2.75l1.09 0zM4.7 4.7c-.85 0-1.39 0-1.81.04-.4.03-.55.09-.62.12-.28.14-.5.37-.64.64-.04.07-.09.22-.13.62-.03.42-.03.96-.03 1.81v2.75c0 .85 0 1.39.03 1.81.04.4.09.55.13.62.14.28.36.5.64.64.07.04.22.09.62.12.42.04.96.04 1.81.04h2.75c.85 0 1.4 0 1.81-.04.4-.03.55-.08.62-.12.28-.14.5-.36.64-.64.04-.07.09-.22.13-.62.03-.42.03-.96.03-1.81V7.93c0-.85 0-1.39-.03-1.81-.04-.4-.09-.55-.13-.62a1.47 1.47 0 0 0-.64-.64c-.07-.04-.22-.09-.62-.12-.42-.04-.96-.04-1.81-.04H4.7zm7.46 5.98c.39 0 .7-.01.95-.03.4-.03.55-.09.62-.12.28-.14.5-.37.64-.64.04-.07.09-.22.13-.62.03-.42.03-.96.03-1.81V4.7c0-.85 0-1.39-.03-1.81-.04-.4-.09-.55-.13-.62a1.47 1.47 0 0 0-.64-.64c-.07-.04-.22-.09-.62-.12-.42-.04-.96-.04-1.81-.04H8.55c-.85 0-1.4 0-1.81.04-.4.03-.55.08-.62.12-.28.14-.5.36-.64.64-.04.07-.09.22-.13.62l-.02.34h2.12l1.09.01c.96.01 1.54.07 2.01.31.55.28 1 .73 1.28 1.28.32.63.32 1.46.32 3.1v2.75z"/></svg><span class="lbl">复制 Prompt</span><kbd>⇧⌘C</kbd></div>
+      <div class="ad-chat" id="adChat">
+        <div class="hd"><img src="agent-avatar.png" alt="">饼饼的 AI 助理</div>
+        <div class="body">
+          <div class="ad-msg" id="adMsg">
+            <div class="h">UI 标注反馈</div>
+            <div class="src">来源：<span>lassomark.com</span></div>
+            <div class="it"><span class="n"><span class="no">①</span> Group .feed_filter_list_item</span><br>路径：<code>Group .feed_filter_list_item</code> ← <code>Group .list_item</code><br>要求：文字颜色深一些</div>
+            <div class="it"><span class="n"><span class="no">②</span> Content_dashboard_card</span><br>路径：<code>Content_dashboard_card</code> ← <code>Content_dashboard</code><br>要求：换个更真实的数据</div>
+          </div>
+          <div class="ad-reply" id="adReply"><img src="agent-avatar.png" alt=""><div class="bb" id="adBubble"></div></div>
+        </div>
+        <div class="ad-input" id="adInput"><svg width="12" height="12" viewBox="0 0 12 12"><path fill="#000" d="M4.56 7.92a.62.62 0 0 0 .88 0l3.35-3.35a1.52 1.52 0 0 0 0-2.16l-.02-.02a1.52 1.52 0 0 0-2.16 0L3.12 5.9a2.44 2.44 0 0 0 3.44 3.44l3.19-3.18a.5.5 0 0 1 .71.71L7.27 10.05a3.44 3.44 0 0 1-4.86-4.86L5.91 1.68a2.52 2.52 0 0 1 3.57 0l.02.02a2.52 2.52 0 0 1 0 3.57L6.15 8.62a1.62 1.62 0 0 1-2.3.01 1.62 1.62 0 0 1 0-2.3l2.52-2.52a.5.5 0 0 1 .71.71L4.56 7.04a.62.62 0 0 0 0 .88z"/></svg><span class="tx" id="adInputTx">请输入</span><svg width="12" height="12" viewBox="0 0 12 12"><path fill="#000" d="M10 4.5a.5.5 0 0 1 .5.5v.25a4.5 4.5 0 0 1-4 4.47V11a.5.5 0 0 1-1 0V9.72a4.5 4.5 0 0 1-4-4.47V5a.5.5 0 0 1 1 0v.25a3.5 3.5 0 0 0 7 0V5a.5.5 0 0 1 .5-.5zM6 .5A2.5 2.5 0 0 1 8.5 3v2.25a2.5 2.5 0 0 1-5 0V3A2.5 2.5 0 0 1 6 .5zm0 1A1.5 1.5 0 0 0 4.5 3v2.25a1.5 1.5 0 0 0 3 0V3A1.5 1.5 0 0 0 6 1.5z"/></svg><span class="send" id="adSend"><svg width="12" height="12" viewBox="0 0 12 12"><path fill="#000" fill-opacity=".2" d="M5.31 10.19V3.35L2.74 5.92a.69.69 0 0 1-.97-.97l3.75-3.75a.69.69 0 0 1 .97 0l3.75 3.75a.69.69 0 0 1-.97.97L6.69 3.35v6.84a.69.69 0 0 1-1.38 0z"/></svg></span></div>
+      </div>
+      <div class="ad-cursor" id="adCursor"><svg width="17" height="25" viewBox="0 0 17 25"><path d="M2 2v18.5l4.6-4.4 3 6.9 3.1-1.3-3-6.8h6.4z" fill="#000" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
     </div>
   </div>
 </section>
 
 <!-- ===== 亮点 ===== -->
-<section id="features" class="wrap">
+<section id="features">
+ <div class="wrap">
   <div class="center reveal">
     <div class="h2"><b>超快，</b>上手就停不下来</div>
   </div>
@@ -255,7 +499,7 @@
       <div class="ph"><video src="feature-2.mp4" autoplay loop muted playsinline preload="auto"></video></div>
       <div class="txt">
         <h3>边录边标，标完即成片</h3>
-        <p>先开启录制，随后在画面上标注，标完即成片也就好了，不用再拖进编辑器加箭头字幕、来回渲染导出——<b>省掉二次剪辑</b>。</p>
+        <p>先开启录制，随后在画面上标注，标完那一刻成片也就好了，不用再拖进编辑器加箭头字幕、来回渲染导出——<b>省掉二次剪辑</b>。</p>
       </div>
     </div>
     <div class="feat reveal">
@@ -266,6 +510,7 @@
       </div>
     </div>
   </div>
+ </div>
 </section>
 
 <!-- ===== 深色对比块 ===== -->
@@ -276,7 +521,7 @@
       <div class="h2">写句话要点一路？<br>Lassomark 画个圈就输入</div>
       <div class="cmp">
         <div class="row them">
-          <div class="who">常见截图工具</div>
+          <div class="who">常见标注工具</div>
           <span class="step">触发截图</span><span class="arr">→</span>
           <span class="step">拖选区域</span><span class="arr">→</span>
           <span class="step">选文字工具</span><span class="arr">→</span>
@@ -302,8 +547,9 @@
     <div class="h2">手不离开键盘</div>
   </div>
   <div class="keys">
-    <div class="krow reveal"><kbd>⇧⌘E</kbd><div class="d">开启/关闭标注模式。关闭后仍可使用 2x 光标、拖尾效果</div></div>
-    <div class="krow reveal"><kbd>⇧⌘1</kbd><div class="d">整屏录制 开始/停止。</div></div>
+    <div class="krow reveal"><kbd>⇧⌘E</kbd><div class="d"><span>开启/关闭标注模式。<span class="mute">关闭后仍可使用 2x 光标、拖尾效果</span></span></div></div>
+    <div class="krow reveal"><kbd>⇧⌘C</kbd><div class="d">开启 Agent 模式（需开启标注模式）</div></div>
+    <div class="krow reveal"><kbd>⇧⌘1</kbd><div class="d">整屏录制 开始/停止</div></div>
     <div class="krow reveal"><kbd>⇧⌘2</kbd><div class="d">选区录制 开始/停止。按下开始拖动选区，松手即开录。</div></div>
     <div class="krow reveal"><kbd>⇧⌘S</kbd><div class="d">全屏快照到剪贴板</div></div>
     <div class="krow reveal"><kbd>⇧⌘D</kbd><div class="d">选区快照到剪贴板</div></div>
@@ -311,33 +557,42 @@
 </section>
 
 <!-- ===== CTA ===== -->
-<section class="ctaband wrap">
-  <div class="ctacard reveal">
-    <img class="logo" src="logo.png" alt="Lassomark">
-    <div class="cta-txt">
-      <h2>开始使用 Lassomark</h2>
-      <p class="sub">告别繁杂流程，享受自然交互，做真实的自己</p>
-    </div>
+<section class="ctaband">
+  <div class="wrap reveal">
+    <h2 class="ttl"><span>现在，开始使用</span><span class="brand"><img src="logo.png" alt="">Lassomark</span></h2>
+    <p class="sub">告别繁杂流程，享受自然交互，做真正的自己</p>
     <a class="btn" href="Lassomark.dmg" download><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C61.5 141.2 8 184.8 8 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg> 下载 Lassomark</a>
-    <div class="tips"><b>💡 Tips：</b>若安装时提示错误，不要移至废纸篓。可前往 <b>系统设置 › 隐私与安全性</b>，向下找到关于 Lassomark 的提示点 <b>「仍要打开」</b>即可（当前版本暂未做苹果公证）。安装后即可正常使用和接收更新。</div>
   </div>
 </section>
 
 <!-- ===== 关于 + 页脚 ===== -->
-<div class="wrap" id="about">
-  <div class="about reveal">
-    <img class="logo" src="logo.png" alt="Lassomark">
+<footer class="foot" id="about">
+  <div class="foot-in reveal">
     <div>
-      <p class="hi">关于 Lassomark</p>
-      <p>自用小工具，后面会继续优化。平时也做点小设计，欢迎闲聊。📕&nbsp;@饼饼時光</p>
+      <div class="me">
+        <img class="avatar" src="author.jpg" alt="饼饼">
+        <div><p class="hi">饼饼</p><p class="role">一个对学习充满热情的设计师。</p></div>
+      </div>
+      <div class="social">
+        <a href="https://www.xiaohongshu.com/user/profile/58c4a38982ec391b9932a7d0" target="_blank" rel="noopener" aria-label="小红书 @饼饼時光" title="小红书 @饼饼時光">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path class="gray" d="M12 0a12 12 0 1 0 0 24A12 12 0 0 0 12 0Z"/><path fill="#FF0035" class="color" d="M12 0a12 12 0 1 0 0 24A12 12 0 0 0 12 0Z"/><path fill="#fff" d="M15.2665 9.11576C15.3518 9.11576 15.3962 9.11576 15.3962 9.24717V10.3343C15.3962 10.4197 15.3535 10.464 15.2665 10.464H14.6572C14.5275 10.464 14.4831 10.5067 14.4831 10.6381V14.4184C14.4831 14.5054 14.5275 14.5498 14.6145 14.5498H15.7017C15.8314 14.5498 15.8741 14.5925 15.8741 14.7239V15.7649C15.8741 15.8963 15.8314 15.9407 15.7017 15.9407C15.0054 15.8963 14.2681 15.8963 13.5274 15.8963H11.3104C11.1807 15.8963 11.1381 15.8963 11.2251 15.7666C11.3975 15.4185 11.5715 15.0277 11.7883 14.6795C11.8327 14.5942 11.8753 14.5498 12.0067 14.5498H13.0939C13.1963 14.5498 13.2185 14.5225 13.2219 14.444V10.5937C13.2219 10.464 13.1792 10.4214 13.0512 10.464H12.4419C12.3105 10.464 12.2679 10.4214 12.2679 10.3343V9.28984C12.2679 9.16013 12.3105 9.11747 12.4419 9.11747H15.2665V9.11576ZM9.18221 14.4645C9.486 14.5942 9.83416 14.5498 10.1806 14.5498H11.051C11.1363 14.5498 11.1807 14.5942 11.1363 14.6812C10.9196 15.0737 10.7455 15.4646 10.5288 15.8554C10.4861 15.9407 10.4434 15.9407 10.3547 15.9407C10.1379 15.8981 9.87683 15.8981 9.52867 15.8981C9.26925 15.8981 8.87672 15.9424 8.57293 15.8554C8.44323 15.811 8.39885 15.7683 8.4876 15.6813C8.70264 15.2888 8.87672 14.9423 9.0508 14.5515C9.09517 14.5071 9.09517 14.4201 9.18221 14.4645ZM18.3948 8.72664C18.4818 8.72664 18.5262 8.77101 18.5262 8.85805C18.5262 9.16184 18.5262 9.16184 18.83 9.16184C19.2225 9.16184 19.569 9.24888 19.8728 9.42296C20.308 9.68408 20.4821 10.1176 20.4821 10.5954V11.4658C20.4821 11.5955 20.5247 11.6399 20.6561 11.6399C21.134 11.6399 21.5248 11.7696 21.8286 12.1605C21.9983 12.3863 22.09 12.6613 22.0897 12.9438V14.6795C22.0897 15.3314 21.6972 15.8093 21.047 15.8963C20.7721 15.9474 20.4891 15.9328 20.2209 15.8537C20.0052 15.7849 19.8153 15.6526 19.6758 15.4742C19.5364 15.2958 19.454 15.0795 19.4393 14.8536C19.4393 14.7239 19.4819 14.7682 19.569 14.7682H20.6561C20.7858 14.7682 20.8302 14.7239 20.8302 14.5925V13.4626C20.8302 13.1589 20.6561 12.9848 20.3523 12.9848H18.7003C18.6133 12.9848 18.5689 13.0291 18.5689 13.1145C18.6133 13.5497 18.6133 13.9849 18.6133 14.4627V15.7666C18.6133 15.8963 18.5689 15.9407 18.4392 15.9407H17.3964C17.265 15.9407 17.2223 15.8963 17.2223 15.7666V13.1589C17.2223 13.0291 17.1779 12.9848 17.0482 12.9848H16.0481C15.9184 12.9848 15.8741 12.9848 15.8741 12.8551V11.7679C15.8741 11.6382 15.9184 11.6382 16.0481 11.6382H17.0909C17.2223 11.6382 17.265 11.5938 17.2223 11.4641V10.6381C17.2223 10.5067 17.1779 10.5067 17.0482 10.5067H16.439C16.3536 10.5067 16.3093 10.5067 16.3093 10.377V9.28984C16.3093 9.20451 16.3536 9.16013 16.439 9.16013H17.0482C17.1336 9.16013 17.1779 9.11747 17.1779 9.03043C17.1779 8.76419 17.1779 8.73005 17.4118 8.72664H18.3948ZM5.66136 8.59693C5.79107 8.59693 5.83544 8.6396 5.83544 8.77101C5.80131 9.58509 5.79448 10.3514 5.79277 11.087V14.6795C5.7963 14.909 5.7354 15.1348 5.61699 15.3314C5.40024 15.7666 5.00941 15.8963 4.53155 15.8537C4.31985 15.846 4.11636 15.7698 3.9517 15.6366C3.78704 15.5033 3.6701 15.3201 3.61848 15.1147C3.48707 14.6795 3.48707 14.7222 3.92227 14.6795C4.09635 14.6795 4.3148 14.7665 4.44451 14.6368C4.52984 14.5498 4.48717 14.333 4.48717 14.159V8.76931C4.48717 8.63789 4.53155 8.59523 4.66125 8.59523H5.66136V8.59693ZM3.48707 10.5937C3.40173 11.5495 3.35736 12.5052 3.22765 13.4626C3.14549 14.0917 2.906 14.6898 2.53133 15.2017C2.57571 15.2017 2.53133 15.2444 2.53133 15.2871C2.27021 14.8092 2.05347 14.3313 1.79235 13.8535C1.74968 13.8108 1.74968 13.7681 1.79235 13.7238C1.96643 13.3312 1.96643 12.9421 1.96643 12.5069L2.09784 10.5954C2.09784 10.5067 2.14051 10.464 2.22755 10.464H3.35736C3.4444 10.464 3.48707 10.464 3.48707 10.5937ZM7.92099 10.464C8.05069 10.464 8.05069 10.5067 8.09507 10.6381C8.13773 11.5085 8.22477 12.3772 8.31181 13.2459C8.31181 13.3312 8.31181 13.4626 8.35619 13.5497C8.44152 13.7238 8.39885 13.8978 8.31181 14.0719C8.13773 14.4184 7.96536 14.8109 7.79128 15.1574C7.74691 15.2888 7.70424 15.2888 7.6172 15.1574C7.31341 14.6795 7.13933 14.2016 7.00792 13.6384C6.87992 13.1128 6.87992 12.5479 6.83384 12.0273C6.79117 11.5495 6.74851 11.1143 6.70413 10.6364C6.70413 10.505 6.70413 10.4623 6.87821 10.4623C7.05229 10.505 7.22637 10.4623 7.39875 10.4623H7.92099V10.464ZM11.3104 8.72493C11.4418 8.72493 11.4418 8.76931 11.3975 8.85635L10.6158 10.4214C10.5731 10.464 10.5731 10.5067 10.5288 10.5937C10.4861 10.6808 10.5288 10.7251 10.6158 10.7678C10.7011 10.8122 10.7011 10.7251 10.7455 10.6825C10.7899 10.5937 10.8326 10.5511 10.964 10.5511H12.005C12.1365 10.5511 12.1365 10.5937 12.0938 10.6808C11.7456 11.3327 11.4418 12.029 11.0937 12.681C10.964 12.9421 11.0083 13.0291 11.3104 13.0291C11.3975 12.9848 11.5715 12.9848 11.7456 12.9848C11.5715 13.2886 11.4418 13.5941 11.3104 13.8978C11.2251 14.1146 11.0937 14.159 10.9196 14.159H9.9212C9.83416 14.159 9.74712 14.159 9.66008 14.1146C9.35459 14.0293 9.26755 13.8108 9.35459 13.507C9.52867 13.0291 9.78979 12.5939 10.0065 12.1161C10.0509 12.029 10.0936 11.9847 10.1379 11.855H9.26755C8.92109 11.7679 8.78968 11.5512 8.92109 11.203C9.0508 10.8105 9.26925 10.4214 9.44163 10.0732C9.66008 9.68067 9.83416 9.24717 10.0509 8.85635C10.0936 8.76931 10.1362 8.72493 10.2677 8.72493H11.3104ZM18.7003 10.464C18.6133 10.464 18.5689 10.5067 18.5689 10.5937V11.5068C18.5689 11.5938 18.6133 11.6382 18.7003 11.6382H19.1782C19.2635 11.6382 19.3079 11.5938 19.3079 11.5068V10.79C19.3027 10.464 19.243 10.464 18.7003 10.464ZM21.6545 9.11576C21.96 9.16013 22.2194 9.46392 22.2194 9.81208C22.2194 10.1602 21.96 10.4214 21.6119 10.464H21.2637C20.8302 10.464 20.8302 10.464 20.8302 10.0288C20.8302 9.89912 20.8302 9.72504 20.8729 9.59533C20.9599 9.24717 21.2654 9.07309 21.6545 9.11747V9.11576Z"/></svg>
+        </a>
+        <a href="mailto:bingbingmoment@qq.com" id="mailBtn" aria-label="发邮件给饼饼" title="bingbingmoment@qq.com">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="mailGrad" x1="0" y1="12" x2="24" y2="12" gradientUnits="userSpaceOnUse"><stop stop-color="#FF9D4C"/><stop offset="1" stop-color="#FF811A"/></linearGradient></defs><path class="gray" d="M12 0a12 12 0 1 0 0 24A12 12 0 0 0 12 0Z"/><path fill="url(#mailGrad)" class="color" d="M12 0a12 12 0 1 0 0 24A12 12 0 0 0 12 0Z"/><path fill="#fff" d="M14.6831 6.75C15.9899 6.75 16.6438 6.74975 17.1429 7.00407C17.5819 7.22776 17.9389 7.5848 18.1626 8.02376C18.4169 8.52289 18.4167 9.17677 18.4167 10.4836V13.5164C18.4167 14.8232 18.4169 15.4771 18.1626 15.9762L18.0726 16.1369C17.8484 16.5023 17.527 16.8002 17.1429 16.9959L17.0472 17.0404C16.5594 17.25 15.9083 17.25 14.6831 17.25H9.3169L8.45101 17.246C7.75585 17.2351 7.31052 17.194 6.9528 17.0404L6.8571 16.9959C6.47299 16.8002 6.15158 16.5023 5.92741 16.1369L5.8374 15.9762C5.58308 15.4771 5.58333 14.8232 5.58333 13.5164V10.4836C5.58333 9.17677 5.58308 8.52289 5.8374 8.02376C6.06109 7.5848 6.41813 7.22776 6.8571 7.00407C7.2314 6.81335 7.69271 6.76592 8.45101 6.75399L9.3169 6.75H14.6831ZM13.2174 13.0408C12.4433 13.3793 11.556 13.3794 10.7821 13.0408L7.99414 15.8287C8.30165 15.848 8.70623 15.8498 9.3169 15.8498H14.6831C15.2934 15.8498 15.6979 15.8479 16.0053 15.8287L13.2174 13.0408ZM6.99951 9.24056C6.98462 9.53787 6.98356 9.92431 6.98356 10.4836V13.5164C6.98356 14.1267 6.98483 14.5312 7.00407 14.8386L9.65356 12.1891L6.99951 9.24056ZM14.3459 12.1891L16.9954 14.8386C17.0146 14.5312 17.0164 14.1267 17.0164 13.5164V10.4836C17.0164 9.92429 17.0148 9.53787 16.9999 9.24056L14.3459 12.1891ZM9.3169 8.15023C8.65875 8.15023 8.23992 8.15127 7.92407 8.17529L10.7861 11.3546C11.4349 12.0755 12.5651 12.0755 13.2139 11.3546L16.0754 8.17529C15.7596 8.15131 15.3409 8.15023 14.6831 8.15023H9.3169Z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="fcols">
+        <div class="fcol"><h4>截图</h4><ul><li>画圈标注</li><li>整屏截图</li><li>选区截图</li></ul></div>
+        <div class="fcol"><h4>Agent 模式</h4><ul><li>识别屏幕</li><li><span class="tip" tabindex="0">复制 Prompt<svg viewBox="0 0 14 14" aria-hidden="true"><path fill="#000" fill-opacity=".4" d="M7 0.291667C10.7049 0.291667 13.7083 3.29509 13.7083 7C13.7083 10.7049 10.7049 13.7083 7 13.7083C3.29509 13.7083 0.291667 10.7049 0.291667 7C0.291667 3.29509 3.29509 0.291667 7 0.291667ZM7 1.45833C3.93942 1.45833 1.45833 3.93942 1.45833 7C1.45833 10.0606 3.93942 12.5417 7 12.5417C10.0606 12.5417 12.5417 10.0606 12.5417 7C12.5417 3.93942 10.0606 1.45833 7 1.45833ZM7 5.54167C7.32217 5.54167 7.58333 5.80283 7.58333 6.125V9.33333H8.16667C8.48883 9.33333 8.75 9.5945 8.75 9.91667C8.75 10.2388 8.48883 10.5 8.16667 10.5H5.83333C5.51117 10.5 5.25 10.2388 5.25 9.91667C5.25 9.5945 5.51117 9.33333 5.83333 9.33333H6.41667V6.70833H6.125C5.80283 6.70833 5.54167 6.44717 5.54167 6.125C5.54167 5.80283 5.80283 5.54167 6.125 5.54167H7ZM7 3.5C7.40271 3.5 7.72917 3.82646 7.72917 4.22917C7.72917 4.63187 7.40271 4.95833 7 4.95833C6.59729 4.95833 6.27083 4.63187 6.27083 4.22917C6.27083 3.82646 6.59729 3.5 7 3.5Z"/></svg><span class="bub" role="tooltip">Tips：按 ⇧⌘V 粘贴可附带截图哦</span></span></li></ul></div>
+        <div class="fcol"><h4>录屏</h4><ul><li>整屏录制</li><li>选区录制</li></ul></div>
+        <div class="fcol"><h4>演示</h4><ul><li>2x 光标</li><li>拖尾效果</li></ul></div>
+      </div>
+      <div class="copy">© 2026 Lassomark  ·  画个圈，就标注。人和 AI 都能用<span class="legal"><a href="privacy.html">隐私政策</a><a href="terms.html">服务条款</a><a href="refund.html">退款政策</a></span></div>
     </div>
   </div>
-  <footer>
-    <span>由 饼饼 制作 · © 2026 Lassomark</span>
-    <span class="sp"></span>
-    <span>画个圈，就标注。</span>
-  </footer>
-</div>
+</footer>
 
 <script>
   const navEl=document.querySelector('.nav');
@@ -355,6 +610,139 @@
   // 亮点视频：进入视口自动循环播放，离开暂停
   const vio=new IntersectionObserver((es)=>es.forEach(e=>{e.isIntersecting?e.target.play().catch(()=>{}):e.target.pause()}),{threshold:.25});
   document.querySelectorAll('.feat .ph video').forEach(v=>vio.observe(v));
+  // ===== Agent 模式演示：光标 hover → 选中 → 打字 ×2 → 复制 Prompt → 发给 AI → AI 回复 =====
+  (()=>{
+    const root=document.getElementById('agentDemo'); if(!root) return;
+    const $=id=>document.getElementById(id);
+    const stage=root.querySelector('.ad-stage'), cur=$('adCursor'), hov=$('adHover'), card=$('adCard'), cardT=card.querySelector('.t'),
+      cta=$('adCta'), chat=$('adChat'), win=$('adWin'), msg=$('adMsg'), reply=$('adReply'), bubble=$('adBubble'),
+      input=$('adInput'), inputTx=$('adInputTx'), send=$('adSend');
+    const fit=()=>stage.style.setProperty('--s',root.clientWidth/800);
+    new ResizeObserver(fit).observe(root); fit();
+
+    let run=0;                                             // 每次重播 +1，旧循环见到不一致就退出
+    const wait=(ms,id)=>new Promise((ok,no)=>setTimeout(()=>id===run?ok():no('stop'),ms));
+    const on=(el,v=true)=>el.classList.toggle('ad-on',v);
+    let cx=560,cy=330;
+    const move=(x,y)=>{cur.style.transform=`translate(${x-2}px,${y-2}px)`;cx=x;cy=y};
+    const place=(el,r)=>Object.assign(el.style,{left:r[0]+'px',top:r[1]+'px',width:r[2]+'px',height:r[3]+'px'});
+
+    // 屏幕上能被识别的组件（舞台坐标 [x,y,w,h]），光标经过时高亮最内层那个
+    const T1=[98.5,107.5,87,15], T2=[240,124,154,70], CTA=[317,415,167,38];
+    const comps=[T1,T2];
+    [0,26,52,78,129,155].forEach((yo,i)=>{ comps.push([76,106+yo,18,18]); if(i) comps.push([98.5,107.5+yo,[80,60,80,60,80,60][i]+7,15]); });
+    comps.push([76,404,24,24],[104,407,88,18],[242,88,102,24],[646,90,60,24]);
+    [0,1,2].forEach(i=>{ const x=240+158*i; if(i) comps.push([x,124,154,70]); comps.push([x+8,132,56,12],[x+8,148,i<2?89:56,28]); });
+    comps.push([244,206,462,228]);
+    [[0,31],[31,37],[68,43],[111,40],[151,43],[194,34]].forEach(([y,h])=>comps.push([244,206+y,462,h]));
+    let hoverOn=false, hoverCur=null;
+    const inside=(r,x,y)=>x>=r[0]&&x<=r[0]+r[2]&&y>=r[1]&&y<=r[1]+r[3];
+    function hitTest(x,y){
+      if(!hoverOn||(cta.classList.contains('ad-on')&&inside(CTA,x,y))) return null;
+      let best=null;
+      for(const r of comps){
+        if(!inside(r,x,y)) continue;
+        if((r===T1&&$('adSel1').classList.contains('ad-on'))||(r===T2&&$('adSel2').classList.contains('ad-on'))) return null;
+        if(!best||r[2]*r[3]<best[2]*best[3]) best=r;
+      }
+      return best;
+    }
+    let hoverOff=0;                                        // 掠过组件间的缝隙时不立刻熄灭，避免闪烁
+    function updateHover(){
+      const r=hitTest(cx,cy);
+      if(!r){ if(hoverCur&&!hoverOff) hoverOff=setTimeout(clearHover,140); return; }
+      clearTimeout(hoverOff); hoverOff=0; if(r===hoverCur) return;
+      hov.classList.toggle('glide',!!hoverCur); place(hov,r); on(hov); hoverCur=r;
+    }
+    function clearHover(){ clearTimeout(hoverOff); hoverOff=0; on(hov,false); hoverCur=null; }
+    // Catmull-Rom 平滑曲线，按弧长 + 缓动逐帧推进，每帧做一次命中测试
+    function glide(id,pts,ms){
+      pts=[[cx,cy],...pts];
+      const P=i=>pts[Math.max(0,Math.min(pts.length-1,i))], samp=[];
+      for(let i=0;i<pts.length-1;i++) for(let k=0;k<16;k++){
+        const t=k/16,[a,b,c,d]=[P(i-1),P(i),P(i+1),P(i+2)];
+        samp.push([0,1].map(j=>.5*(2*b[j]+(-a[j]+c[j])*t+(2*a[j]-5*b[j]+4*c[j]-d[j])*t*t+(-a[j]+3*b[j]-3*c[j]+d[j])*t*t*t)));
+      }
+      samp.push(pts[pts.length-1]);
+      const L=[0]; for(let i=1;i<samp.length;i++) L.push(L[i-1]+Math.hypot(samp[i][0]-samp[i-1][0],samp[i][1]-samp[i-1][1]));
+      const total=L[L.length-1]||1, ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+      return new Promise((ok,no)=>{
+        const t0=performance.now();
+        const step=now=>{
+          if(id!==run) return no('stop');
+          const t=Math.min(1,(now-t0)/ms), d=ease(t)*total;
+          let i=1; while(i<L.length-1&&L[i]<d) i++;
+          const f=(d-L[i-1])/((L[i]-L[i-1])||1);
+          move(samp[i-1][0]+(samp[i][0]-samp[i-1][0])*f, samp[i-1][1]+(samp[i][1]-samp[i-1][1])*f);
+          updateHover();
+          t<1?requestAnimationFrame(step):ok();
+        };
+        requestAnimationFrame(step);
+      });
+    }
+    async function click(id){cur.classList.add('down');await wait(120,id);cur.classList.remove('down');}
+    const cardTW=card.querySelector('.tw');
+    async function reveal(text,id){cardTW.classList.remove('show');cardT.textContent=text;void cardTW.offsetWidth;cardTW.classList.add('show');await wait(900,id);}
+
+    function reset(){
+      ['adSel1','adSel2','adB1','adB2'].forEach(k=>on($(k),false));
+      [hov,card,cta,chat,msg,reply].forEach(el=>on(el,false));
+      cta.classList.remove('hot','press'); win.classList.remove('dim'); chat.classList.remove('out');
+      input.classList.remove('focus','filled'); inputTx.textContent='请输入'; bubble.innerHTML='';
+      hoverOn=false; clearHover(); hov.classList.remove('glide'); move(560,330); cur.classList.remove('gone');
+    }
+    // 标注一次：移过去 → hover → 点击选中 → 卡片 + 打字 → 回车确认 → 编号
+    async function annotate(id,path,sel,cardXY,text,badge){
+      hoverOn=true; await glide(id,path,1150); await wait(170,id);
+      await click(id); hoverOn=false; clearHover(); on($(sel));
+      card.style.left=cardXY[0]+'px'; card.style.top=cardXY[1]+'px'; cardTW.classList.remove('show'); cardT.textContent=''; on(card);
+      await wait(380,id); await reveal(text,id); await wait(650,id);
+      on(card,false); on($(badge)); await wait(350,id);
+    }
+    async function play(id){
+      reset(); await wait(700,id);
+      await annotate(id,[[470,160],[300,100],[160,141],[150,117]],'adSel1',[98,131],'文字颜色深一些','adB1');
+      on(cta); await wait(300,id);
+      await annotate(id,[[140,193],[300,250],[365,165]],'adSel2',[240,200],'换个更真实的数据','adB2');
+      // 复制 Prompt
+      hoverOn=true; await glide(id,[[392,436]],750); hoverOn=false; clearHover(); await wait(50,id);
+      cta.classList.add('hot'); await wait(300,id);
+      cta.classList.add('press'); await click(id); cta.classList.remove('press','hot'); await wait(150,id);
+      // 切到 AI 对话：标注清空，对话窗弹出，输入框已激活 → 粘贴 → 发送
+      ['adSel1','adSel2','adB1','adB2'].forEach(k=>on($(k),false)); on(cta,false); win.classList.add('dim');
+      input.classList.add('focus'); on(chat); await wait(450,id);
+      input.classList.add('filled'); inputTx.textContent='UI 标注反馈 来源：lassomark.com ① Group .feed_filter_list_item …'; await wait(120,id);
+      await glide(id,[[733,429]],480); await wait(40,id);
+      send.classList.add('press'); await click(id); send.classList.remove('press');
+      input.classList.remove('filled'); inputTx.textContent='请输入'; on(msg); await wait(700,id);
+      bubble.innerHTML='<span class="dots"><i></i><i></i><i></i></span>'; on(reply); await wait(1300,id);
+      bubble.textContent='收到，马上改👌'; await wait(3600,id);
+      // 收尾：对话窗、光标一起柔和淡出，背景窗口同时恢复
+      chat.classList.add('out'); on(chat,false); cur.classList.add('gone'); win.classList.remove('dim'); await wait(900,id);
+    }
+    async function loop(){const id=++run;try{for(;;) await play(id);}catch(e){}}
+    const stop=()=>{run++};
+
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){    // 不播动画：直接停在最终画面
+      reset(); win.classList.add('dim'); input.classList.add('focus'); on(chat); on(msg); on(reply); bubble.textContent='收到，马上改👌';
+      move(733,429); return;
+    }
+    new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?loop():stop()),{threshold:.35}).observe(root);
+  })();
+  // 邮箱：照常唤起默认邮件应用；同时复制地址并提示（没配置邮件应用时 mailto 会静默失败）
+  (()=>{
+    const btn=document.getElementById('mailBtn'); if(!btn) return;
+    const addr='bingbingmoment@qq.com';
+    const toast=document.createElement('div'); toast.className='toast'; toast.setAttribute('role','status'); document.body.appendChild(toast);
+    let t=0;
+    const say=msg=>{toast.textContent=msg;toast.classList.add('show');clearTimeout(t);t=setTimeout(()=>toast.classList.remove('show'),3200)};
+    btn.addEventListener('click',()=>{
+      const done=()=>say('邮箱已复制：'+addr+'　没有自动打开邮件应用的话，直接粘贴发送就好');
+      const fallback=()=>{const ta=document.createElement('textarea');ta.value=addr;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();
+        try{document.execCommand('copy');done()}catch(e){say('邮箱：'+addr)}ta.remove()};
+      navigator.clipboard?.writeText(addr).then(done,fallback) ?? fallback();
+    });
+  })();
   // 下载量统计：点下载 → 上报一次虚拟页面浏览 /download-dmg（在 Cloudflare 后台看此路径浏览量 ≈ 下载次数）
   document.querySelectorAll('a[href$=".dmg"]').forEach(a=>{
     a.addEventListener('click',()=>{
