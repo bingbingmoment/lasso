@@ -295,8 +295,134 @@
   /* 配图固定 632:400 比例，自适应缩放但比例不变 */
   .feat .ph{flex:632 1 0;aspect-ratio:632/400;border-radius:32px;overflow:hidden;
     background:linear-gradient(135deg,#EEF1F5,#E4E8EE);display:flex;align-items:center;justify-content:center}
-  .feat .ph img,.feat .ph video{width:100%;height:100%;object-fit:cover;display:block}
+  .feat .ph img{width:100%;height:100%;object-fit:cover;display:block}
   .feat .ph span{font-size:14px;color:#AEB4BD;letter-spacing:.05em}
+
+  /* ----- 亮点演示：纯代码动画（632×400 舞台，按容器宽度等比缩放；时序照原 feature-*.mp4 逐帧还原）----- */
+  .feat .ph.demo{display:block;position:relative}
+  .dm-stage{position:absolute;left:0;top:0;width:632px;height:400px;transform-origin:0 0;transform:scale(var(--s,1));
+    overflow:hidden;background:#ebebeb;font-family:var(--font);user-select:none}
+  .dm-stage i{display:block;font-style:normal}
+  .feat .demo span{font-size:inherit;color:inherit;letter-spacing:normal}   /* 挡掉 .feat .ph span 的占位样式 */
+  .feat .dm-stage .dm-bg{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover}
+
+  /* 标注层（两段演示共用）：笔迹 + 椭圆箭头 + 卡片 + 输入法候选条 + 光标，坐标系由各自容器决定 */
+  .an-layer{position:absolute;left:0;top:0}
+  .an-lasso,.an-anno{position:absolute;left:0;top:0;pointer-events:none}
+  /* 椭圆 / 箭头 / 卡片：松手瞬间弹出；一轮结束直接消失（跟原视频一样硬切回开头）*/
+  .an-anno,.an-card{opacity:0}
+  .an-anno ellipse{transform-box:fill-box;transform-origin:center;transform:scale(.9)}
+  .an-on .an-anno,.an-on .an-card{opacity:1;transition:opacity .12s}
+  .an-on .an-anno ellipse{transform:none;transition:transform .16s cubic-bezier(.2,.8,.3,1.2)}
+  .an-card{position:absolute;width:190.5px;height:38.5px;display:flex;align-items:center;padding-left:12px;
+    background:#fffdf7;border:1px solid #f1dca6;border-radius:9px;overflow:hidden;box-shadow:0 3px 10px rgba(120,80,0,.14);
+    font-size:14.5px;line-height:20px;color:#2a2f38;white-space:nowrap}
+  .an-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3.5px;background:#FF9900}
+  .feat .an-card .mk{text-decoration:underline 1px #1a72e8;text-underline-offset:3px}
+  .an-card .ca{width:1.2px;height:17px;margin-left:.5px;background:#2a2f38}
+  .an-card .ca.off{visibility:hidden}
+  .feat .an-card .pl{margin-left:2px;color:#BE9061}
+  .an-card .x{position:absolute;right:15px;top:15.5px;width:8px;height:8px}
+  /* macOS 拼音输入法候选条（贴在卡片下方：左 -3.5、上 +34.5）*/
+  .an-ime{position:absolute;width:396.5px;height:27.5px;display:none;align-items:center;padding-left:1px;
+    border-radius:14px;background:rgba(238,242,234,.8);border:.5px solid rgba(0,0,0,.14);
+    box-shadow:0 3px 10px rgba(0,0,0,.16),inset 0 .5px 0 rgba(255,255,255,.7);
+    backdrop-filter:blur(16px) saturate(1.6);-webkit-backdrop-filter:blur(16px) saturate(1.6)}
+  .an-ime.on{display:flex}
+  .an-ime .c{display:flex;flex:1;gap:3px;overflow:hidden}
+  .feat .an-ime .c span{display:flex;align-items:center;height:24px;padding:0 7.5px 0 6.5px;border-radius:12px;white-space:nowrap;
+    font-size:15px;color:#1d1d1f}
+  .an-ime .c span::before{content:attr(data-n);margin-right:3.5px;font-size:9px;color:rgba(60,60,67,.6)}
+  .feat .an-ime .c span:first-child{background:#107DF3;color:#fff}
+  .an-ime .c span:first-child::before{color:rgba(255,255,255,.85)}
+  .an-ime .more{flex:none;width:27px;height:16px;border-left:1px solid rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center}
+  .an-cursor{position:absolute;left:0;top:0;z-index:9;pointer-events:none}
+  .an-cursor.gone{display:none}
+  .an-cursor svg{display:block}
+
+  /* 亮点 1（Figma 284:51940）：玻璃面板上的「版本说明」，圈中「说鸣：」*/
+  .f1-frame{position:absolute;left:100px;top:64px;width:532px;height:336px;border-radius:32px 0 0 0;
+    background:rgba(255,255,255,.05);border:solid rgba(255,255,255,.3);border-width:2px 0 0 2px}
+  .f1-panel{position:absolute;left:112px;top:76px;width:520px;height:324px;border-radius:28px 0 0 0;overflow:hidden;background:rgba(255,255,255,.65)}
+  .feat .f1-panel p{position:absolute;left:40px;top:40px;margin:0;white-space:nowrap;font-size:36px;font-weight:600;line-height:normal;letter-spacing:-.72px;color:#1a1a1a}
+  .f1-panel .ls{position:absolute;left:40px;top:122px;display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+  /* 列表占位条：左边 20 的圆点 + 间隔 16 + 圆角条，都是 12% 黑 */
+  .f1-panel .ls i{position:relative;margin-left:36px;height:20px;border-radius:10px;background:rgba(0,0,0,.12)}
+  .f1-panel .ls i::before{content:"";position:absolute;left:-36px;top:0;width:20px;height:20px;border-radius:50%;background:inherit}
+  #f1Card{left:133.5px;top:21.5px}
+  #f1Ime{left:130px;top:56px}
+
+  /* 亮点 2（Figma 285:51956）：「Lassomark.mov」录屏窗口里是官网缩略版（按 1656 宽视口排版，×532/1656 缩进窗口），
+     滚到快捷键区再圈「开键盘」。缩略页用固定 px 单独写，不跟随真页面的响应式断点 */
+  .feat .dm-stage .f2-bg{position:absolute;left:0;top:-45.4px;width:632px;height:610.4px;max-width:none;object-fit:fill;transform:rotate(180deg)}
+  .f2-win{position:absolute;left:40px;top:28px;width:552px;height:344px;border-radius:28px;overflow:hidden;
+    background:rgba(255,255,255,.2);border:solid rgba(255,255,255,.3);border-width:2px 2px 0}
+  .f2-win .x{position:absolute;left:17px;top:8px;width:26px;height:26px;border-radius:50%;background:#8BA9CA}
+  .f2-win .x::before,.f2-win .x::after{content:"";position:absolute;left:7px;top:12.5px;width:12.5px;height:2px;border-radius:1px;background:#fff;transform:rotate(45deg)}
+  .f2-win .x::after{transform:rotate(-45deg)}
+  .f2-win .nm{position:absolute;left:55px;top:7px;font-size:20px;line-height:normal;letter-spacing:-.4px;color:#1a1a1a;white-space:nowrap}
+  .f2-scr{position:absolute;left:8px;right:8px;top:42px;bottom:10px;border-radius:24px;overflow:hidden;background:#fff}
+  .f2-view{position:absolute;left:0;top:0;width:1656px;height:903px;transform-origin:0 0;transform:scale(.32126);overflow:hidden}
+  .m-page{position:absolute;left:0;top:0;width:1656px;background:#fff;color:#1A1A1A;will-change:transform}
+  .m-page .w{width:1280px;margin:0 auto}
+  .m-feat{padding:40px 40px 60px;display:flex;align-items:center;gap:32px}
+  .feat .m-feat img{flex:none;display:block;width:591.5px;height:374.3px;border-radius:32px;object-fit:cover}
+  .m-feat .tx{flex:1;padding:0 24px 24px 32px}
+  .m-feat .h3{font-size:36px;font-weight:500;color:#000;letter-spacing:-.72px;margin:0 0 18px;line-height:1.5}
+  .m-feat .p{font-size:18px;color:#5D5D5D;line-height:26px;max-width:560px}
+  .m-feat .p b{font-weight:500;color:#1A1A1A}
+  .m-eb{font-size:18px;font-weight:600;line-height:27px;color:#633F21;letter-spacing:1.744px;margin-bottom:14px}
+  .m-h2{font-size:48px;font-weight:500;line-height:1.25;letter-spacing:-.02em;color:#1A1A1A}
+  .m-dark{background:#141414}
+  .m-dark .w{padding:80px 72px 90px}
+  .m-dark .m-eb{color:#E6B892;margin-bottom:16px}
+  .m-dark .m-h2{color:#F2ECE0;line-height:1.3333;letter-spacing:-.0156em}
+  .m-cmp{margin-top:40px;display:flex;flex-direction:column;gap:1px;border-radius:16px;overflow:hidden}
+  .m-cmp .r{display:flex;align-items:center;gap:10px;background:#232323;padding:22px 26px}
+  .m-cmp .who{width:130px;flex:none;font-size:14px;line-height:23px;font-weight:600;color:#E6B892;letter-spacing:-.15px}
+  .feat .m-cmp .st{font-size:14px;line-height:24px;color:#E6B892;border:1px solid rgba(230,184,146,.7);border-radius:9px;padding:9px 15px;letter-spacing:-.19px}
+  .feat .m-cmp .us .st{border:0;background:#F4603A;color:#FDF6EE;font-weight:500;padding:9px 14px}
+  .feat .m-cmp .ar{font-size:13px;color:#F2ECE0;opacity:.4}
+  .m-keys-sec .w{padding:88px 72px}
+  .m-keys{margin-top:40px;display:flex;flex-direction:column;gap:8px}
+  .m-keys .k{display:flex;gap:8px}
+  .m-keys .k i{flex:none;width:140px;display:flex;align-items:center;justify-content:center;min-height:48px;background:#F4F4F7;border-radius:12px;
+    font-family:"Inter",var(--font);font-size:16px;font-weight:500;line-height:24px;letter-spacing:1.5px}
+  .m-keys .k b{flex:1;display:flex;align-items:center;min-height:48px;padding:12px 16px;background:#F4F4F7;border-radius:12px;
+    font-size:16px;font-weight:400;line-height:24px;letter-spacing:1.5px}
+  .feat .m-keys .mute{color:#727272}
+  /* 顶栏缩略版（= 官网滚动后展开的样子；在深色块上切深色玻璃）*/
+  .m-nav{position:absolute;left:50%;top:20px;transform:translateX(-50%);display:flex;align-items:center;height:60px;padding:0 13px;border-radius:30px;
+    background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.5));
+    backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);
+    box-shadow:0 14px 34px rgba(40,60,100,.14),0 2px 6px rgba(40,60,100,.08),inset 0 1px 0 rgba(255,255,255,.9);white-space:nowrap;color:#1A1A1A}
+  .m-nav .hm{display:flex;align-items:center;gap:8px;padding-left:8px;font-family:"DM Sans",-apple-system,BlinkMacSystemFont,var(--font);font-size:16px;font-weight:700;line-height:20px}
+  .feat .m-nav img{display:block;width:24px;height:24px;border-radius:6px}
+  .m-nav .ln{display:flex;padding:0 24px}
+  .m-nav .ln i{width:80px;text-align:center;font-size:14px;line-height:14px;font-weight:500}
+  .m-nav .dl{display:flex;align-items:center;gap:4px;height:38px;padding:0 13px;border-radius:19px;background:#1A1A1A;color:#fff;font-size:14px;line-height:20px;font-weight:500}
+  .m-nav .dl svg{width:20px;height:16px;fill:currentColor;margin-top:-1px}
+  .m-nav.dk{background:linear-gradient(180deg,rgba(40,46,62,.34),rgba(22,26,38,.34));box-shadow:0 14px 34px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.25);color:#fff}
+  .m-nav.dk .dl{background:#fff;color:#1A1A1A}
+  #f2Card{left:243px;top:356px}
+  #f2Ime{left:239.5px;top:390.5px}
+
+  /* 亮点 3（Figma 285:52145）：「2x 光标 + 拖尾」标题，下面是带编号缩略图的窗口，2x 光标拖着青色尾巴划过 */
+  .feat .dm-stage .f3-bg{position:absolute;left:0;top:-220.2px;width:632px;height:654.6px;max-width:none;object-fit:fill}
+  .f3-t{position:absolute;top:35px;font-size:36px;font-weight:600;line-height:normal;letter-spacing:-.72px;color:#1a1a1a;white-space:nowrap}
+  .feat .dm-stage .f3-tail{position:absolute;left:428.93px;top:48.92px;width:75.07px;height:19.61px}
+  .f3-cur{position:absolute;left:0;top:0;transform-origin:0 0}
+  .feat .dm-stage .f3-cur img{position:absolute;max-width:none;object-fit:fill}
+  .feat .dm-stage .f3-cur .o{left:-5.975px;top:-6.81px;width:30.758px;height:44.132px}
+  .feat .dm-stage .f3-cur .a{left:0;top:0;width:16.05px;height:28.371px}
+  .f3-win{position:absolute;left:50px;top:110px;width:532px;height:336px;border-radius:32px 32px 0 0;overflow:hidden;
+    background:rgba(255,255,255,.2);border:solid rgba(255,255,255,.3);border-width:2px 2px 0}
+  .f3-win i{position:absolute;background:rgba(255,255,255,.5)}
+  .f3-win .s{left:22px;width:124px;height:70px;border-radius:8px}
+  .f3-win .l{left:156px;width:350px;height:198px;border-radius:12px}
+  .f3-win b{position:absolute;left:27px;width:22px;height:14px;display:flex;align-items:center;justify-content:center;padding:0 8px 0 9px;
+    border-radius:4px;background:#ced0ea;font-size:10px;font-weight:600;letter-spacing:-.2px;color:rgba(0,0,0,.5)}
+  .f3-fx{position:absolute;left:0;top:0;width:632px;height:400px;pointer-events:none}
   .feat .txt{flex:616 1 0;padding:0 24px 24px 32px}
   .feat h3{font-size:36px;font-weight:500;color:var(--black);letter-spacing:-.72px;margin:0 0 18px}
   .feat p{font-size:18px;font-weight:400;color:#5D5D5D;line-height:26px;margin:0;max-width:560px}
@@ -489,21 +615,98 @@
   </div>
   <div class="feats">
     <div class="feat reveal">
-      <div class="ph"><video src="feature-1.mp4" autoplay loop muted playsinline preload="auto"></video></div>
+      <div class="ph demo" id="f1Demo" role="img" aria-label="演示：在屏幕上圈一下，高亮、箭头和输入卡片立刻出现，直接打字">
+        <div class="dm-stage" id="f1Stage">
+          <img class="dm-bg" src="feature-1-bg.jpg" alt="">
+          <i class="f1-frame"></i>
+          <div class="f1-panel">
+            <p>v 1.0 版本说鸣：</p>
+            <div class="ls"><i style="width:246px"></i><i style="width:324px"></i><i style="width:246px"></i></div>
+          </div>
+          <div class="an-layer" id="f1Layer">
+            <canvas class="an-lasso" id="f1Lasso"></canvas>
+            <svg class="an-anno" width="632" height="400" viewBox="0 0 632 400">
+              <ellipse cx="352.5" cy="131" rx="62.5" ry="33.75" fill="rgba(255,153,0,.14)" stroke="#FF9900" stroke-width="2.4"/>
+              <path d="M256 61L304.7 96.7" stroke="#FF9900" stroke-width="2" stroke-linecap="round"/>
+              <path d="M312 102L302.1 100.3L307.4 93.1z" fill="#FF9900" stroke="#FF9900" stroke-width="1" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
       <div class="txt">
         <h3>画个圈，然后打字</h3>
         <p>在屏幕任意位置圈一下，高亮、箭头、输入卡片瞬间出现，而且光标就在卡片里，<b>直接打字就行</b>。按下快捷键，直接把带标注的画面存进剪贴板。快到不打断思路。</p>
       </div>
     </div>
     <div class="feat rev reveal">
-      <div class="ph"><video src="feature-2.mp4" autoplay loop muted playsinline preload="auto"></video></div>
+      <div class="ph demo" id="f2Demo" role="img" aria-label="演示：录屏时在网页上圈出「开键盘」，卡片里直接打字">
+        <div class="dm-stage" id="f2Stage">
+          <img class="f2-bg" src="feature-2-bg.jpg" alt="">
+          <div class="f2-win">
+            <i class="x"></i>
+            <i class="nm">Lassomark.mov</i>
+            <div class="f2-scr"><div class="f2-view">
+              <div class="m-page" id="f2Page">
+                <div class="w m-feat"><img src="feature-3-still.jpg" alt="">
+                  <div class="tx"><div class="h3">演示、讲解的最快搭档</div>
+                    <div class="p">2× 光标 + 拖尾让观众一眼跟住你的鼠标；随手一圈就能圈出重点。远程讲解、录教程、给同事演示——<b>它可能是你桌面上最快的那个工具</b>。</div></div></div>
+                <div class="m-dark" id="f2Dark"><div class="w">
+                  <div class="m-eb">符合直觉的交互</div>
+                  <div class="m-h2">写句话要点一路？<br>Lassomark 画个圈就输入</div>
+                  <div class="m-cmp">
+                    <div class="r"><i class="who">常见标注工具</i><span class="st">触发截图</span><span class="ar">→</span><span class="st">拖选区域</span><span class="ar">→</span><span class="st">选文字工具</span><span class="ar">→</span><span class="st">在目标位置点击</span><span class="ar">→</span><span class="st">输入</span><span class="ar">→</span><span class="st">确定保存</span></div>
+                    <div class="r us"><i class="who">Lassomark</i><span class="st">圈一下</span><span class="ar">→</span><span class="st">直接输入</span><span class="ar">→</span><span class="st">确定保存</span></div>
+                  </div>
+                </div></div>
+                <div class="m-keys-sec"><div class="w">
+                  <div class="m-eb">全局快捷键</div>
+                  <div class="m-h2" id="f2H2">手不离开键盘</div>
+                  <div class="m-keys">
+                    <div class="k"><i>⇧⌘E</i><b><span>开启/关闭标注模式。<span class="mute">关闭后仍可使用 2x 光标、拖尾效果</span></span></b></div>
+                    <div class="k"><i>⇧⌘C</i><b>开启 Agent 模式（需开启标注模式）</b></div>
+                    <div class="k"><i>⇧⌘1</i><b>整屏录制 开始/停止</b></div>
+                    <div class="k"><i>⇧⌘2</i><b>选区录制 开始/停止。按下开始拖动选区，松手即开录。</b></div>
+                    <div class="k"><i>⇧⌘S</i><b>全屏快照到剪贴板</b></div>
+                    <div class="k"><i>⇧⌘D</i><b>选区快照到剪贴板</b></div>
+                  </div>
+                </div></div>
+              </div>
+              <div class="m-nav" id="f2Nav"><i class="hm"><img src="logo.png" alt="">Lassomark</i>
+                <i class="ln"><i>亮点介绍</i><i>快捷键</i><i>更新日志</i><i>升级 Pro</i></i>
+                <i class="dl"><svg viewBox="0 0 384 512"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C61.5 141.2 8 184.8 8 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>下载 App</i></div>
+              <div class="an-layer" id="f2Layer">
+                <canvas class="an-lasso" id="f2Lasso"></canvas>
+                <svg class="an-anno" width="1656" height="903" viewBox="0 0 1656 903">
+                  <ellipse cx="493.3" cy="496.1" rx="94" ry="74.4" fill="rgba(255,153,0,.14)" stroke="#FF9900" stroke-width="2.4"/>
+                  <path d="M365 396L420.6 434.8" stroke="#FF9900" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M428 440L418 438.5L423.2 431.2z" fill="#FF9900" stroke="#FF9900" stroke-width="1" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div></div>
+          </div>
+        </div>
+      </div>
       <div class="txt">
         <h3>边录边标，标完即成片</h3>
         <p>先开启录制，随后在画面上标注，标完那一刻成片也就好了，不用再拖进编辑器加箭头字幕、来回渲染导出——<b>省掉二次剪辑</b>。</p>
       </div>
     </div>
     <div class="feat reveal">
-      <div class="ph"><video src="feature-3.mp4" autoplay loop muted playsinline preload="auto"></video></div>
+      <div class="ph demo" id="f3Demo" role="img" aria-label="演示：2 倍大的光标带着青色拖尾划过屏幕">
+        <div class="dm-stage" id="f3Stage">
+          <img class="f3-bg" src="feature-3-bg.jpg" alt="">
+          <i class="f3-t" style="left:160px">2x 光标</i><i class="f3-t" style="left:349px">拖尾</i>
+          <img class="f3-tail" src="feature-3-trail.svg" alt="">
+          <div class="f3-cur" style="left:294.975px;top:42.81px"><img class="o" src="feature-3-cursor-outline.svg" alt=""><img class="a" src="feature-3-cursor.svg" alt=""></div>
+          <div class="f3-win">
+            <i class="s" style="top:22px"></i><i class="s" style="top:102px"></i><i class="s" style="top:182px"></i><i class="s" style="top:262px"></i>
+            <i class="l" style="top:22px"></i><i class="l" style="top:230px"></i>
+            <b style="top:73px">1</b><b style="top:153px">2</b><b style="top:233px">3</b>
+          </div>
+          <canvas class="f3-fx" id="f3Fx"></canvas>
+          <div class="f3-cur" id="f3Cur"><img class="o" src="feature-3-cursor-outline.svg" alt=""><img class="a" src="feature-3-cursor.svg" alt=""></div>
+        </div>
+      </div>
       <div class="txt">
         <h3>演示、讲解的最快搭档</h3>
         <p>2× 光标 + 拖尾让观众一眼跟住你的鼠标；随手一圈就能圈出重点。远程讲解、录教程、给同事演示——<b>它可能是你桌面上最快的那个工具</b>。</p>
@@ -607,9 +810,132 @@
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   // 点导航 logo/品牌名 → 平滑回到顶部
   document.querySelector('.nav .home')?.addEventListener('click',e=>{e.preventDefault();scrollTo({top:0,behavior:'smooth'})});
-  // 亮点视频：进入视口自动循环播放，离开暂停
-  const vio=new IntersectionObserver((es)=>es.forEach(e=>{e.isIntersecting?e.target.play().catch(()=>{}):e.target.pause()}),{threshold:.25});
-  document.querySelectorAll('.feat .ph video').forEach(v=>vio.observe(v));
+  // ===== 亮点演示（1、2 共用）：圈一下 → 椭圆 + 箭头 + 卡片 → 拼音打字。时间轴以原视频的帧号（30fps）为单位 =====
+  // o.K 笔迹关键点 [帧,x,y]、o.C 光标关键帧、o.type 打字 [起始帧, 已上屏, 组字中的拼音, 候选]，坐标都在标注层坐标系（o.size）里
+  function annoDemo(o){
+    const root=document.getElementById(o.id+'Demo'); if(!root) return;
+    const $=k=>document.getElementById(o.id+k);
+    const stage=$('Stage'), layer=$('Layer'), cv=$('Lasso'), cx=cv.getContext('2d');
+    const [W,H]=o.size, P=o.scale||1, LIFE=o.life, FPS=30;   // P = 标注层相对舞台的缩放
+    layer.insertAdjacentHTML('beforeend',
+      `<div class="an-card" id="${o.id}Card"><span id="${o.id}Tx"></span><i class="ca" id="${o.id}Ca"></i><span class="pl" id="${o.id}Pl">写点说明…</span>`+
+      `<svg class="x" viewBox="0 0 8 8"><path d="M1 1l6 6M7 1L1 7" stroke="rgba(192,145,60,.45)" stroke-width="1.2" stroke-linecap="round"/></svg></div>`+
+      `<div class="an-ime" id="${o.id}Ime"><div class="c" id="${o.id}Cands"></div>`+
+      `<i class="more"><svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" fill="none" stroke="rgba(60,60,67,.5)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></i></div>`+
+      `<div class="an-cursor" id="${o.id}Cursor"><svg width="${o.cur[0]}" height="${o.cur[1]}" viewBox="0 0 17 25"><path d="M2 2v18.5l4.6-4.4 3 6.9 3.1-1.3-3-6.8h6.4z" fill="#000" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg></div>`);
+    const cur=$('Cursor'), tx=$('Tx'), ca=$('Ca'), pl=$('Pl'), ime=$('Ime'), cands=$('Cands'), hot=2*o.cur[0]/17;   // 光标热点在箭头尖
+    cv.style.width=W+'px'; cv.style.height=H+'px';
+    let k=1, last={};
+    const fit=()=>{
+      const s=root.clientWidth/632; stage.style.setProperty('--s',s);
+      k=s*P*(devicePixelRatio||1); cv.width=Math.round(W*k); cv.height=Math.round(H*k); last={}; o.fit?.();
+    };
+    new ResizeObserver(fit).observe(root);
+
+    // 笔迹：关键点 Catmull-Rom 插值成带时间戳的采样点；每段按「距今几帧」淡出，尾巴先淡
+    const K=o.K, KP=i=>K[Math.max(0,Math.min(K.length-1,i))], S=[];
+    for(let i=0;i<K.length-1;i++) for(let j=0;j<4;j++){
+      const t=j/4,[a,b,c,d]=[KP(i-1),KP(i),KP(i+1),KP(i+2)];
+      S.push([0,1,2].map(n=>.5*(2*b[n]+(-a[n]+c[n])*t+(2*a[n]-5*b[n]+4*c[n]-d[n])*t*t+(-a[n]+3*b[n]-3*c[n]+d[n])*t*t*t)));
+    }
+    S.push(K[K.length-1]);
+    const T0=K[0][0], T1=K[K.length-1][0];
+    function drawLasso(f){
+      cx.setTransform(1,0,0,1,0,0); cx.clearRect(0,0,cv.width,cv.height);
+      if(f<T0||f>=T1+LIFE) return;
+      cx.setTransform(k,0,0,k,0,0); cx.lineCap='round';
+      for(let i=1;i<S.length&&S[i][0]<=f;i++){
+        const life=1-(f-S[i][0])/LIFE; if(life<=0) continue;
+        cx.strokeStyle=`rgba(18,200,230,${(.44*life).toFixed(3)})`; cx.lineWidth=4+5*life;
+        cx.beginPath(); cx.moveTo(S[i-1][1],S[i-1][2]); cx.lineTo(S[i][1],S[i][2]); cx.stroke();
+      }
+    }
+    // 光标：按关键帧线性移动；开始打字时隐藏（macOS 打字会藏鼠标）
+    const C=o.C;
+    function cursorAt(f){
+      if(f>=o.hide) return null;
+      let i=1; while(i<C.length&&C[i][0]<f) i++;
+      if(i>=C.length) return C[C.length-1].slice(1);
+      const [f0,x0,y0]=C[i-1],[f1,x1,y1]=C[i], u=(f-f0)/((f1-f0)||1);
+      return [x0+(x1-x0)*u, y0+(y1-y0)*u];
+    }
+    const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'})[c]);
+    function render(f){
+      o.frame?.(f);
+      const on=f>=o.up; if(last.on!==on) layer.classList.toggle('an-on',on);
+      const p=cursorAt(f);
+      if(!p) cur.classList.add('gone');
+      else { cur.classList.remove('gone'); cur.style.transform=`translate(${p[0]-hot}px,${p[1]-hot}px)`; }
+      if(f<T1+LIFE||last.lasso) { drawLasso(f); last.lasso=f<T1+LIFE; }
+      let st=null; for(const s of o.type) if(f>=s[0]) st=s;
+      const key=st?st[0]:0;
+      if(last.type!==key){
+        tx.innerHTML=st?esc(st[1])+(st[2]?`<span class="mk">${esc(st[2])}</span>`:''):'';
+        pl.style.display=st?'none':'';
+        if(st&&st[3]){ cands.innerHTML=st[3].split(' ').map((w,i)=>`<span data-n="${i+1}">${w}</span>`).join(''); ime.classList.add('on'); }
+        else ime.classList.remove('on');
+      }
+      // 文字光标：组字时常亮；停手后按 macOS 节奏闪（亮暗各约 16 帧）
+      const since=f-(st?st[0]:o.up);
+      ca.classList.toggle('off',!(st&&st[2])&&Math.floor(since/16)%2===1);
+      last.on=on; last.type=key;
+    }
+
+    let raf=0, t0=0;
+    const tick=now=>{ render(((now-t0)/1000*FPS)%o.end); raf=requestAnimationFrame(tick); };
+    const play=()=>{ if(raf) return; t0=performance.now(); raf=requestAnimationFrame(tick); };
+    const stop=()=>{ cancelAnimationFrame(raf); raf=0; };
+    fit();
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){ render(o.still); return; }   // 不播动画：停在打完字的画面
+    render(0);
+    new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?play():stop()),{threshold:.25}).observe(root);
+  }
+
+  // 亮点 1：圈「说鸣：」，打「错别字」（一轮 97 帧，第 15 帧松手）
+  (()=>{
+    const K=[[1,363,107.5],[2,350,108],[3,335,109.5],[4,313,119],[5,301,135],[6,300,148],[7,313,158],
+      [8,345,165.5],[9,377,169],[10,401,165],[11,411,154],[12,415,128],[13,408,112],[14,391,101]];
+    annoDemo({id:'f1', size:[632,400], cur:[11,16], life:9, up:15, hide:40, end:97, still:80, K,
+      C:[[0,360,109],...K.slice(0,13),[15,342,101],[16,340,100]],       // 跟着笔尖走，松手后稍微往左上回一点停住
+      type:[[40,'','c'],[41,'','cu'],[43,'','cuo','错 ❌ 搓 挫 措 撮 矬 厝'],[48,'','cuo b','挫败 😣 搓背 搓板 错 搓 挫'],
+        [51,'','cuo bi','搓鼻 搓遍 错 搓 挫 措 撮 矬'],[54,'','cuo bie','错别 错别字 错 搓 挫 措 撮'],
+        [58,'','cuo bie z','错别字 错 错别 搓 挫 措 撮'],[60,'','cuo bie zi','错别字 错 错别 搓 挫 措 撮'],[62,'错别字','']]});
+  })();
+
+  // 亮点 2：缩略官网先滚到快捷键区，再圈「开键盘」，打「超快」（一轮 141 帧，第 54 帧松手）
+  (()=>{
+    const page=document.getElementById('f2Page'); if(!page) return;
+    const dark=document.getElementById('f2Dark'), nav=document.getElementById('f2Nav'), h2=document.getElementById('f2H2'),
+      layer=document.getElementById('f2Layer');
+    // 视频里的滚动：开头深色块顶边在视口 y≈538，滚完底边停在 y≈353（缩略页坐标）；两次轻扫 + 惯性，28 帧停稳
+    const PR=[0,.08,.161,.247,.323,.398,.48,.537,.574,.606,.631,.642,.681,.727,.782,.818,.847,.874,.897,.914,.929,.937,.954,.964,.975,.985,.992,.998,1];
+    let S0=0, S1=0;
+    const measure=()=>{
+      S0=dark.offsetTop-538; S1=dark.offsetTop+dark.offsetHeight-353;
+      // 标注坐标是照视频量的；缩略页排版若和原视频差几像素，整层跟着标题挪
+      layer.style.transform=`translateY(${h2.offsetTop+h2.offsetHeight/2-S1-516}px)`;
+    };
+    document.fonts?.ready.then(measure);
+    function scroll(f){
+      const i=Math.floor(f), p=i>=PR.length-1?1:PR[i]+(PR[i+1]-PR[i])*(f-i), y=S0+(S1-S0)*p;
+      page.style.transform=`translateY(${-y}px)`;
+      const top=dark.offsetTop-y;
+      nav.classList.toggle('dk',top<70&&top+dark.offsetHeight>16);    // 同官网：顶栏压在深色块上时切深色玻璃
+    }
+    // 视频里量的是舞台坐标，换成缩略页视口坐标（屏幕区域左上角 50,72，缩放 532/1656）
+    const pg=([f,x,y])=>[f,(x-50)/.32126,(y-72)/.32126];
+    const K=[[31,271.4,202],[32,256.3,202],[33,236.2,206],[34,227.1,210.1],[35,220.1,214.6],[36,218.6,215.1],[37,214.6,217.1],
+      [38,211.1,217.1],[39,208.5,219.6],[40,203.5,221.1],[41,201,222.1],[42,198.5,223.6],[43,192,227.1],[44,190,231.2],
+      [45,188.4,236.2],[46,189.4,246.2],[47,194.9,259.8],[48,216.1,260.3],[49,231.2,253.8],[50,246.2,238.7],[51,248.7,232.7],
+      [52,242.2,223.6],[53,236.2,218.6]].map(pg);
+    const Lc='成 从 处 次 差 👎 层 侧', Lch='成 处 差 👎 窗 出 纯 吵', Lcha='差 👎 茶 🍵 查 插 叉 察',
+      Lchao='吵 潮 😎 超 炒 朝 抄 巢', Lk='超快 超酷 超宽 超 炒 潮 朝';
+    annoDemo({id:'f2', size:[1656,903], scale:.32126, cur:[13,19], life:10, up:54, hide:73, end:141, still:130, K,
+      C:[[0,1027,349],[29,1027,349],...K,pg([54,197.5,221.1])],         // 滚动时光标不动，滚完移到起笔处；松手后往左挪进圈里
+      type:[[73,'','c'],[74,'','c',Lc],[75,'','ch',Lch],[79,'','cha',Lcha],[80,'','chao',Lchao],[86,'','chao k',Lchao],
+        [87,'','chao k',Lk],[99,'超快','']],
+      fit:measure, frame:scroll});
+  })();
   // ===== Agent 模式演示：光标 hover → 选中 → 打字 ×2 → 复制 Prompt → 发给 AI → AI 回复 =====
   (()=>{
     const root=document.getElementById('agentDemo'); if(!root) return;
@@ -728,6 +1054,66 @@
       move(733,429); return;
     }
     new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?loop():stop()),{threshold:.35}).observe(root);
+  })();
+  // ===== 亮点 3 演示：2x 光标从缩略图 1 划到右上，身后拖一条渐隐的青色尾巴（一轮 75 帧 = 2.5 秒）=====
+  // 拖尾画法同 app（OverlayView.drawTrail）：最近 320ms 的轨迹算成一条带状多边形一次填充，越新越粗，沿轨迹从透明渐到青色
+  (()=>{
+    const root=document.getElementById('f3Demo'); if(!root) return;
+    const stage=document.getElementById('f3Stage'), cv=document.getElementById('f3Fx'), cx=cv.getContext('2d'), cur=document.getElementById('f3Cur');
+    const FPS=30, END=75, T0=14, TRAIL=.32*FPS, TILT=-32;            // 第 14 帧起步、55 帧停；视频里的 2x 光标整体左倾
+    let k=1;
+    const fit=()=>{ const s=root.clientWidth/632; stage.style.setProperty('--s',s);
+      k=s*(devicePixelRatio||1); cv.width=Math.round(632*k); cv.height=Math.round(400*k); };
+    new ResizeObserver(fit).observe(root);
+    // 光标尖的路线（从视频逐帧量出后去掉录屏抖动），Catmull-Rom 平滑后按弧长取点；PR = 每帧走过的路程比例，照视频里手的快慢
+    const K=[[107.3,171.5],[121,196],[136,204.5],[160,190],[180,174],[200,164],[216,166.5],[240,178],[256,183.6],[285,179],
+      [310,165],[336,154.5],[355,160],[372,170],[388,169.5],[412,158],[440,151.5],[460,152],[480,163],[500,175.5],[518,176.6],[534.7,170.5]];
+    const KP=i=>K[Math.max(0,Math.min(K.length-1,i))], S=[K[0]];
+    for(let i=0;i<K.length-1;i++) for(let j=1;j<=8;j++){
+      const t=j/8,[a,b,c,d]=[KP(i-1),KP(i),KP(i+1),KP(i+2)];
+      S.push([0,1].map(n=>.5*(2*b[n]+(-a[n]+c[n])*t+(2*a[n]-5*b[n]+4*c[n]-d[n])*t*t+(-a[n]+3*b[n]-3*c[n]+d[n])*t*t*t)));
+    }
+    const L=[0]; for(let i=1;i<S.length;i++) L.push(L[i-1]+Math.hypot(S[i][0]-S[i-1][0],S[i][1]-S[i-1][1]));
+    const PR=[0,.023,.039,.058,.077,.096,.114,.132,.182,.219,.243,.265,.286,.319,.347,.375,.406,.437,.478,.499,.516,
+      .536,.561,.589,.611,.628,.646,.665,.69,.721,.75,.785,.825,.864,.881,.898,.924,.945,.961,.973,.985,1];
+    function at(f){
+      const u=Math.max(0,f-T0), j=Math.floor(u), p=j>=PR.length-1?1:PR[j]+(PR[j+1]-PR[j])*(u-j), d=p*L[L.length-1];
+      let i=1; while(i<L.length-1&&L[i]<d) i++;
+      const q=(d-L[i-1])/((L[i]-L[i-1])||1);
+      return [S[i-1][0]+(S[i][0]-S[i-1][0])*q, S[i-1][1]+(S[i][1]-S[i-1][1])*q];
+    }
+    function render(f){
+      const [x,y]=at(f);
+      cur.style.transform=`translate(${x}px,${y}px) rotate(${TILT}deg)`;
+      cx.setTransform(1,0,0,1,0,0); cx.clearRect(0,0,cv.width,cv.height); cx.setTransform(k,0,0,k,0,0);
+      // 光标周围的青色柔光
+      const g=cx.createRadialGradient(x+1.5,y+2,0,x+1.5,y+2,21);
+      g.addColorStop(0,'rgba(18,200,230,.42)'); g.addColorStop(1,'rgba(18,200,230,0)');
+      cx.fillStyle=g; cx.fillRect(x-22,y-22,48,48);
+      // 拖尾：往回取 320ms 的轨迹点
+      const pts=[], half=[];
+      for(let i=20;i>=0;i--){ const a=i/20*TRAIL; pts.push(at(f-a)); half.push(1.5+3.3*(1-a/TRAIL)); }
+      const tail=pts[0], head=pts[pts.length-1], span=Math.hypot(head[0]-tail[0],head[1]-tail[1]);
+      if(span<1) return;                                      // 停着不动就没有尾巴
+      const nrm=i=>{ const a=pts[Math.max(0,i-1)], b=pts[Math.min(pts.length-1,i+1)], dx=b[0]-a[0], dy=b[1]-a[1], l=Math.hypot(dx,dy)||1; return [-dy/l,dx/l]; };
+      cx.beginPath();
+      pts.forEach((p,i)=>{ const n=nrm(i); cx[i?'lineTo':'moveTo'](p[0]+n[0]*half[i],p[1]+n[1]*half[i]); });
+      const nh=nrm(pts.length-1), hh=half[half.length-1];
+      cx.arc(head[0],head[1],hh,Math.atan2(nh[1],nh[0]),Math.atan2(-nh[1],-nh[0]),true);    // 头部补半圆（朝前进方向）
+      for(let i=pts.length-1;i>=0;i--){ const n=nrm(i); cx.lineTo(pts[i][0]-n[0]*half[i],pts[i][1]-n[1]*half[i]); }
+      cx.closePath();
+      const lg=cx.createLinearGradient(tail[0],tail[1],head[0],head[1]);
+      lg.addColorStop(0,'rgba(18,200,230,0)'); lg.addColorStop(.45,'rgba(18,200,230,.4)'); lg.addColorStop(1,'rgba(18,200,230,.75)');
+      cx.fillStyle=lg; cx.fill();
+    }
+    let raf=0, t0=0;
+    const tick=now=>{ render(((now-t0)/1000*FPS)%END); raf=requestAnimationFrame(tick); };
+    const play=()=>{ if(raf) return; t0=performance.now(); raf=requestAnimationFrame(tick); };
+    const stop=()=>{ cancelAnimationFrame(raf); raf=0; };
+    fit();
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){ render(40); return; }   // 不播动画：停在划到一半、带着尾巴的画面
+    render(0);
+    new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?play():stop()),{threshold:.25}).observe(root);
   })();
   // 邮箱：照常唤起默认邮件应用；同时复制地址并提示（没配置邮件应用时 mailto 会静默失败）
   (()=>{
