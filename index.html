@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lassomark · 画个圈，就标注，人和 AI 都能用</title>
 <meta name="description" content="Lassomark 是一个住在 macOS 菜单栏里的小工具：在屏幕上随手一圈，即刻进行标注；Agent 模式精准标注组件，一键复制 Prompt 给 AI。边录边标，录完即成片。">
-<meta name="keywords" content="Lassomark,Agent 模式,AI 标注,Prompt,录屏标注,屏幕批注,macOS 截图工具,屏幕录制,圈选标注,标注工具,mac 演示工具">
+<meta name="keywords" content="Lassomark,Agent 模式,AI 标注,Prompt,马赛克,截图打码,录屏标注,屏幕批注,macOS 截图工具,屏幕录制,圈选标注,标注工具,mac 演示工具">
 <link rel="canonical" href="https://lassomark.com/">
 <link rel="icon" type="image/png" href="logo.png">
 
@@ -34,7 +34,7 @@
   "operatingSystem": "macOS 13.0+",
   "url": "https://lassomark.com/",
   "downloadUrl": "https://lassomark.com/Lassomark.dmg",
-  "softwareVersion": "2.2",
+  "softwareVersion": "2.3",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
 }
 </script>
@@ -149,10 +149,11 @@
 
   /* ===== Agent 模式介绍 ===== */
   #agent{padding-top:60px;padding-bottom:88px;scroll-margin-top:48px}   /* 跳转过来时标题别被悬浮导航挡住 */
-  #agent .buy-link{margin:16px 0 0;display:flex;justify-content:center}
-  #agent .buy-link a{display:inline-flex;align-items:center;gap:6px;font-size:18px;line-height:26px;color:var(--blue)}
-  #agent .buy-link img{width:14px;height:14px;transition:transform .2s}
-  #agent .buy-link a:hover img{transform:translateX(2px)}
+  #agent .buy-link,.feat .buy-link{margin:16px 0 0;display:flex;justify-content:center}
+  .feat .buy-link{justify-content:flex-start}         /* 马赛克那段：跟正文左对齐 */
+  #agent .buy-link a,.feat .buy-link a{display:inline-flex;align-items:center;gap:6px;font-size:18px;line-height:26px;color:var(--blue)}
+  #agent .buy-link img,.feat .buy-link img{width:14px;height:14px;transition:transform .2s}
+  #agent .buy-link a:hover img,.feat .buy-link a:hover img{transform:translateX(2px)}
   /* 和 Hero 描述（.hero .sub）同一级：同色；桌面 19 / 18px（Figma 256:50070），手机上一起降到 16px */
   #agent .sub2{font-size:18px;font-weight:400;color:rgba(0,0,0,.65);margin:16px auto 0;max-width:1000px}
   #agent .media{margin:60px auto 0;max-width:800px;aspect-ratio:800/480;border-radius:16px;overflow:hidden;
@@ -278,7 +279,7 @@
   .ad-cursor.gone{opacity:0}
   .ad-cursor svg{display:block;transform-origin:2px 2px;transition:transform .1s}
   .ad-cursor.down svg{transform:scale(.82)}
-  @media(max-width:760px){ .hero .sub,#agent .sub2,#agent .buy-link a{font-size:16px} #agent{padding-top:32px;padding-bottom:64px} #agent .media{margin-top:36px} }
+  @media(max-width:760px){ .hero .sub,#agent .sub2,#agent .buy-link a,.feat .buy-link a{font-size:16px} #agent{padding-top:32px;padding-bottom:64px} #agent .media{margin-top:36px} }
 
   /* ===== 区块通用 ===== */
   section{padding:88px 0}
@@ -423,6 +424,19 @@
   .f3-win b{position:absolute;left:27px;width:22px;height:14px;display:flex;align-items:center;justify-content:center;padding:0 8px 0 9px;
     border-radius:4px;background:#ced0ea;font-size:10px;font-weight:600;letter-spacing:-.2px;color:rgba(0,0,0,.5)}
   .f3-fx{position:absolute;left:0;top:0;width:632px;height:400px;pointer-events:none}
+
+  /* 亮点 4：马赛克（Pro）。一扇「账号设置」窗口，⇧⌘M 拖框打码手机号、API Key；
+     马赛克、压暗、选中框和光标都画在 f4-fx 画布上（打码图 = 同样的字画进离屏画布再缩放取格） */
+  .feat .dm-stage .f4-bg{position:absolute;left:0;top:-300px;width:632px;height:948px;max-width:none;object-fit:fill;transform:scaleX(-1)}
+  .f4-win{position:absolute;left:56px;top:52px;width:520px;height:348px;border-radius:24px 24px 0 0;background:#FBFBFC;
+    box-shadow:0 10px 40px rgba(0,50,40,.16)}
+  .f4-lights{position:absolute;left:20px;top:18px;display:flex;gap:7px}
+  .f4-lights b{width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,.12)}
+  .feat .f4-win .f4-tt{position:absolute;left:32px;top:44px;margin:0;font-size:26px;font-weight:600;line-height:34px;letter-spacing:-.5px;color:#1a1a1a}
+  .f4-row{position:absolute;left:32px;right:32px;height:52px;display:flex;align-items:center;border-bottom:1px solid rgba(0,0,0,.06)}
+  .feat .f4-row span{flex:none;width:96px;font-size:14px;color:#8A8F98}
+  .f4-row b{font-size:18px;font-weight:500;color:#1a1a1a;white-space:nowrap}
+  .f4-fx{position:absolute;left:0;top:0;width:632px;height:400px;pointer-events:none}
   .feat .txt{flex:616 1 0;padding:0 24px 24px 32px}
   .feat h3{font-size:36px;font-weight:500;color:var(--black);letter-spacing:-.72px;margin:0 0 18px}
   .feat p{font-size:18px;font-weight:400;color:#5D5D5D;line-height:26px;margin:0;max-width:560px}
@@ -498,6 +512,7 @@
     opacity:0;pointer-events:none;transition:opacity .15s,transform .15s}
   .tip .bub::before{content:"";position:absolute;left:50%;top:-4px;width:8px;height:8px;background:#1F2329;transform:translateX(-50%) rotate(45deg);border-radius:1px}
   .tip:hover .bub,.tip:focus .bub{opacity:1;transform:translate(-50%,0)}
+  .tip.tip-wrap .bub{white-space:normal;width:232px}   /* 长提示折行，别拉成一长条 */
   .toast{position:fixed;left:50%;bottom:32px;z-index:80;transform:translate(-50%,12px);max-width:calc(100% - 32px);
     padding:10px 16px;border-radius:12px;background:#1F2329;color:#fff;font-size:14px;line-height:22px;text-align:center;
     box-shadow:0 8px 24px rgba(31,35,41,.18);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
@@ -510,6 +525,9 @@
     .tip .bub{left:auto;right:-6px;transform:translateY(-4px)}
     .tip .bub::before{left:auto;right:9px;transform:rotate(45deg)}
     .tip:hover .bub,.tip:focus .bub{transform:none}
+    /* 最左一列：靠右对齐会冲出屏幕左边，改成从 ⓘ 往右展开 */
+    .tip.tip-l .bub{left:calc(100% - 20px);right:auto}
+    .tip.tip-l .bub::before{left:9px;right:auto}
   }
   @media(max-width:520px){ .foot-in>div:last-child{min-width:0;flex-basis:100%} .fcols{grid-template-columns:repeat(2,minmax(0,1fr))} }   /* 四列放不下才两列 */
 
@@ -712,6 +730,27 @@
         <p>2× 光标 + 拖尾让观众一眼跟住你的鼠标；随手一圈就能圈出重点。远程讲解、录教程、给同事演示——<b>它可能是你桌面上最快的那个工具</b>。</p>
       </div>
     </div>
+    <div class="feat rev reveal">
+      <div class="ph demo" id="f4Demo" role="img" aria-label="演示：按 ⇧⌘M 拖一个框，手机号和 API Key 被打上马赛克">
+        <div class="dm-stage" id="f4Stage">
+          <img class="f4-bg" src="feature-1-bg.jpg" alt="">
+          <div class="f4-win">
+            <i class="f4-lights"><b></b><b></b><b></b></i>
+            <p class="f4-tt">账号设置</p>
+            <div class="f4-row" style="top:104px"><span>手机号</span><b>138 0013 8000</b></div>
+            <div class="f4-row" style="top:156px"><span>邮箱</span><b>lisa.chen@example.com</b></div>
+            <div class="f4-row" style="top:208px"><span>API Key</span><b>sk-live-7f3a9c2e81b4d6</b></div>
+            <div class="f4-row" style="top:260px"><span>地址</span><b>上海市徐汇区漕溪北路 88 号</b></div>
+          </div>
+          <canvas class="f4-fx" id="f4Fx"></canvas>
+        </div>
+      </div>
+      <div class="txt">
+        <h3>先打码，再分享</h3>
+        <p>给隐私信息打上马赛克，再放心地截图、录屏。马赛克可以和画圈标注、录屏叠加使用——<b>该讲的讲清楚，不该露的一点不露</b>。截完图或结束录屏，自动清除。</p>
+        <p class="buy-link"><a href="buy.html">升级 Pro 版本，永久使用<img src="icon-arrow-right.svg" width="14" height="14" alt=""></a></p>
+      </div>
+    </div>
   </div>
  </div>
 </section>
@@ -756,6 +795,7 @@
     <div class="krow reveal"><kbd>⇧⌘2</kbd><div class="d">选区录制 开始/停止。按下开始拖动选区，松手即开录。</div></div>
     <div class="krow reveal"><kbd>⇧⌘S</kbd><div class="d">全屏快照到剪贴板</div></div>
     <div class="krow reveal"><kbd>⇧⌘D</kbd><div class="d">选区快照到剪贴板</div></div>
+    <div class="krow reveal"><kbd>⇧⌘M</kbd><div class="d">添加马赛克（Pro）。拖动框选要打码的区域</div></div>
   </div>
 </section>
 
@@ -787,7 +827,7 @@
     </div>
     <div>
       <div class="fcols">
-        <div class="fcol"><h4>截图</h4><ul><li>画圈标注</li><li>整屏截图</li><li>选区截图</li></ul></div>
+        <div class="fcol"><h4>截图</h4><ul><li>画圈标注</li><li>整屏截图</li><li>选区截图</li><li><span class="tip tip-wrap tip-l" tabindex="0">马赛克<svg viewBox="0 0 14 14" aria-hidden="true"><path fill="#000" fill-opacity=".4" d="M7 0.291667C10.7049 0.291667 13.7083 3.29509 13.7083 7C13.7083 10.7049 10.7049 13.7083 7 13.7083C3.29509 13.7083 0.291667 10.7049 0.291667 7C0.291667 3.29509 3.29509 0.291667 7 0.291667ZM7 1.45833C3.93942 1.45833 1.45833 3.93942 1.45833 7C1.45833 10.0606 3.93942 12.5417 7 12.5417C10.0606 12.5417 12.5417 10.0606 12.5417 7C12.5417 3.93942 10.0606 1.45833 7 1.45833ZM7 5.54167C7.32217 5.54167 7.58333 5.80283 7.58333 6.125V9.33333H8.16667C8.48883 9.33333 8.75 9.5945 8.75 9.91667C8.75 10.2388 8.48883 10.5 8.16667 10.5H5.83333C5.51117 10.5 5.25 10.2388 5.25 9.91667C5.25 9.5945 5.51117 9.33333 5.83333 9.33333H6.41667V6.70833H6.125C5.80283 6.70833 5.54167 6.44717 5.54167 6.125C5.54167 5.80283 5.80283 5.54167 6.125 5.54167H7ZM7 3.5C7.40271 3.5 7.72917 3.82646 7.72917 4.22917C7.72917 4.63187 7.40271 4.95833 7 4.95833C6.59729 4.95833 6.27083 4.63187 6.27083 4.22917C6.27083 3.82646 6.59729 3.5 7 3.5Z"/></svg><span class="bub" role="tooltip">打码遮住隐私信息，可以和标注、录屏叠加使用；截图或结束录屏后自动清除</span></span></li></ul></div>
         <div class="fcol"><h4>Agent 模式</h4><ul><li>识别屏幕</li><li><span class="tip" tabindex="0">复制 Prompt<svg viewBox="0 0 14 14" aria-hidden="true"><path fill="#000" fill-opacity=".4" d="M7 0.291667C10.7049 0.291667 13.7083 3.29509 13.7083 7C13.7083 10.7049 10.7049 13.7083 7 13.7083C3.29509 13.7083 0.291667 10.7049 0.291667 7C0.291667 3.29509 3.29509 0.291667 7 0.291667ZM7 1.45833C3.93942 1.45833 1.45833 3.93942 1.45833 7C1.45833 10.0606 3.93942 12.5417 7 12.5417C10.0606 12.5417 12.5417 10.0606 12.5417 7C12.5417 3.93942 10.0606 1.45833 7 1.45833ZM7 5.54167C7.32217 5.54167 7.58333 5.80283 7.58333 6.125V9.33333H8.16667C8.48883 9.33333 8.75 9.5945 8.75 9.91667C8.75 10.2388 8.48883 10.5 8.16667 10.5H5.83333C5.51117 10.5 5.25 10.2388 5.25 9.91667C5.25 9.5945 5.51117 9.33333 5.83333 9.33333H6.41667V6.70833H6.125C5.80283 6.70833 5.54167 6.44717 5.54167 6.125C5.54167 5.80283 5.80283 5.54167 6.125 5.54167H7ZM7 3.5C7.40271 3.5 7.72917 3.82646 7.72917 4.22917C7.72917 4.63187 7.40271 4.95833 7 4.95833C6.59729 4.95833 6.27083 4.63187 6.27083 4.22917C6.27083 3.82646 6.59729 3.5 7 3.5Z"/></svg><span class="bub" role="tooltip">Tips：按 ⇧⌘V 粘贴可附带截图哦</span></span></li></ul></div>
         <div class="fcol"><h4>录屏</h4><ul><li>整屏录制</li><li>选区录制</li></ul></div>
         <div class="fcol"><h4>演示</h4><ul><li>2x 光标</li><li>拖尾效果</li></ul></div>
@@ -1114,6 +1154,106 @@
     if(matchMedia('(prefers-reduced-motion: reduce)').matches){ render(40); return; }   // 不播动画：停在划到一半、带着尾巴的画面
     render(0);
     new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?play():stop()),{threshold:.25}).observe(root);
+  })();
+  // ===== 亮点 4 演示：屏幕压暗、光标变十字（= 马赛克开启）→ 拖框，框里实时出马赛克 → 松手贴上、选中（橙框 + 四角锚点）
+  //       → 再来一块（不再压暗，免得打断观感）→ 两块都留着停一会儿 → 硬切回开头（一轮 165 帧 = 5.5 秒）=====
+  (()=>{
+    const root=document.getElementById('f4Demo'); if(!root) return;
+    const stage=document.getElementById('f4Stage'), cv=document.getElementById('f4Fx'), cx=cv.getContext('2d');
+    const FPS=30, END=165, OR='#FF9900', BLOCK=8;
+    const WIN={x:56,y:52,w:520,h:348};
+    // 两块马赛克：拖框起点 / 终点（舞台坐标）
+    const M=[{a:[176,166],b:[318,198],go:14,down:30,up:52,selEnd:74,dim:true},
+             {a:[176,270],b:[410,302],go:74,down:90,up:114,selEnd:140,dim:false}];
+    let k=1, pix=null;
+    const fit=()=>{ const s=root.clientWidth/632; stage.style.setProperty('--s',s);
+      k=s*(devicePixelRatio||1); cv.width=Math.round(632*k); cv.height=Math.round(400*k); };
+    new ResizeObserver(fit).observe(root);
+
+    // 打码底图：把窗口里的字按同样位置画进离屏画布，再缩到 1/8 —— 画的时候关掉平滑放大，就是一格格的马赛克
+    function buildPix(){
+      const ff=getComputedStyle(stage).fontFamily, c=document.createElement('canvas'); c.width=632; c.height=400;
+      const g=c.getContext('2d');
+      g.fillStyle='#FBFBFC'; g.fillRect(WIN.x,WIN.y,WIN.w,WIN.h);
+      g.textBaseline='middle'; g.fillStyle='#1a1a1a';
+      g.font=`600 26px ${ff}`; g.fillText('账号设置',WIN.x+32,WIN.y+61);
+      const rows=[['手机号','138 0013 8000'],['邮箱','lisa.chen@example.com'],['API Key','sk-live-7f3a9c2e81b4d6'],['地址','上海市徐汇区漕溪北路 88 号']];
+      rows.forEach(([l,v],i)=>{ const y=WIN.y+104+52*i+26;
+        g.font=`14px ${ff}`; g.fillStyle='#8A8F98'; g.fillText(l,WIN.x+32,y);
+        g.font=`500 18px ${ff}`; g.fillStyle='#1a1a1a'; g.fillText(v,WIN.x+128,y); });
+      const sm=document.createElement('canvas'); sm.width=632/BLOCK; sm.height=400/BLOCK;
+      const h=sm.getContext('2d'); h.imageSmoothingQuality='high'; h.drawImage(c,0,0,sm.width,sm.height);
+      return sm;
+    }
+    const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+    const mix=(p,q,t)=>[p[0]+(q[0]-p[0])*t,p[1]+(q[1]-p[1])*t];
+    const rectOf=(p,q)=>({x:Math.min(p[0],q[0]),y:Math.min(p[1],q[1]),w:Math.abs(q[0]-p[0]),h:Math.abs(q[1]-p[1])});
+    const REST=[470,120], AWAY=[500,168];
+
+    // 第 f 帧：光标在哪、是不是十字、正在拖的框、已经贴好的框、选中的是哪块、压暗没有
+    function state(f){
+      let cur=REST, cross=false, drag=null, dim=false, sel=-1;
+      const done=[];
+      M.forEach((m,i)=>{
+        if(f>=m.up){ done.push(rectOf(m.a,m.b)); if(f<m.selEnd) sel=i; }
+        if(f>=m.go&&f<m.up){ cross=true; dim=m.dim; }
+      });
+      // 光标路线
+      const [m1,m2]=M;
+      if(f<m1.go) cur=REST;
+      else if(f<m1.down) cur=mix(REST,m1.a,ease((f-m1.go)/(m1.down-m1.go)));
+      else if(f<m1.up){ cur=mix(m1.a,m1.b,ease((f-m1.down)/(m1.up-m1.down))); drag=rectOf(m1.a,cur); }
+      else if(f<m2.go) cur=m1.b;
+      else if(f<m2.down) cur=mix(m1.b,m2.a,ease((f-m2.go)/(m2.down-m2.go)));
+      else if(f<m2.up){ cur=mix(m2.a,m2.b,ease((f-m2.down)/(m2.up-m2.down))); drag=rectOf(m2.a,cur); }
+      else if(f<m2.selEnd) cur=m2.b;
+      else cur=mix(m2.b,AWAY,ease(Math.min(1,(f-m2.selEnd)/18)));
+      return {cur,cross,drag,dim,sel,done};
+    }
+    function mosaic(r){
+      if(!pix||r.w<1||r.h<1) return;
+      cx.imageSmoothingEnabled=false;
+      cx.drawImage(pix,r.x/BLOCK,r.y/BLOCK,r.w/BLOCK,r.h/BLOCK,r.x,r.y,r.w,r.h);
+    }
+    const ARROW=new Path2D('M2 2v18.5l4.6-4.4 3 6.9 3.1-1.3-3-6.8h6.4z');
+    function render(f){
+      const st=state(f);
+      cx.setTransform(1,0,0,1,0,0); cx.clearRect(0,0,cv.width,cv.height); cx.setTransform(k,0,0,k,0,0);
+      st.done.forEach(mosaic);
+      if(st.dim){                                   // 选区阶段：整屏压暗，框里挖出来
+        cx.beginPath(); cx.rect(0,0,632,400);
+        if(st.drag) cx.rect(st.drag.x,st.drag.y,st.drag.w,st.drag.h);
+        cx.fillStyle='rgba(0,0,0,.22)'; cx.fill('evenodd');
+      }
+      if(st.drag){ mosaic(st.drag); cx.strokeStyle=OR; cx.lineWidth=2; cx.strokeRect(st.drag.x+1,st.drag.y+1,st.drag.w-2,st.drag.h-2); }
+      if(st.sel>=0){                                // 选中：橙框 + 四角白底橙边锚点（同 app）
+        const r=st.done[st.sel];
+        cx.strokeStyle=OR; cx.lineWidth=1.5; cx.strokeRect(r.x,r.y,r.w,r.h);
+        [[r.x,r.y],[r.x+r.w,r.y],[r.x,r.y+r.h],[r.x+r.w,r.y+r.h]].forEach(([x,y])=>{
+          cx.beginPath(); cx.arc(x,y,4.5,0,Math.PI*2); cx.fillStyle='#fff'; cx.fill(); cx.lineWidth=1.5; cx.strokeStyle=OR; cx.stroke(); });
+      }
+      const [x,y]=st.cur;
+      if(st.cross){                                 // 十字光标：黑线描白边
+        cx.lineCap='round';
+        [['#fff',3.2],['#1a1a1a',1.4]].forEach(([c,w])=>{ cx.strokeStyle=c; cx.lineWidth=w; cx.beginPath();
+          cx.moveTo(x-8,y); cx.lineTo(x+8,y); cx.moveTo(x,y-8); cx.lineTo(x,y+8); cx.stroke(); });
+      } else {
+        cx.save(); cx.translate(x-2,y-2); cx.fillStyle='#000'; cx.strokeStyle='#fff'; cx.lineWidth=1.5; cx.lineJoin='round';
+        cx.fill(ARROW); cx.stroke(ARROW); cx.restore();
+      }
+    }
+    let raf=0, t0=0;
+    const tick=now=>{ render(Math.floor((now-t0)/1000*FPS)%END); raf=requestAnimationFrame(tick); };
+    const play=()=>{ if(raf) return; t0=performance.now(); raf=requestAnimationFrame(tick); };
+    const stop=()=>{ cancelAnimationFrame(raf); raf=0; };
+    fit();
+    // 字体加载完再生成打码底图，不然糊的是后备字体
+    (document.fonts?.ready||Promise.resolve()).then(()=>{
+      pix=buildPix();
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches){ render(150); return; }   // 不播动画：停在两块都贴好的画面
+      render(0);
+      new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?play():stop()),{threshold:.25}).observe(root);
+    });
   })();
   // 邮箱：照常唤起默认邮件应用；同时复制地址并提示（没配置邮件应用时 mailto 会静默失败）
   (()=>{

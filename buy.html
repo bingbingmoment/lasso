@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>解锁 Agent 模式 · Lassomark</title>
-<meta name="description" content="Lassomark Agent 模式一次买断、永久使用，以后的版本升级全部免费。一个激活码可用于 2 台 Mac。">
+<title>升级 Pro · Lassomark</title>
+<meta name="description" content="Lassomark Pro 解锁 Agent 模式和马赛克，一次买断、永久使用，以后的版本升级全部免费。一个激活码可用于 2 台 Mac。">
 <link rel="canonical" href="https://lassomark.com/buy.html">
 <link rel="icon" type="image/png" href="logo.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lassomark">
-<meta property="og:title" content="解锁 Agent 模式 · Lassomark">
-<meta property="og:description" content="Lassomark Agent 模式一次买断、永久使用，以后的版本升级全部免费。一个激活码可用于 2 台 Mac。">
+<meta property="og:title" content="升级 Pro · Lassomark">
+<meta property="og:description" content="Lassomark Pro 解锁 Agent 模式和马赛克，一次买断、永久使用，以后的版本升级全部免费。一个激活码可用于 2 台 Mac。">
 <meta property="og:url" content="https://lassomark.com/buy.html">
 <meta property="og:image" content="https://lassomark.com/og-v4.jpg">
 <style>
@@ -220,6 +220,7 @@
     opacity:0;pointer-events:none;transition:opacity .15s,transform .15s}
   .tip .bub::before{content:"";position:absolute;left:50%;top:-4px;width:8px;height:8px;background:#1F2329;transform:translateX(-50%) rotate(45deg);border-radius:1px}
   .tip:hover .bub,.tip:focus .bub{opacity:1;transform:translate(-50%,0)}
+  .tip.tip-wrap .bub{white-space:normal;width:232px}   /* 长提示折行，别拉成一长条 */
   .toast{position:fixed;left:50%;bottom:32px;z-index:80;transform:translate(-50%,12px);max-width:calc(100% - 32px);
     padding:10px 16px;border-radius:12px;background:#1F2329;color:#fff;font-size:14px;line-height:22px;text-align:center;
     box-shadow:0 8px 24px rgba(31,35,41,.18);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
@@ -232,6 +233,9 @@
     .tip .bub{left:auto;right:-6px;transform:translateY(-4px)}
     .tip .bub::before{left:auto;right:9px;transform:rotate(45deg)}
     .tip:hover .bub,.tip:focus .bub{transform:none}
+    /* 最左一列：靠右对齐会冲出屏幕左边，改成从 ⓘ 往右展开 */
+    .tip.tip-l .bub{left:calc(100% - 20px);right:auto}
+    .tip.tip-l .bub::before{left:9px;right:auto}
   }
   @media(max-width:520px){ .foot-in>div:last-child{min-width:0;flex-basis:100%} .fcols{grid-template-columns:repeat(2,minmax(0,1fr))} }   /* 四列放不下才两列 */
 
@@ -265,23 +269,24 @@
 <main>
   <section class="by-hero">
     <div class="by">
-      <h1>解锁 Agent 模式</h1>
-      <p>选中屏幕上的组件，写下修改要求，一键复制 Prompt 发给 AI。<br>一次买断，永久使用。</p>
+      <h1>升级 Pro</h1>
+      <p>解锁两项 Pro 功能：Agent 模式、马赛克。<br>一次买断，永久使用。</p>
       <div class="plan">
         <div class="top">
-          <div class="nm"><span class="t">Agent 模式</span><span class="tag">永久</span></div>
+          <div class="nm"><span class="t">Pro 版本</span><span class="tag">永久</span></div>
           <div class="price"><span class="amt"><span class="cur">US$</span><span class="num">2.79</span></span><span class="unit">约 ¥20，一次买断</span></div>
         </div>
         <img class="divider" src="buy-divider.svg" alt="">
         <ul>
-          <li><img src="buy-check.svg" alt="">永久使用 Agent 模式</li>
+          <li><img src="buy-check.svg" alt="">Agent 模式：选中组件，一键复制 Prompt 给 AI</li>
+          <li><img src="buy-check.svg" alt="">马赛克：遮住隐私信息，和标注、录屏叠加使用</li>
           <li><img src="buy-check.svg" alt="">以后的版本升级全部免费</li>
           <li><img src="buy-check.svg" alt="">一个激活码可用于 2 台 Mac</li>
           <li><img src="buy-check.svg" alt="">画圈标注、截图、录屏等基础功能一直免费</li>
         </ul>
         <!-- 付款：Creem（支付宝扫码 / 银行卡 / Apple Pay，无需注册），本页跳转过去、付完跳回；激活码直接显示在这张卡片里 -->
         <div class="pay-foot" id="buyArea">
-          <a class="btn buy-btn" id="buyBtn" href="#" target="_blank" rel="noopener">立即升级，解锁 Agent 模式</a>
+          <a class="btn buy-btn" id="buyBtn" href="#" target="_blank" rel="noopener">立即升级 Pro</a>
           <p class="wait" id="wait" hidden><i></i>正在等待付款结果…付完别关这个页面</p>
           <p class="pay-note" id="payErr" hidden>线上付款链路还在建设，着急的话可以发邮件给我</p>
         </div>
@@ -289,7 +294,7 @@
           <div class="done">
             <div class="ok">付款成功，这是你的激活码 🎉</div>
             <div class="code-row"><code id="code">LASSO-XXXX-XXXX-XXXX</code><button type="button" id="copyBtn">复制</button></div>
-            <p>打开 Lassomark，按 shift+command+C 粘贴激活码即可。请保存好它：一个激活码可用于 2 台 Mac。</p>
+            <p>打开 Lassomark，点菜单里的「升级 Pro…」粘贴激活码即可。请保存好它：一个激活码可用于 2 台 Mac。</p>
             <p class="sub" id="orderNo"></p>
           </div>
         </div>
@@ -303,7 +308,7 @@
     <div class="steps">
       <div class="step"><span class="no">1</span><h3>付款</h3><p>点上面的「立即升级」，在打开的页面里完成付款。</p></div>
       <div class="step"><span class="no">2</span><h3>收到激活码</h3><p>付款成功后，激活码会直接显示在这个页面上，长这样：<code>LASSO-XXXX-XXXX-XXXX</code></p></div>
-      <div class="step"><span class="no">3</span><h3>激活</h3><p>在 Lassomark 里按 <kbd>⇧⌘C</kbd>，或点菜单里的「激活 Agent 模式…」，粘贴激活码即可。</p></div>
+      <div class="step"><span class="no">3</span><h3>激活</h3><p>点 Lassomark 菜单里的「升级 Pro…」，或按 <kbd>⇧⌘C</kbd> / <kbd>⇧⌘M</kbd>，粘贴激活码即可。</p></div>
     </div>
   </section>
 
@@ -324,10 +329,10 @@
     <div class="faq">
       <details open><summary>一个激活码能用在几台 Mac 上？</summary><p>最多 2 台。在第 3 台 Mac 上激活会失败。</p></details>
       <details><summary>换电脑了怎么办？</summary><p>每个激活码最多激活 2 台 Mac，名额用完后不能转移到新电脑，第 3 台 Mac 需要另外购买激活码。在已激活的 Mac 上重装系统或重装 Lassomark，不会占用新的名额。</p></details>
-      <details><summary>以后升级要再付费吗？</summary><p>不用。买断之后，以后所有版本都能免费使用 Agent 模式，照常在菜单栏「检查更新」升级即可。</p></details>
+      <details><summary>以后升级要再付费吗？</summary><p>不用。买断之后，以后所有版本的 Pro 功能都能免费使用，照常在菜单栏「检查更新」升级即可。</p></details>
       <details><summary>需要一直联网吗？</summary><p>只有激活那一次需要联网，之后断网也能正常使用。</p></details>
-      <details><summary>不买的话还能用 Lassomark 吗？</summary><p>可以。画圈标注、截图、录屏这些功能都免费，只有 Agent 模式需要激活。</p></details>
-      <details><summary>怎么确认自己已经激活了？</summary><p>打开 Lassomark 的菜单，Agent 模式下面会显示「已买断 · 1/2 台 Mac」，点开能看到自己的激活码。</p></details>
+      <details><summary>不买的话还能用 Lassomark 吗？</summary><p>可以。画圈标注、截图、录屏这些功能都免费，只有 Agent 模式和马赛克需要升级 Pro。</p></details>
+      <details><summary>怎么确认自己已经激活了？</summary><p>打开 Lassomark 的菜单，会显示「Pro 版本 · 1/2 台 Mac」，点开能看到自己的激活码。</p></details>
     </div>
   </section>
 </main>
@@ -351,7 +356,7 @@
     </div>
     <div>
       <div class="fcols">
-        <div class="fcol"><h4>截图</h4><ul><li>画圈标注</li><li>整屏截图</li><li>选区截图</li></ul></div>
+        <div class="fcol"><h4>截图</h4><ul><li>画圈标注</li><li>整屏截图</li><li>选区截图</li><li><span class="tip tip-wrap tip-l" tabindex="0">马赛克<svg viewBox="0 0 14 14" aria-hidden="true"><path fill="#000" fill-opacity=".4" d="M7 0.291667C10.7049 0.291667 13.7083 3.29509 13.7083 7C13.7083 10.7049 10.7049 13.7083 7 13.7083C3.29509 13.7083 0.291667 10.7049 0.291667 7C0.291667 3.29509 3.29509 0.291667 7 0.291667ZM7 1.45833C3.93942 1.45833 1.45833 3.93942 1.45833 7C1.45833 10.0606 3.93942 12.5417 7 12.5417C10.0606 12.5417 12.5417 10.0606 12.5417 7C12.5417 3.93942 10.0606 1.45833 7 1.45833ZM7 5.54167C7.32217 5.54167 7.58333 5.80283 7.58333 6.125V9.33333H8.16667C8.48883 9.33333 8.75 9.5945 8.75 9.91667C8.75 10.2388 8.48883 10.5 8.16667 10.5H5.83333C5.51117 10.5 5.25 10.2388 5.25 9.91667C5.25 9.5945 5.51117 9.33333 5.83333 9.33333H6.41667V6.70833H6.125C5.80283 6.70833 5.54167 6.44717 5.54167 6.125C5.54167 5.80283 5.80283 5.54167 6.125 5.54167H7ZM7 3.5C7.40271 3.5 7.72917 3.82646 7.72917 4.22917C7.72917 4.63187 7.40271 4.95833 7 4.95833C6.59729 4.95833 6.27083 4.63187 6.27083 4.22917C6.27083 3.82646 6.59729 3.5 7 3.5Z"/></svg><span class="bub" role="tooltip">打码遮住隐私信息，可以和标注、录屏叠加使用；截图或结束录屏后自动清除</span></span></li></ul></div>
         <div class="fcol"><h4>Agent 模式</h4><ul><li>识别屏幕</li><li><span class="tip" tabindex="0">复制 Prompt<svg viewBox="0 0 14 14" aria-hidden="true"><path fill="#000" fill-opacity=".4" d="M7 0.291667C10.7049 0.291667 13.7083 3.29509 13.7083 7C13.7083 10.7049 10.7049 13.7083 7 13.7083C3.29509 13.7083 0.291667 10.7049 0.291667 7C0.291667 3.29509 3.29509 0.291667 7 0.291667ZM7 1.45833C3.93942 1.45833 1.45833 3.93942 1.45833 7C1.45833 10.0606 3.93942 12.5417 7 12.5417C10.0606 12.5417 12.5417 10.0606 12.5417 7C12.5417 3.93942 10.0606 1.45833 7 1.45833ZM7 5.54167C7.32217 5.54167 7.58333 5.80283 7.58333 6.125V9.33333H8.16667C8.48883 9.33333 8.75 9.5945 8.75 9.91667C8.75 10.2388 8.48883 10.5 8.16667 10.5H5.83333C5.51117 10.5 5.25 10.2388 5.25 9.91667C5.25 9.5945 5.51117 9.33333 5.83333 9.33333H6.41667V6.70833H6.125C5.80283 6.70833 5.54167 6.44717 5.54167 6.125C5.54167 5.80283 5.80283 5.54167 6.125 5.54167H7ZM7 3.5C7.40271 3.5 7.72917 3.82646 7.72917 4.22917C7.72917 4.63187 7.40271 4.95833 7 4.95833C6.59729 4.95833 6.27083 4.63187 6.27083 4.22917C6.27083 3.82646 6.59729 3.5 7 3.5Z"/></svg><span class="bub" role="tooltip">Tips：按 ⇧⌘V 粘贴可附带截图哦</span></span></li></ul></div>
         <div class="fcol"><h4>录屏</h4><ul><li>整屏录制</li><li>选区录制</li></ul></div>
         <div class="fcol"><h4>演示</h4><ul><li>2x 光标</li><li>拖尾效果</li></ul></div>
@@ -363,12 +368,12 @@
 
 <script>
   // ===== 购买：付款 → api.lassomark.com 生成激活码 → 这里轮询显示 =====
-  // 每位访客生成一个 128 位随机 ref 带进订单（LS：checkout[custom][ref]；Creem：服务端建会话时放进 request_id）；
+  // 每位访客生成一个 128 位随机 ref 带进订单（LS：checkout[custom][ref]；Creem：服务端建会话时放进 request_id；Dodo：放进 metadata）；
   // 付款通知到服务器后，凭 ref 查到激活码。ref 存在本地，关掉页面再回来（比如手机付完从付款页返回）也能看到码。
   (()=>{
-    const PAY='creem';   // 'creem' | 'ls'——收款渠道二选一
-    const CHECKOUT='https://lassomark.lemonsqueezy.com/checkout/buy/478a5d29-49ef-4103-87e1-ed591473b4fa';
     const qs=new URLSearchParams(location.search);
+    const PAY=['creem','dodo','ls'].includes(qs.get('pay'))?qs.get('pay'):'creem';   // 收款渠道三选一；?pay= 仅本地联调用
+    const CHECKOUT='https://lassomark.lemonsqueezy.com/checkout/buy/478a5d29-49ef-4103-87e1-ed591473b4fa';
     const API=qs.get('api')||'https://api.lassomark.com';     // ?api= 仅本地联调用
     const KEY='lassomark_order_ref';
     const $=id=>document.getElementById(id);
@@ -379,16 +384,16 @@
 
     if(PAY==='ls'){ $('buyBtn').href=url; $('buyBtn').addEventListener('click',()=>startPolling()) }
     else { const b=$('buyBtn'); b.removeAttribute('target'); b.addEventListener('click',async e=>{
-      // Creem 的付款地址要现建会话才有，拿到后在本页跳过去；付完 Creem 跳回 buy.html?paid=1，凭本地存的 ref 接着查码
+      // Creem / Dodo 的付款地址要现建会话才有，拿到后在本页跳过去；付完跳回 buy.html?paid=1，凭本地存的 ref 接着查码
       e.preventDefault(); if(b.dataset.busy) return; b.dataset.busy=1; const label=b.textContent; b.textContent='正在打开付款页…'; $('payErr').hidden=true;
       try{
-        const r=await fetch(API+'/v1/creem/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ref})});
+        const r=await fetch(API+'/v1/'+PAY+'/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ref})});
         const o=await r.json(); if(!o.url) throw 0;
         location.href=o.url;
       }catch(err){ delete b.dataset.busy; b.textContent=label; $('payErr').hidden=false }
     });
     // 从付款页按「返回」回来时浏览器可能直接复用旧页面，按钮会卡在「正在打开」
-    addEventListener('pageshow',e=>{ if(e.persisted){ delete b.dataset.busy; b.textContent='立即升级，解锁 Agent 模式'; check() } }) }
+    addEventListener('pageshow',e=>{ if(e.persisted){ delete b.dataset.busy; b.textContent='立即升级 Pro'; check() } }) }
 
     function show(o){
       if(o.status==='paid'){

@@ -156,6 +156,7 @@
     opacity:0;pointer-events:none;transition:opacity .15s,transform .15s}
   .tip .bub::before{content:"";position:absolute;left:50%;top:-4px;width:8px;height:8px;background:#1F2329;transform:translateX(-50%) rotate(45deg);border-radius:1px}
   .tip:hover .bub,.tip:focus .bub{opacity:1;transform:translate(-50%,0)}
+  .tip.tip-wrap .bub{white-space:normal;width:232px}   /* 长提示折行，别拉成一长条 */
   .toast{position:fixed;left:50%;bottom:32px;z-index:80;transform:translate(-50%,12px);max-width:calc(100% - 32px);
     padding:10px 16px;border-radius:12px;background:#1F2329;color:#fff;font-size:14px;line-height:22px;text-align:center;
     box-shadow:0 8px 24px rgba(31,35,41,.18);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
@@ -168,6 +169,9 @@
     .tip .bub{left:auto;right:-6px;transform:translateY(-4px)}
     .tip .bub::before{left:auto;right:9px;transform:rotate(45deg)}
     .tip:hover .bub,.tip:focus .bub{transform:none}
+    /* 最左一列：靠右对齐会冲出屏幕左边，改成从 ⓘ 往右展开 */
+    .tip.tip-l .bub{left:calc(100% - 20px);right:auto}
+    .tip.tip-l .bub::before{left:9px;right:auto}
   }
   @media(max-width:520px){ .foot-in>div:last-child{min-width:0;flex-basis:100%} .fcols{grid-template-columns:repeat(2,minmax(0,1fr))} }   /* 四列放不下才两列 */
 
@@ -350,7 +354,7 @@
     </div>
     <div>
       <div class="fcols">
-        <div class="fcol"><h4>截图</h4><ul><li>画圈标注</li><li>整屏截图</li><li>选区截图</li></ul></div>
+        <div class="fcol"><h4>截图</h4><ul><li>画圈标注</li><li>整屏截图</li><li>选区截图</li><li><span class="tip tip-wrap tip-l" tabindex="0">马赛克<svg viewBox="0 0 14 14" aria-hidden="true"><path fill="#000" fill-opacity=".4" d="M7 0.291667C10.7049 0.291667 13.7083 3.29509 13.7083 7C13.7083 10.7049 10.7049 13.7083 7 13.7083C3.29509 13.7083 0.291667 10.7049 0.291667 7C0.291667 3.29509 3.29509 0.291667 7 0.291667ZM7 1.45833C3.93942 1.45833 1.45833 3.93942 1.45833 7C1.45833 10.0606 3.93942 12.5417 7 12.5417C10.0606 12.5417 12.5417 10.0606 12.5417 7C12.5417 3.93942 10.0606 1.45833 7 1.45833ZM7 5.54167C7.32217 5.54167 7.58333 5.80283 7.58333 6.125V9.33333H8.16667C8.48883 9.33333 8.75 9.5945 8.75 9.91667C8.75 10.2388 8.48883 10.5 8.16667 10.5H5.83333C5.51117 10.5 5.25 10.2388 5.25 9.91667C5.25 9.5945 5.51117 9.33333 5.83333 9.33333H6.41667V6.70833H6.125C5.80283 6.70833 5.54167 6.44717 5.54167 6.125C5.54167 5.80283 5.80283 5.54167 6.125 5.54167H7ZM7 3.5C7.40271 3.5 7.72917 3.82646 7.72917 4.22917C7.72917 4.63187 7.40271 4.95833 7 4.95833C6.59729 4.95833 6.27083 4.63187 6.27083 4.22917C6.27083 3.82646 6.59729 3.5 7 3.5Z"/></svg><span class="bub" role="tooltip">打码遮住隐私信息，可以和标注、录屏叠加使用；截图或结束录屏后自动清除</span></span></li></ul></div>
         <div class="fcol"><h4>Agent 模式</h4><ul><li>识别屏幕</li><li><span class="tip" tabindex="0">复制 Prompt<svg viewBox="0 0 14 14" aria-hidden="true"><path fill="#000" fill-opacity=".4" d="M7 0.291667C10.7049 0.291667 13.7083 3.29509 13.7083 7C13.7083 10.7049 10.7049 13.7083 7 13.7083C3.29509 13.7083 0.291667 10.7049 0.291667 7C0.291667 3.29509 3.29509 0.291667 7 0.291667ZM7 1.45833C3.93942 1.45833 1.45833 3.93942 1.45833 7C1.45833 10.0606 3.93942 12.5417 7 12.5417C10.0606 12.5417 12.5417 10.0606 12.5417 7C12.5417 3.93942 10.0606 1.45833 7 1.45833ZM7 5.54167C7.32217 5.54167 7.58333 5.80283 7.58333 6.125V9.33333H8.16667C8.48883 9.33333 8.75 9.5945 8.75 9.91667C8.75 10.2388 8.48883 10.5 8.16667 10.5H5.83333C5.51117 10.5 5.25 10.2388 5.25 9.91667C5.25 9.5945 5.51117 9.33333 5.83333 9.33333H6.41667V6.70833H6.125C5.80283 6.70833 5.54167 6.44717 5.54167 6.125C5.54167 5.80283 5.80283 5.54167 6.125 5.54167H7ZM7 3.5C7.40271 3.5 7.72917 3.82646 7.72917 4.22917C7.72917 4.63187 7.40271 4.95833 7 4.95833C6.59729 4.95833 6.27083 4.63187 6.27083 4.22917C6.27083 3.82646 6.59729 3.5 7 3.5Z"/></svg><span class="bub" role="tooltip">Tips：按 ⇧⌘V 粘贴可附带截图哦</span></span></li></ul></div>
         <div class="fcol"><h4>录屏</h4><ul><li>整屏录制</li><li>选区录制</li></ul></div>
         <div class="fcol"><h4>演示</h4><ul><li>2x 光标</li><li>拖尾效果</li></ul></div>
