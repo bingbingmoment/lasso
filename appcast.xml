@@ -3,6 +3,31 @@
     <channel>
         <title>Lasso</title>
         <item>
+            <title>2.5.3</title>
+            <pubDate>Mon, 23 Nov 2026 20:11:02 +0800</pubDate>
+            <sparkle:version>19</sparkle:version>
+            <sparkle:shortVersionString>2.5.3</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[<style>
+  .rn { font-family: -apple-system, system-ui, "PingFang SC", sans-serif; font-size: 13px; line-height: 1.75; }
+  .rn p { margin: 0 0 4px; font-weight: 600; }
+  .rn ul { margin: 0; padding-left: 16px; }
+  .rn li { margin: 2px 0; }
+  @media (prefers-color-scheme: dark) { .rn { color: #e8e8e8; } }
+</style>
+<div class="rn">
+  <p>提升 GIF 录制质量，优化部分体验</p>
+</div>
+]]></description>
+            <enclosure url="https://lassomark.com/Lassomark-2.5.3.zip" length="10911684" type="application/octet-stream" sparkle:edSignature="T2sBa+CZMG4o59F73JGS7vzlPGCpn34WgPrFjLOpi7dZPic6oEdzTllrFrM5+lHW2UsQviOcUUqXFsitJktjDQ=="/>
+            <sparkle:deltas>
+                <enclosure url="https://lassomark.com/Lassomark19-18.delta" sparkle:deltaFrom="18" length="462490" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862416" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="UZpJW61HZ5nT7HsPM4BAEelCIBuoUxR7LcBzNiEhwXrtDKSj+PXwXWtDFDw+AXo53fSfNnfE2WsW1mUHaPc5BQ=="/>
+                <enclosure url="https://lassomark.com/Lassomark19-17.delta" sparkle:deltaFrom="17" length="490654" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862416" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="rNgY5f0GQ6X/uXyd0G9mDTvVF/22sAycelCxRmcx0rTyZuKvvD1sDXXFSD9yrffU7CGZRhTKWTUYMmL9b8uWCw=="/>
+                <enclosure url="https://lassomark.com/Lassomark19-15.delta" sparkle:deltaFrom="15" length="953370" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862416" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="WU+hpasTBafTLIalZKDYnyG18sA0NWCu4v8WL1UV7bUIMJIxaKCHVQ89G1rS8iImNIp2s6mcXk0Ckcq3SPMZBQ=="/>
+                <enclosure url="https://lassomark.com/Lassomark19-14.delta" sparkle:deltaFrom="14" length="961966" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862416" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="Mb0BHA27K7XtGhs9RtusqRgWkfhBZdOIVNwm8QSyGa+uljMgkk+ZKpaeJLyCo3RK/y4jIhHydvIClIRu0nDuAQ=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
             <title>2.5.2</title>
             <pubDate>Sun, 22 Nov 2026 18:34:14 +0800</pubDate>
             <sparkle:version>18</sparkle:version>
@@ -57,37 +82,6 @@
                 <enclosure url="https://lassomark.com/Lassomark17-14.delta" sparkle:deltaFrom="14" length="857710" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862416" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="SHtplYs5TvvH6hWCZHx1FiHLhH5/nSo1VF9aEzs53o6kVqxpnvdzeaBhbRLaqf1LC+P4vuyK3o8mYYEo2EiHCA=="/>
                 <enclosure url="https://lassomark.com/Lassomark17-13.delta" sparkle:deltaFrom="13" length="865530" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862416" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="QmOYRJZyHsP0o4HQ8dkB0K//3RHC/P9z8/ufEHsPmj8j00TlDLodYwuvABhi861xhclm9uv1PFW+AlQ5XQOwCw=="/>
                 <enclosure url="https://lassomark.com/Lassomark17-12.delta" sparkle:deltaFrom="12" length="8655958" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862416" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="vYw9aylVyQZukdBArGhM0ruvgsfSK9Jyvcv/erX3kI2kP3Z7tI3Pknn2sj1K37VNA2C6muxn8B4d/vmtm28sCg=="/>
-            </sparkle:deltas>
-        </item>
-        <item>
-            <title>2.5.0</title>
-            <pubDate>Fri, 20 Nov 2026 22:51:39 +0800</pubDate>
-            <sparkle:version>16</sparkle:version>
-            <sparkle:shortVersionString>2.5.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-            <description><![CDATA[<style>
-  .rn { font-family: -apple-system, system-ui, "PingFang SC", sans-serif; font-size: 13px; line-height: 1.75; }
-  .rn p { margin: 0 0 4px; font-weight: 600; }
-  .rn ul { margin: 0; padding-left: 16px; }
-  .rn li { margin: 2px 0; }
-  @media (prefers-color-scheme: dark) { .rn { color: #e8e8e8; } }
-</style>
-<div class="rn">
-  <p>滚动截图与原位翻译</p>
-  <ul>
-    <li>新增滚动截图（macOS 14 或更新版本）。框选后可向上或向下滚动，在旁边实时预览拼接结果，再保存或复制长图。</li>
-    <li>新增截图翻译（macOS 15 或更新版本）。将外文原位替换为简体中文，保留原有中文和文件路径。翻译使用系统语言包，可右键点击「翻译」手动下载。</li>
-    <li>全屏和选区录制期间可继续截图，框选和编辑过程会录进视频。选区录制时，区域外的淡蒙层会持续显示。</li>
-  </ul>
-</div>
-]]></description>
-            <enclosure url="https://lassomark.com/Lassomark-2.5.0.zip" length="10304300" type="application/octet-stream" sparkle:edSignature="pGlyipZqLvYvrWWUf//MuyBaA0v/kbTsAJSGKs/fweehO9AO6m+NWM9wCd9heRlSUEoruVzXueX2wOtiUN0oAg=="/>
-            <sparkle:deltas>
-                <enclosure url="https://lassomark.com/Lassomark16-15.delta" sparkle:deltaFrom="15" length="476702" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862416" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="l2rD0c/h4nrCMwYaSxqms6Ql75WV/YzEnrvTUQKUXIiGwUfKNEYbHkXWwYuvnDMyjXifS4haz5Tij1vUq07IAg=="/>
-                <enclosure url="https://lassomark.com/Lassomark16-14.delta" sparkle:deltaFrom="14" length="486382" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862416" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="8AATwzIBi3ySlS3j1YyKA/xfBRqpXnrtnlsgMafvlxHHIQE+hvcj71qnUWGkUD7b5wvG+Kbb8Q+sYPsisvOrDg=="/>
-                <enclosure url="https://lassomark.com/Lassomark16-13.delta" sparkle:deltaFrom="13" length="488530" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862416" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="aL3jNxdB2qJH4c8CXiEQw7yFKQOqaKm/HP9FHqbySbp7m2kYMBME8yCBRUShRezpjGGEerKLZs2Ns3ectE/VAw=="/>
-                <enclosure url="https://lassomark.com/Lassomark16-12.delta" sparkle:deltaFrom="12" length="8309310" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862416" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="FCctdb204LaC1991ESKg7Q1/R5X8t0foIXnTdGp3aNxjVcBTQc9RSaTvOWeadmtRK48AIb5aBiyO74gc6VZ1AQ=="/>
-                <enclosure url="https://lassomark.com/Lassomark16-11.delta" sparkle:deltaFrom="11" length="8309214" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="862416" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="cftgjQlS7/ju3f/BsHvWjb88YIV5q0oXs6iOWZc9Soue7RcxWs50xAhiZjdf8vx6xIfppoHX4gSXbc+aeEJyBw=="/>
             </sparkle:deltas>
         </item>
     </channel>
